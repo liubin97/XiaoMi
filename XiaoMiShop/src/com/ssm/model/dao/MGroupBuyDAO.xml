@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.MGroupBuyDAO">
+	<insert id="addGroupBuy" parameterType="GroupBuyInfo">
+		insert into group_buy_info(goods_detail_id,group_num,group_buy_price,group_starttime,group_endtime,group_buy_info_status)
+		values(#{goods_detail_id},#{group_num},#{group_buy_price},#{group_starttime},#{group_endtime},#{group_buy_info_status})
+	</insert>
+    
+</mapper>
