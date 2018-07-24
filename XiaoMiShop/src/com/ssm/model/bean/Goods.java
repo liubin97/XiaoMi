@@ -3,61 +3,61 @@ package com.ssm.model.bean;
 import java.util.List;
 
 public class Goods {
-	private int id;
-	private int categoryId;
-	private int code;
-	private String name;
-	private String videoUrl;
-	private List<GoodsAttribute> attributeList;
-	private List<GoodsDetail> detailList;
-	private List<GoodsPreviewPicture> previewPictureList;
-	public int getId() {
-		return id;
+	private int goods_id;
+	private int goods_category_id;
+	private int goods_code;
+	private String goods_name;
+	private String video_set_url;
+	private List<GoodsAttribute> goodsAttributeList;
+	private List<GoodsDetail> goodsDetailList;
+	private List<GoodsPreviewPicture> goodsPreviewPictureList;
+	public int getGoods_id() {
+		return goods_id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setGoods_id(int goods_id) {
+		this.goods_id = goods_id;
 	}
-	public int getCategoryId() {
-		return categoryId;
+	public int getGoods_category_id() {
+		return goods_category_id;
 	}
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+	public void setGoods_category_id(int goods_category_id) {
+		this.goods_category_id = goods_category_id;
 	}
-	public int getCode() {
-		return code;
+	public int getGoods_code() {
+		return goods_code;
 	}
-	public void setCode(int code) {
-		this.code = code;
+	public void setGoods_code(int goods_code) {
+		this.goods_code = goods_code;
 	}
-	public String getName() {
-		return name;
+	public String getGoods_name() {
+		return goods_name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
 	}
-	public String getVideoUrl() {
-		return videoUrl;
+	public String getVideo_set_url() {
+		return video_set_url;
 	}
-	public void setVideoUrl(String videoUrl) {
-		this.videoUrl = videoUrl;
+	public void setVideo_set_url(String video_set_url) {
+		this.video_set_url = video_set_url;
 	}
-	public List<GoodsAttribute> getAttributeList() {
-		return attributeList;
+	public List<GoodsAttribute> getGoodsAttributeList() {
+		return goodsAttributeList;
 	}
-	public void setAttributeList(List<GoodsAttribute> attributeList) {
-		this.attributeList = attributeList;
+	public void setGoodsAttributeList(List<GoodsAttribute> goodsAttributeList) {
+		this.goodsAttributeList = goodsAttributeList;
 	}
-	public List<GoodsDetail> getDetailList() {
-		return detailList;
+	public List<GoodsDetail> getGoodsDetailList() {
+		return goodsDetailList;
 	}
-	public void setDetailList(List<GoodsDetail> detailList) {
-		this.detailList = detailList;
+	public void setGoodsDetailList(List<GoodsDetail> goodsDetailList) {
+		this.goodsDetailList = goodsDetailList;
 	}
-	public List<GoodsPreviewPicture> getPreviewPictureList() {
-		return previewPictureList;
+	public List<GoodsPreviewPicture> getGoodsPreviewPictureList() {
+		return goodsPreviewPictureList;
 	}
-	public void setPreviewPictureList(List<GoodsPreviewPicture> previewPictureList) {
-		this.previewPictureList = previewPictureList;
+	public void setGoodsPreviewPictureList(List<GoodsPreviewPicture> goodsPreviewPictureList) {
+		this.goodsPreviewPictureList = goodsPreviewPictureList;
 	}
 	
 }

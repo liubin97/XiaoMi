@@ -7,5 +7,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into group_buy_info(goods_detail_id,group_num,group_buy_price,group_starttime,group_endtime,group_buy_info_status)
 		values(#{goods_detail_id},#{group_num},#{group_buy_price},#{group_starttime},#{group_endtime},#{group_buy_info_status})
 	</insert>
-    
+	<select id="getAllGoods" resultType="Goods">
+		select * from goods
+	</select>
+    <select id="getAllGoodsDetail" resultType="GoodsDetail">
+		select * from goods_detail where goods_detail_status=0
+	</select>
+	<select id="selectGoodsDetailByGoodsId" parameterType="int" resultType="GoodsDetail">
+		select * from goods_detail where goods_id=#{goods_id} and goods_detail_status=0
+	</select>
+	<select id="selectGroupBuyInfo" parameterType="GroupBuyInfo" resultType="GroupBuyInfo">
+		select * from group_buy_info
+			where group_buy_info_status=0
+			<if test="group_starttime !=null and group_starttime !='' ">
+				and group_starttime >= #{group_starttime}
+			</if>
+			<if test="group_endtime !=null and group_endtime !='' ">
+				and #{group_endtime} >= group_endtime
+			</if>
+			<if test="goods_detail_id !=null and goods_detail_id !=0 ">
+				and goods_detail_id = #{goods_detail_id}
+			</if>
+
+	</select>
 </mapper>

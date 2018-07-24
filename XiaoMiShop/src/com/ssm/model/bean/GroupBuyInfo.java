@@ -11,7 +11,15 @@ public class GroupBuyInfo {
 	private Date group_starttime;
 	private Date group_endtime;
 	private int group_buy_info_status;
+	private GoodsDetail goodsdetail;
 	private List<GroupBuyList> groupList;
+	
+	public GoodsDetail getGoodsdetail() {
+		return goodsdetail;
+	}
+	public void setGoodsdetail(GoodsDetail goodsdetail) {
+		this.goodsdetail = goodsdetail;
+	}
 	public List<GroupBuyList> getGroupList() {
 		return groupList;
 	}
