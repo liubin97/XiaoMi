@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.ssm.model.bean.GroupBuyInfo;
 import com.ssm.model.dao.MGroupBuyDAO;
+
+import java.util.List;
+
 @Service
 public class MGroupBuyService {
 	
@@ -15,5 +18,6 @@ public class MGroupBuyService {
 		mGroupBuyDAO.addGroupBuy(groupBuyInfo);
 		
 	}
+	public List<Goods> getAllGoods()
 
 }
