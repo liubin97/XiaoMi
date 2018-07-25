@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.CategoryDAO">
+    <select id="getAllCategory" resultMap="GoodsCategoryMap">
+        select * from goods_category a, goods b where a.goods_category_id = b.goods_category_id and  a.category_status = 0
+    </select>
+    <resultMap id="GoodsCategoryMap" type="GoodsCategory">
+        <result column="goods_category_id" property="goods_category_id" />
+        <result column="category_name" property="category_name" />
+        <result column="description" property="description" />
+        <collection property="goodsList" ofType="Goods">
+            <result property="goods_id" column="goods_id"/>
+            <result property="goods_name" column="goods_name"/>
+            <result property="goods_category_id" column="goods_category_id"/>
+            <result property="goods_pic_url" column="goods_pic_url"/>
+        </collection>
+    </resultMap>
+    
+</mapper>

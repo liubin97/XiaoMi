@@ -15,7 +15,7 @@ import com.ssm.model.service.AdminService;
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
-	@RequestMapping("select.action")
+	@RequestMapping("select")
 	public String selectAdmin(Model model){
 		List<Admin> list = adminService.selectAdmin();
 		model.addAttribute("resultList", list);
