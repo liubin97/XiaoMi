@@ -18,7 +18,7 @@
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
     <!-- PAGE TITLE                                -->
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-    <title>购买</title>
+    <title>全部分类</title>
 
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
     <!-- SEO METAS                                 -->
@@ -32,7 +32,7 @@
     <!-- PAGE FAVICON                              -->
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="apple-touch-icon" href="assets/images/favicon/apple-touch-icon.png">
-    <link rel="icon" href="assets/images/favicon/favicon.ico">
+    <link rel="icon" href="assets/images/logo.png">
 
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
     <!-- GOOGLE FONTS                              -->
@@ -66,51 +66,34 @@
 </head>
 
 <body class="wide-layout preloader-active">
+
 <div id="pageWrapper" class="page-wrapper">
     <c:import url="header.jsp"></c:import>
-    <div class="section explain-process-area ptb-30">
-        <div class="row row-rl-10">
-            <div class="col-md-4">
-                <div class="item panel prl-15 ptb-20">
-                    <div class="row row-rl-5 row-xs-cell">
-                        <div class="col-xs-4 valign-middle">
-                            <img class="pr-10" src="assets/images/icons/tablet.png" alt="">
-                        </div>
-                        <div class="col-xs-8">
-                            <h5 class="mb-10 pt-5">Deals &amp; Coupons</h5>
-                            <p class="color-mid">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure aspernatur.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="item panel prl-15 ptb-20">
-                    <div class="row row-rl-5 row-xs-cell">
-                        <div class="col-xs-4 valign-middle">
-                            <img class="pr-10" src="assets/images/icons/online-shop-6.png" alt="">
-                        </div>
-                        <div class="col-xs-8">
-                            <h5 class="mb-10 pt-5">Find Best Offers</h5>
-                            <p class="color-mid">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure aspernatur.</p>
+
+        <div id="allCategory" class="page-container ptb-60">
+            <%--<div class="container">
+                <section class="stores-area stores-area-v1">
+                    <header class="panel ptb-15 prl-20 pos-r mb-30">
+                        <h3 class="section-title font-18">
+                            <a class="category-list" data-toggle="collapse" data-target="#category1"><span class="fa fa-chevron-down">&nbsp;</span>手机</a>
+                        </h3>
+                     </header>
+                    <div id="category1" class="row row-rl-15 row-tb-15 t-center collapse in">
+                        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                            <a href="store_single_01.html" class="panel is-block">
+                                <div class="embed-responsive embed-responsive-4by3">
+                                    <div class="store-logo">
+                                        <img src="assets/images/brands/brand_01.jpg" alt="">
+                                    </div>
+                                </div>
+                                <h6 class="store-name ptb-10">Amazon</h6>
+                            </a>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="item panel prl-15 ptb-20">
-                    <div class="row row-rl-5 row-xs-cell">
-                        <div class="col-xs-4 valign-middle">
-                            <img class="pr-10" src="assets/images/icons/money.png" alt="">
-                        </div>
-                        <div class="col-xs-8">
-                            <h5 class="mb-10 pt-5">Save Money</h5>
-                            <p class="color-mid">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure aspernatur.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </section>
+            </div>--%>
         </div>
-    </div>
+
     <c:import url="footer.jsp"></c:import>
 </div>
 
@@ -153,7 +136,7 @@
 <!-- Custom Template JavaScript                   -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
-
+<script type="text/javascript" src="assets/js/categroy.js"></script>
 </body>
 
 </html>
