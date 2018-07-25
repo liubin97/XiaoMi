@@ -30,4 +30,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 
 	</select>
+	<update id="editGroupBuyInfo" parameterType="GroupBuyInfo">
+		update group_buy_info set goods_detail_id=#{goods_detail_id},group_buy_info_status=#{group_buy_info_status},group_buy_price=#{group_buy_price},
+							group_starttime=#{group_starttime},group_endtime=#{group_endtime}
+							where group_buy_info_id=#{group_buy_info_id}
+	</update>
+	<select id="selectEditGroupBuy" parameterType="int" resultType="GroupBuyInfo">
+		select * from group_buy_info
+			where group_buy_info_id=#{group_buy_info_id}
+	</select>
+	<select id="selectGoodsDetailById" parameterType="int" resultType="GoodsDetail">
+		select * from goods_detail
+			where goods_detail_id=#{goods_detail_id}
+	</select>
+	<insert id="addEditMessage" parameterType="Message">
+		insert into message(message_title,message_text,message_type,user_email,read_flag,send_date)
+			values(#{message_title},#{message_text},#{message_type},#{user_email},#{read_flag},#{send_date})
+	</insert>
+	<select id="selectEditMessgeUser" parameterType="int" resultType="String">
+		select o.user_email from group_buy_info g,group_buy_list h,`order` o
+ 			where h.group_id=o.group_id
+ 				and g.group_buy_info_id=h.group_buy_info_id
+ 				and h.group_buy_list_status=1
+ 				and g.group_buy_info_status=0
+ 				and g.group_buy_info_id=#{group_buy_info_id}
+	</select>
 </mapper>

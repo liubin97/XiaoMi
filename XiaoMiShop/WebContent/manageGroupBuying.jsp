@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html >
 <html lang="cn">
 <head >
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="assets/css/app.css">
+    <script src="laydate/laydate.js"></script>
 </head>
 <body data-type="widgets">
 <div class="am-g tpl-g">
@@ -38,14 +40,14 @@
                                 <div class="am-u-sm-12 am-u-lg-3 am-u-md-6 ">
 
                                     <div class="am-form-group">
-                                        <input type="text" class="am-form-field " name="starttime" id="starttime" placeholder="请选择团购开始日期" data-am-datepicker readonly required >
+                                        <input type="text" class="am-form-field " name="starttime" id="starttime" placeholder="请选择团购开始日期"  readonly >
                                     </div>
 
                                 </div>
                                 <div class="am-u-sm-12 am-u-lg-3 am-u-md-6 ">
 
                                     <div class="am-form-group">
-                                        <input type="text" class="am-form-field " name="endtime" id="endtime" placeholder="请选择团购开始日期" data-am-datepicker readonly required >
+                                        <input type="text" class="am-form-field " name="endtime" id="endtime" placeholder="请选择团购开始日期"  readonly >
                                     </div>
                                 </div>
 
@@ -78,15 +80,15 @@
                                         <td>${groupBuyInfo.goods_detail_id}</td>
                                         <td>${groupBuyInfo.group_buy_price}</td>
                                         <td>${groupBuyInfo.group_num}</td>
-                                        <td>${groupBuyInfo.group_starttime}</td>
-                                        <td>${groupBuyInfo.group_endtime}</td>
+                                        <td><fmt:formatDate value="${groupBuyInfo.group_starttime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                        <td><fmt:formatDate value="${groupBuyInfo.group_endtime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                         <td>
                                             <div class="tpl-table-black-operation">
                                                 <c:if test="${isEdit[loop.count-1]==0}">
-                                                    <a href="#"><i class="am-icon-pencil">编辑</i> </a>
+                                                    <a href="selectEditGroupBuying.action?group_buy_info_id=${groupBuyInfo.group_buy_info_id}&type=0"><i class="am-icon-pencil">编辑</i> </a>
                                                 </c:if>
                                                 <c:if test="${isEdit[loop.count-1]==1}">
-                                                    <a href="#"><i class="am-icon-pencil">编辑</i> </a>
+                                                    <a href="selectEditGroupBuying.action?group_buy_info_id=${groupBuyInfo.group_buy_info_id}&type=1"><i class="am-icon-pencil">编辑</i> </a>
                                                 </c:if>
                                                 <c:if test="${isEdit[loop.count-1]==2}">
                                                     <a class="am-disabled" ><i class="am-icon-pencil">编辑</i> </a>
@@ -110,6 +112,23 @@
                                 </c:forEach>
                                 </tbody>
                             </table>
+                            <div class="am-u-lg-12 am-cf">
+                                <!-- 动态页码 -->
+                                <div class="am-fr">
+                                    <ul class="am-pagination tpl-pagination">
+                                        <li class="am-disabled"><a href="#">«</a></li>
+                                        <c:forEach begin="1" end="${maxPageNum}" var="p"  >
+                                            <c:if test="${p==sessionScope.MG_PageNum}">
+                                                <li class="am-active"><a href="#">${p}</a></li>
+                                            </c:if>
+                                            <c:if test="${p!=sessionScope.MG_PageNum}">
+                                                <li><a href="manageProductServlet?pageNum=${p}&action=searchProduct"  >${p}</a></li>
+                                            </c:if>
+                                        </c:forEach>
+                                        <li><a href="#">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -120,6 +139,18 @@
         </div>
     </div>
 </div>
+<script>
+    laydate.render({
+        elem: '#starttime'
+        ,type: 'datetime'
+    });
+</script>
+<script>
+    laydate.render({
+        elem: '#endtime'
+        ,type: 'datetime'
+    });
+</script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/theme.js"></script>
 <script src="assets/js/amazeui.min.js"></script>

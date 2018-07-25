@@ -7,6 +7,7 @@ public class Goods {
 	private int goods_category_id;
 	private int goods_code;
 	private String goods_name;
+	private String goods_pic_url;
 	private String video_set_url;
 	private List<GoodsAttribute> goodsAttributeList;
 	private List<GoodsDetail> goodsDetailList;
@@ -59,5 +60,10 @@ public class Goods {
 	public void setGoodsPreviewPictureList(List<GoodsPreviewPicture> goodsPreviewPictureList) {
 		this.goodsPreviewPictureList = goodsPreviewPictureList;
 	}
-	
+	public String getGoods_pic_url() {
+		return goods_pic_url;
+	}
+	public void setGoods_pic_url(String goods_pic_url) {
+		this.goods_pic_url = goods_pic_url;
+	}
 }

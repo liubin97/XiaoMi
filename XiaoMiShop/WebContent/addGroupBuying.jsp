@@ -47,7 +47,7 @@
                                         <label for="goodsId" class="am-u-sm-3 am-form-label">团购商品 <span class="tpl-form-line-small-title">Author</span></label>
                                         <div class="am-u-sm-9">
                                             <select data-am-selected="{searchBox: 1}" style="display: none;" id="goodsId">
-
+                                                <option value="0" selected>请选择商品</option>
                                             </select>
 
                                         </div>
@@ -58,7 +58,7 @@
                                         <label for="goods_detail_id" class="am-u-sm-3 am-form-label">团购商品型号 <span class="tpl-form-line-small-title">Author</span></label>
                                         <div class="am-u-sm-9">
                                             <select data-am-selected="{searchBox: 1}" style="display: none;" id="goods_detail_id" name="goods_detail_id">
-
+                                                <option value="0" selected>请选择商品型号</option>
                                             </select>
 
                                         </div>
