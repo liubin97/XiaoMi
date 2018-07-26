@@ -118,11 +118,11 @@
                                     <ul class="am-pagination tpl-pagination">
                                         <li class="am-disabled"><a href="#">«</a></li>
                                         <c:forEach begin="1" end="${maxPageNum}" var="p"  >
-                                            <c:if test="${p==sessionScope.MG_PageNum}">
+                                            <c:if test="${p==MG_PageNum}">
                                                 <li class="am-active"><a href="#">${p}</a></li>
                                             </c:if>
-                                            <c:if test="${p!=sessionScope.MG_PageNum}">
-                                                <li><a href="manageProductServlet?pageNum=${p}&action=searchProduct"  >${p}</a></li>
+                                            <c:if test="${p!=MG_PageNum}">
+                                                <li><a href="selectGroupBuyInfo?pageNum=${p}"  >${p}</a></li>
                                             </c:if>
                                         </c:forEach>
                                         <li><a href="#">»</a></li>

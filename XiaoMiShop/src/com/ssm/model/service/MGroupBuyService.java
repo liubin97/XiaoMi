@@ -2,13 +2,10 @@ package com.ssm.model.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.ssm.model.bean.Goods;
-import com.ssm.model.bean.GoodsDetail;
-import com.ssm.model.bean.Message;
+import com.ssm.model.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssm.model.bean.GroupBuyInfo;
 import com.ssm.model.dao.MGroupBuyDAO;
 
 import java.text.SimpleDateFormat;
@@ -44,7 +41,8 @@ public class MGroupBuyService {
 
 	public Map<String,Object> selectGroupBuyInfo(GroupBuyInfo groupBuyInfo, int pageSize, int pageNum) {
 		int maxPageNum=0;
-		Page<GroupBuyInfo> page = PageHelper.startPage(pageNum, pageSize);
+
+		Page<GroupBuyInfo> page = PageHelper.startPage(pageSize, pageNum);
 		mGroupBuyDAO.selectGroupBuyInfo(groupBuyInfo);
 		int pagecount = (int)page.getTotal();
 		if(pagecount%5==0){
@@ -67,7 +65,7 @@ public class MGroupBuyService {
 		List<String> list = mGroupBuyDAO.selectEditMessgeUser(groupBuyInfo.getGroup_buy_info_id());
 		for(String u : list){
 			Message m = new Message();
-			m.setMessage_text("您购买的团购商品信息已修改");
+			m.setMessage_text("您购买的团购商品+信息已修改");
 			m.setMessage_title("重要消息");
 			m.setMessage_type(0);
 			m.setRead_flag(0);
@@ -87,5 +85,41 @@ public class MGroupBuyService {
 	public GoodsDetail selectGoodsDetailById(int goods_detail_id) {
 		GoodsDetail goodsDetail = mGroupBuyDAO.selectGoodsDetailById(goods_detail_id);
 		return goodsDetail;
+	}
+
+	public void deleteGroupBuying(int group_buy_info_id) {
+		int sum_goods = 0 ;
+		Map<String,Integer> map = new HashMap<>();
+		mGroupBuyDAO.deleteGroupBuying(group_buy_info_id);//删除团购
+		//查询未完成的团购列表
+		List<GroupBuyList> groupBuyList = mGroupBuyDAO.selectGroupListByGroupBuyId(group_buy_info_id);
+		for(GroupBuyList g : groupBuyList){
+			sum_goods = sum_goods+g.getCurrent_num();
+		}
+		map.put("group_buy_info_id",group_buy_info_id);
+		map.put("sum_goods",sum_goods);
+		//返还库存
+		mGroupBuyDAO.updateGroupBuyGoodsStock(map);
+		//修改团购列表状态
+		mGroupBuyDAO.updateGroupBuyingList(group_buy_info_id);
+		//修改订单状态
+		mGroupBuyDAO.updateGroupBuyingOrder(group_buy_info_id);
+
+		//给用户发送消息
+		Date date = new Date();
+		SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = format0.format(date);
+		List<String> list = mGroupBuyDAO.selectEditMessgeUser(group_buy_info_id);
+		for(String u : list){
+			Message m = new Message();
+			m.setMessage_text("您购买的团购商品已删除");
+			m.setMessage_title("重要消息");
+			m.setMessage_type(0);
+			m.setRead_flag(0);
+			m.setUser_email(u);
+			m.setSend_date(time);
+			mGroupBuyDAO.addEditMessage(m);
+		}
+
 	}
 }

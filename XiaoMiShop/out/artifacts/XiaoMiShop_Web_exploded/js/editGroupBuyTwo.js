@@ -61,7 +61,7 @@ $(document).ready(function(){
 });
     $("#goodsId").change(function(){
         var goods_id = $("#goods_id").val();
-        alert(goods_id);
+        //alert(goods_id);
         var selOpt = $("#goods_detail_id_display option");
         selOpt.remove();
         $.ajax({

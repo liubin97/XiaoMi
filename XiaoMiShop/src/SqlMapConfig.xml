@@ -12,6 +12,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 	<!-- 组建扫描的方式配置类别名，类别名就是类名 -->
 	 	<package name="com.ssm.model.bean"/> 
 	 </typeAliases>
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+			<property name="dialect" value="mysql"/>
+		</plugin>
+	</plugins>
 	 
 	 
 </configuration>  

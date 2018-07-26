@@ -63,7 +63,7 @@ public class MGroupBuyController {
 		return list;
 	}
 	@RequestMapping("selectGroupBuyInfo")
-	public ModelAndView selectGroupBuyInfo(Integer goods_detail_id, String starttime, String endtime,HttpSession session){//根据开始时间结束时间商品ID
+	public ModelAndView selectGroupBuyInfo(Integer goods_detail_id, String starttime,Integer pageNum, String endtime,HttpSession session){//根据开始时间结束时间商品ID
 		int pagenum = 1;
 		int pageSize = 5;
 		Date systemTime = new Date();
@@ -71,9 +71,8 @@ public class MGroupBuyController {
 		Date goods_endtime = null;
 		int goodsDetailId = 0 ;//依次判断传入的参数是否为空，若不为空为其赋值
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String pageNum = (String)session.getAttribute("MG_PageNum");
-		if(pageNum!=null&&!"".equals(pageNum)){//点击页码查询
-			pagenum = Integer.parseInt(pageNum);
+		if(pageNum!=null){//点击页码查询
+			pagenum = pageNum.intValue();
 			goodsDetailId = Integer.parseInt((String)session.getAttribute("MG_goodsdetailid"));
 			goods_starttime = (Date) session.getAttribute("MG_goodsstarttime");
 			goods_endtime = (Date)session.getAttribute("MG_goodsendtime");
@@ -117,8 +116,8 @@ public class MGroupBuyController {
 		mav.addObject("resultList",list);
 		mav.addObject("isEdit",isEdit);
 		mav.addObject("maxPageNum",maxPageNum);
+		mav.addObject("MG_PageNum",pagenum);
 
-		session.setAttribute("MG_PageNum",pagenum);
 		session.setAttribute("MG_goodsdetailid",goodsDetailId);
 		session.setAttribute("MG_goodsendtime",goods_endtime);
 		session.setAttribute("MG_goodsstarttime",goods_starttime);
@@ -160,6 +159,7 @@ public class MGroupBuyController {
     }
     @RequestMapping("deleteGroupBuying")
 	public String deleteGroupBuying(int group_buy_info_id){
+		mGroupBuyService.deleteGroupBuying(group_buy_info_id);
 		return null;
 	}
 }

@@ -1,11 +1,9 @@
 package com.ssm.model.dao;
 
-import com.ssm.model.bean.Goods;
-import com.ssm.model.bean.GoodsDetail;
-import com.ssm.model.bean.GroupBuyInfo;
-import com.ssm.model.bean.Message;
+import com.ssm.model.bean.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MGroupBuyDAO {
 
@@ -28,4 +26,14 @@ public interface MGroupBuyDAO {
     public void addEditMessage(Message message);
 
     public List<String> selectEditMessgeUser(int group_buy_info_id);
+
+    public  void deleteGroupBuying(int group_buy_info_id);
+
+	public void updateGroupBuyingList(int group_buy_info_id);
+
+	public void updateGroupBuyingOrder(int group_buy_info_id);
+
+	public List<GroupBuyList> selectGroupListByGroupBuyId(int group_buy_info_id);
+
+	public void updateGroupBuyGoodsStock(Map<String,Integer> map);
 }

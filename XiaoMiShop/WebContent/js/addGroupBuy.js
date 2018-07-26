@@ -43,7 +43,7 @@ $(document).ready(function(){
     });
     $("#goodsId").change(function(){
         var goods_id = $("#goodsId").val();
-        alert(goods_id);
+        //alert(goods_id);
         var selOpt = $("#goods_detail_id option");
         selOpt.remove();
 
