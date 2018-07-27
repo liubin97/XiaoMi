@@ -75,9 +75,37 @@
 <div id="pageWrapper" class="page-wrapper">
     <c:import url="header.jsp"></c:import>
 
-    <div class="page-container ptb-10">
+    <div class="page-container ptb-30">
         <div class="container">
+            <div class="row row-rl-10 row-tb-20">
 
+                <div class="page-content col-sm-12 col-md-12">
+
+                    <!-- Store Tabs Area -->
+                    <div class="section store-tabs-area">
+                        <div class="tabs tabs-v1">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs panel" role="tablist">
+                                <li role="presentation">
+                                    <a href="#deals" aria-controls="deals" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-comment mr-10"></i>概述</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#coupons" aria-controls="coupons" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-star mr-10"></i>参数</a>
+                                </li>
+                                <li role="presentation" class="active">
+                                    <a href="#coupons" aria-controls="coupons" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-star mr-10"></i>立即购买</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-user mr-10"></i>用户评价</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <!-- End Store Tabs Area -->
+
+                </div>
+            </div>
 
         </div>
     </div>
