@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="assets/js/header.js" rel="stylesheet">
+<script src="assets/js/jquery-1.12.3.min.js"></script>
+<script src="assets/js/header.js"></script>
 <!-- Preloader -->
 <div id="preloader" class="preloader">
     <div class="loader-cube">
@@ -28,38 +29,12 @@
                 </div>
                 <div class="col-sm-12 col-md-8">
                     <ul class="nav-top nav-top-right list-inline t-xs-center t-md-right">
-                        <!--<li>
-                            <a href="#"><i class="fa fa-flag-usa"></i>English <i class="fa fa-caret-down"></i></a>
-                            <ul>
-                                <li><a href="#"><i class="fa fa-flag-usa"></i>English</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-flag-fra"></i>France</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-flag-ger"></i>Germany</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-flag-rus"></i>Russia</a>
-                                </li>
-                            </ul>
-                        </li>-->
-                        <!--<li>
-                            <a href="#"><i class="fa fa-usd"></i>USD <i class="fa fa-caret-down"></i></a>
-                            <ul>
-                                <li><a href="#">USD - US Dollar</a>
-                                </li>
-                                <li><a href="#">EUR - Euro</a>
-                                </li>
-                                <li><a href="#">CNY - Chinese Yuan</a>
-                                </li>
-                                <li><a href="#">RUB - Russian Ruble</a>
-                                </li>
-                            </ul>
-                        </li>-->
                         <li><a href="signin.html"><i class="fa fa-user"></i>登陆</a>
                         </li>
                         <li><a href="signup.html"><i class="fa fa-edit"></i>注册</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-user"></i>个人中心<i class="fa fa-caret-down"></i></a>
+                            <a href="user.jsp"><i class="fa fa-user"></i>个人中心<i class="fa fa-caret-down"></i></a>
                             <ul>
                                 <li><a href="#">个人中心</a>
                                 </li>
@@ -144,150 +119,64 @@
                     <ul class="nav-menu">
                         <li>
                             <a href="category.jsp">全部商品分类</a>
-                            <%--<ul>
-                                <li class="list-item">
-                                    <a href="checkout_method.html">手机</a>
-                                    <div class="category-item">
-                                        <ul class="col-md-3">
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                        </ul>
-                                        <ul class="col-md-3">
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                        </ul>
-                                        <ul class="col-md-3">
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                        </ul>
-                                    </div>
+                            <ul id="allCategoryList">
 
-
-                                </li>
-                            </ul>--%>
-                            <ul>
-                                <li class="list-item">
-                                    <a href="#">小米手机</a>
-                                    <div class="category-item">
-                                        <ul class="col-md-3">
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                        </ul>
-                                        <ul class="col-md-3">
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                        </ul>
-                                        <ul class="col-md-3">
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                            <li><a>1</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="font-14" href="#">电脑</a>
-                                </li>
-                                <li>
-                                    <a class="font-14" href="#">电视</a>
-                                </li>
-                                <li>
-                                    <a class="font-14" href="#">生活配件</a>
-                                </li>
-                                <li>
-                                    <a class="font-14" href="#">生活配件</a>
-                                </li>
-                                <li>
-                                    <a class="font-14" href="#">生活配件</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="dropdown-mega-menu">
-                            <a href="deals_grid.html">小米手机</a>
+                            <a href="#">小米手机</a>
                             <div class="mega-menu">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="goods/小米8/4.png">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_04.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="3">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_05.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="5">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
@@ -296,81 +185,59 @@
                             </div>
                         </li>
                         <li class="dropdown-mega-menu">
-                            <a href="coupons_grid.html">电视</a>
+                            <a href="#">电视</a>
                             <div class="mega-menu">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="goods/小米8/4.png">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_04.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="3">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_05.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="5">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
@@ -379,81 +246,59 @@
                             </div>
                         </li>
                         <li class="dropdown-mega-menu">
-                            <a href="stores_01.html">笔记本</a>
+                            <a href="#">笔记本</a>
                             <div class="mega-menu">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="goods/小米8/4.png">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_04.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="3">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_05.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="5">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
@@ -462,81 +307,59 @@
                             </div>
                         </li>
                         <li class="dropdown-mega-menu">
-                            <a href="contact_us_01.html">盒子</a>
+                            <a href="#">盒子</a>
                             <div class="mega-menu">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="goods/小米8/4.png">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_04.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="3">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_05.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="5">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
@@ -548,78 +371,56 @@
                             <a href="#">路由器</a>
                             <div class="mega-menu">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="goods/小米8/4.png">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_04.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="3">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_05.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="5">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
@@ -631,78 +432,56 @@
                             <a href="#">智能硬件</a>
                             <div class="mega-menu">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="goods/小米8/4.png">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
-                                            <div class="label-discount top-10 right-10">-15%</div>
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="2">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_04.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="3">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>
                                     </div>
-                                    <div class="col-md-3">
-                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_05.jpg">
-                                            <div class="label-discount top-10 right-10">-60%</div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
                                             <div class="deal-about p-10 pos-a bottom-0 left-0">
-                                                <div class="rating mb-10">
-                                                            <span class="rating-stars rate-allow" data-rating="5">
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                        <i class="fa fa-star-o"></i>
-										                    </span>
-                                                </div>
                                                 <h6 class="deal-title mb-10">
-                                                    <a href="deal_single.html" class="color-lighter">Aenean ut orci vel massa</a>
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
+                                                </h6>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <figure class="deal-thumbnail embed-responsive embed-responsive-4by3" data-bg-img="assets/images/deals/deal_03.jpg">
+                                            <div class="deal-about p-10 pos-a bottom-0 left-0">
+                                                <h6 class="deal-title mb-10">
+                                                    <a href="deal_single.html" class="color-lighter">小米</a>
                                                 </h6>
                                             </div>
                                         </figure>

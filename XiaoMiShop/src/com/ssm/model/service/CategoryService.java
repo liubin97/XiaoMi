@@ -1,5 +1,6 @@
 package com.ssm.model.service;
 
+import com.ssm.model.bean.Goods;
 import com.ssm.model.bean.GoodsCategory;
 import com.ssm.model.dao.CategoryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,5 +15,9 @@ public class CategoryService{
 
     public List<GoodsCategory> getAllCategory(){
         return categoryDAO.getAllCategory();
+    }
+
+    public List<Goods> getCategoryGoods(int goods_category_id){
+        return categoryDAO.getCategoryGoods(goods_category_id);
     }
 }
