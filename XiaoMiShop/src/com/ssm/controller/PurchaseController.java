@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PurchaseController {
 
-    @RequestMapping("goodsPurchase")
+    @RequestMapping("displayGoodsPurchaseInfo")
     public ModelAndView disPlayGoods(int goods_id){
         ModelAndView mav = new ModelAndView();
         System.out.println(goods_id);

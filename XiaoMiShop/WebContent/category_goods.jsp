@@ -77,7 +77,69 @@
 
     <div class="page-container ptb-10">
         <div class="container">
+            <div class="section deals-header-area ptb-30">
+                <div class="row row-tb-20">
+                    <div class="col-xs-12 col-md-12 col-lg-12">
+                        <div class="header-deals-slider owl-slider" data-loop="true" data-autoplay="true" data-autoplay-timeout="10000" data-smart-speed="1000" data-nav-speed="false" data-nav="true" data-xxs-items="1" data-xxs-nav="true" data-xs-items="1" data-xs-nav="true" data-sm-items="1" data-sm-nav="true" data-md-items="1" data-md-nav="true" data-lg-items="1" data-lg-nav="true">
 
+                            <div class="deal-single panel item">
+                                <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="goods/display/1.jpg">
+                                    <a href="category_goods.jsp">
+                                        <img src="">
+                                    </a>
+
+                                </figure>
+                            </div>
+                            <div class="deal-single panel item">
+                                <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="goods/display/3.jpg">
+                                    <a href="category_goods.jsp">
+                                        <img src="">
+                                    </a>
+                                </figure>
+                            </div>
+                            <div class="deal-single panel item">
+                                <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" href="#" data-bg-img="goods/小米8/3.jpg">
+                                  <%--  <a href="category_goods.jsp">
+                                        <img src="goods/display/2.jpg">
+                                    </a>--%>
+                                </figure>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section latest-deals-area ptb-30">
+                <header class="panel ptb-15 prl-20 pos-r mb-30">
+                    <h3 class="section-title font-18">热销产品</h3>
+                </header>
+
+                <div class="row row-masnory row-tb-20">
+                    <c:forEach items="${goodsList}" var="goods">
+                        <div class="col-sm-6 col-lg-6">
+
+                            <div class="deal-single panel">
+                                <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="${goods.goods_desc_pic_url}">
+
+                                </figure>
+                                <div class="bg-white pt-20 pl-20 pr-15">
+                                    <div class="pr-md-10">
+
+                                        <h3 class="deal-title mb-10">
+                                            <a href="displayGoodsPurchaseInfo.action?goods_id=${goods.goods_id}">${goods.goods_name}</a>
+                                        </h3>
+                                    </div>
+                                    <div class="deal-price pos-r mb-15">
+                                        <h3 class="price ptb-5 text-right"></span>￥${goods.goodsDetailList[0].discount_price}起</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </section>
 
         </div>
     </div>

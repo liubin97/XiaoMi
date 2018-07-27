@@ -822,7 +822,7 @@
   }
   .nav-menu li:hover > a,
   .nav-menu li.active-mobile > a {
-    color: #2ed87b;
+    color: #d84523;
     background-color: #f1f1f1;
   }
   .nav-header {
@@ -883,7 +883,7 @@
 }
 .footer-top-area .twitter-list a,
 .footer-top-area .twitter-list .ico {
-  color: #2ed87b;
+  color: #d84523;
 }
 .footer-top-area .twitter-list .ico {
   font-size: 18px;
@@ -907,7 +907,7 @@
   top: 0;
   height: inherit;
   line-height: inherit;
-  color: #2ed87b;
+  color: #d84523;
 }
 .main-footer {
   text-align: center;
@@ -996,7 +996,7 @@
   font-size: 15px;
   width: 40px;
   margin-right: 20px;
-  color: #2ed87b;
+  color: #ff3100;
   border-right: 1px solid #ddd;
   text-align: center;
 }
@@ -1017,17 +1017,17 @@
 .nav-coupon-category li a:hover > span {
   margin-left: 10px;
   color: #fff;
-  background-color: #2ed87b;
+  background-color: #ff3100;
 }
 .nav-coupon-category li + li {
   border-top: 1px solid #eee;
 }
 .price {
-  color: #2ed87b;
+  color: #ff3100;
   margin-bottom: 0;
 }
 .price-sale {
-  color: #d84523;
+  color: #ff3100;
   font-size: 85%;
   text-decoration: line-through;
   margin-right: 1em;
@@ -1136,7 +1136,7 @@
   z-index: 2;
   width: 0;
   border-width: 7px;
-  border-bottom-color: #2ed87b;
+  border-bottom-color: #ff3100;
 }
 .deal-actions li .share-tooltip a {
   display: inline-block;
@@ -1202,7 +1202,7 @@
   width: 100%;
 }
 .stores-area-v2 .stores-cat .stores-cat-header {
-  color: #2ed87b;
+  color: #ff3100;
   padding: 0 30px;
   line-height: 48px;
   margin: 0px;
@@ -1594,7 +1594,7 @@
   outline: none !important;
 }
 .cart-list .sub-total {
-  color: #2ed87b;
+  color: #ff3100;
 }
 .cart-list i.fa-trash-o {
   font-size: 18px;

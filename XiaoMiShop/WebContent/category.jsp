@@ -18,7 +18,7 @@
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
     <!-- PAGE TITLE                                -->
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-    <title>全部分类</title>
+    <title>全部商品分类</title>
 
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
     <!-- SEO METAS                                 -->
@@ -65,33 +65,13 @@
 
 </head>
 
-<body class="wide-layout preloader-active">
+<body class="wide-layout">
 
 <div id="pageWrapper" class="page-wrapper">
     <c:import url="header.jsp"></c:import>
 
         <div id="allCategory" class="page-container ptb-60">
-            <%--<div class="container">
-                <section class="stores-area stores-area-v1">
-                    <header class="panel ptb-15 prl-20 pos-r mb-30">
-                        <h3 class="section-title font-18">
-                            <a class="category-list" data-toggle="collapse" data-target="#category1"><span class="fa fa-chevron-down">&nbsp;</span>手机</a>
-                        </h3>
-                     </header>
-                    <div id="category1" class="row row-rl-15 row-tb-15 t-center collapse in">
-                        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                            <a href="store_single_01.html" class="panel is-block">
-                                <div class="embed-responsive embed-responsive-4by3">
-                                    <div class="store-logo">
-                                        <img src="assets/images/brands/brand_01.jpg" alt="">
-                                    </div>
-                                </div>
-                                <h6 class="store-name ptb-10">Amazon</h6>
-                            </a>
-                        </div>
-                    </div>
-                </section>
-            </div>--%>
+
         </div>
 
     <c:import url="footer.jsp"></c:import>

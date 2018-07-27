@@ -21,7 +21,7 @@ $(document).ready(function(){
                 for(var j = 0; j < data[i].goodsList.length; j++){
                     // console.log(data[i].goodsList[j].goods_pic_url);
                     categoryHtml += "            <div class=\"col-xs-6 col-sm-4 col-md-3 col-lg-2\">\n" +
-                        "                            <a href=\"goodsPurchase.action?goods_id=" + data[i].goodsList[j].goods_id + "\" class=\"panel is-block\">\n" +
+                        "                            <a href=\"displayGoodsPurchaseInfo.action?goods_id=" + data[i].goodsList[j].goods_id + "\" class=\"panel is-block\">\n" +
                         "                                <div class=\"embed-responsive embed-responsive-4by3\">\n" +
                         "                                    <div class=\"store-logo\">\n" +
                         "                                        <img src="+"\""+data[i].goodsList[j].goods_pic_url+"\""+"alt=\"\">\n" +

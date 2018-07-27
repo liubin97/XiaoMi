@@ -176,8 +176,9 @@
                     
                 });
                 $(this).parent().siblings().removeClass("active-mobile").children("ul, .mega-menu").slideUp(150);
+                e.preventDefault();
             }
-            e.preventDefault();
+
         });
         $(".nav-toggle").on('click', function (e) {
             var toggleId = $(this).data("toggle");
