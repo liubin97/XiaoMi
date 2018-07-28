@@ -21,7 +21,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>controller</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.action</url-pattern>
     </servlet-mapping>
     <filter>
         <filter-name>characterEncoding</filter-name>
@@ -35,10 +35,11 @@
         <filter-name>characterEncoding</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>  
+    
     <!-- 加载spring容器-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:applicationContext-*.xml</param-value>
+        <param-value>/WEB-INF/classes/applicationContext-*.xml</param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

@@ -13,11 +13,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 	<package name="com.ssm.model.bean"/> 
 	 </typeAliases>
 	 
-	 <plugins>
-	 	<plugin interceptor="com.github.pagehelper.PageHelper">
-	 		<property name="dialect" value="oracle"/>
-	 	</plugin>
-	 </plugins>
+	 
 </configuration>  
 
 
