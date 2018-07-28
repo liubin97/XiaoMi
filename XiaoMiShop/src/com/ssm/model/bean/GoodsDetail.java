@@ -7,14 +7,6 @@ public class GoodsDetail {
 	private int goods_id;
 	private String kind;
 	private String color;
-<<<<<<< HEAD
-	private double prime_price;
-	private double discount_price;
-	private int stock;
-	private int goods_detail_status;
-	private List<GoodsPicture> goodsPictureList;
-	
-=======
 	private float prime_price;
 	private float discount_price;
 	private int stock;
@@ -28,7 +20,6 @@ public class GoodsDetail {
 	public void setGoods(Goods goods) {
 		this.goods = goods;
 	}
->>>>>>> master
 	public int getGoods_detail_id() {
 		return goods_detail_id;
 	}
@@ -53,18 +44,6 @@ public class GoodsDetail {
 	public void setColor(String color) {
 		this.color = color;
 	}
-<<<<<<< HEAD
-	public double getPrime_price() {
-		return prime_price;
-	}
-	public void setPrime_price(double prime_price) {
-		this.prime_price = prime_price;
-	}
-	public double getDiscount_price() {
-		return discount_price;
-	}
-	public void setDiscount_price(double discount_price) {
-=======
 	public float getPrime_price() {
 		return prime_price;
 	}
@@ -75,7 +54,6 @@ public class GoodsDetail {
 		return discount_price;
 	}
 	public void setDiscount_price(float discount_price) {
->>>>>>> master
 		this.discount_price = discount_price;
 	}
 	public int getStock() {

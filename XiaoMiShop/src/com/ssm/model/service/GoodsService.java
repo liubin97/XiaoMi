@@ -24,13 +24,13 @@ public class GoodsService {
 		int goodsId = goods.getGoods_id();
 		//int goodsId = goodsDAO.getGoodIdByCode(goods.getGoods_code());
 		//插入概述图片表
-		for(GoodsPreviewPicture gpp : goods.getPreviewPictureList()){
+		for(GoodsPreviewPicture gpp : goods.getGoodsPreviewPictureList()){
 			gpp.setGoods_id(goodsId);
 			goodsDAO.insertGoodsPicture(gpp);
 		}
 		
 		//插入商品属性表
-		for(GoodsAttribute goodsAttribute : goods.getAttributeList()){
+		for(GoodsAttribute goodsAttribute : goods.getGoodsAttributeList()){
 			goodsAttribute.setGoods_id(goodsId);
 			goodsDAO.insertAttribute(goodsAttribute);
 		}
