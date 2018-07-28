@@ -70,7 +70,7 @@
 <div id="pageWrapper" class="page-wrapper">
     <c:import url="header.jsp"></c:import>
 
-        <div id="allCategory" class="page-container ptb-30">
+        <div id="allCategory" class="page-container ptb-60">
 
         </div>
 
