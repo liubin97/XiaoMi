@@ -23,7 +23,6 @@
       <configuration>
         <fileset id="fileset" name="ApplicationContext Transaction" removed="false">
           <file>file://$MODULE_DIR$/src/applicationContext-transaction.xml</file>
-          <file>file://$MODULE_DIR$/src/applicationContext-dao.xml</file>
         </fileset>
       </configuration>
     </facet>
