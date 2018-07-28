@@ -13,9 +13,15 @@
 						http://www.springframework.org/schema/aop 
 						http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+<<<<<<< HEAD
 	<!-- 鍔犺浇db.properties鏂囦欢鍐呭 location鎸囧畾瑕佸姞杞芥枃浠剁殑浣嶇疆 -->
 	<context:property-placeholder location="classpath:db.properties"/>
 	<!-- 閰嶇疆鏁版嵁婧� -->
+=======
+	<!-- 加载db.properties文件内容 location指定要加载文件的位置 -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	<!-- 配置数据源 -->
+>>>>>>> master
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${dbdriver}"/>
 		<property name="url" value="${dburl}"/>
@@ -24,6 +30,7 @@
 		<property name="maxActive" value="20"/>
 		<property name="maxIdle" value="5"/>
  	</bean>
+<<<<<<< HEAD
 	<!-- 閰嶇疆鏁版嵁搴撹繛鎺ユ睜  -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
 		<!-- 娉ㄥ叆鏁版嵁婧� -->
@@ -35,6 +42,19 @@
 	<!-- 绠＄悊鎵�鏈夌殑sql鏄犲皠鏂囦欢 mapper鎵弿 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
 		<!-- 缁勫缓鎵弿鎵�鏈塵apper -->
+=======
+	<!-- 配置数据库连接池  -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+		<!-- 注入数据源 -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 注入mybatis核心配置文件，完成该文件的加载 -->
+		<property name="configLocation" value="classpath:SqlMapConfig.xml"/>
+	</bean>
+
+	<!-- 管理所有的sql映射文件 mapper扫描 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+		<!-- 组建扫描所有mapper -->
+>>>>>>> master
 		<property name="basePackage" value="com.ssm.model.dao"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>

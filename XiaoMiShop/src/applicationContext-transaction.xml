@@ -12,12 +12,12 @@
 						http://www.springframework.org/schema/tx/spring-tx.xsd
 						http://www.springframework.org/schema/aop 
 						http://www.springframework.org/schema/aop/spring-aop.xsd">
-    <!-- 閰嶇疆浜嬪姟绠＄悊鍣� -->
+    <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <!-- 娉ㄥ叆鏁版嵁婧� -->
+        <!-- 注入数据源 -->
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <!-- 閫氱煡 -->
+    <!-- 通知 -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="save*" propagation="REQUIRED"/>
@@ -34,10 +34,10 @@
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.ssm.model.service.*.*(..))"/>
     </aop:config>
 
-    <!-- 缁勫缓鎵弿鐨勫舰寮忕鐞嗘墍鏈夌殑service-->
+    <!-- 组建扫描的形式管理所有的service-->
     <context:component-scan base-package="com.ssm.model.service"></context:component-scan>
 
-    <!-- 閰嶇疆service涓嶉渶瑕佸疄鐜版帴鍙� -->
+    <!-- 配置service不需要实现接口 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
 </beans>

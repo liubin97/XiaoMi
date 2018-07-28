@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
+=======
+﻿<?xml version="1.0" encoding="UTF-8"?>
+>>>>>>> master
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -12,6 +16,7 @@
             http://www.springframework.org/schema/util  
             http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
+<<<<<<< HEAD
     
 	<mvc:annotation-driven></mvc:annotation-driven>
 
@@ -28,6 +33,17 @@
         </property>
     </bean>
 	<!-- 缁勫缓鎵弿鏂瑰紡绠＄悊鎵�鏈夋帶鍒跺櫒 -->
+=======
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<mvc:default-servlet-handler/>
+	<!-- 响应的配置 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"  /> 
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 组建扫描方式管理所有控制器 -->
+>>>>>>> master
 	<context:component-scan base-package="com.ssm.controller"></context:component-scan>
 	
 </beans>   
@@ -37,4 +53,8 @@
 
 
 
+<<<<<<< HEAD
        
+=======
+       
+>>>>>>> master

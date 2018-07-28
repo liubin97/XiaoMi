@@ -10,9 +10,15 @@ public class Goods {
 	private String goods_pic_url;
 	private String goods_desc_pic_url;
 	private String video_set_url;
+<<<<<<< HEAD
 	private List<GoodsAttribute> attributeList;
 	private List<GoodsDetail> detailList;
 	private List<GoodsPreviewPicture> previewPictureList;
+=======
+	private List<GoodsAttribute> goodsAttributeList;
+	private List<GoodsDetail> goodsDetailList;
+	private List<GoodsPreviewPicture> goodsPreviewPictureList;
+>>>>>>> master
 	public int getGoods_id() {
 		return goods_id;
 	}
@@ -37,18 +43,22 @@ public class Goods {
 	public void setGoods_name(String goods_name) {
 		this.goods_name = goods_name;
 	}
+<<<<<<< HEAD
 	public String getGoods_pic_url() {
 		return goods_pic_url;
 	}
 	public void setGoods_pic_url(String goods_pic_url) {
 		this.goods_pic_url = goods_pic_url;
 	}
+=======
+>>>>>>> master
 	public String getVideo_set_url() {
 		return video_set_url;
 	}
 	public void setVideo_set_url(String video_set_url) {
 		this.video_set_url = video_set_url;
 	}
+<<<<<<< HEAD
 	public List<GoodsAttribute> getAttributeList() {
 		return attributeList;
 	}
@@ -76,4 +86,38 @@ public class Goods {
 	
 	
 	
+=======
+	public List<GoodsAttribute> getGoodsAttributeList() {
+		return goodsAttributeList;
+	}
+	public void setGoodsAttributeList(List<GoodsAttribute> goodsAttributeList) {
+		this.goodsAttributeList = goodsAttributeList;
+	}
+	public List<GoodsDetail> getGoodsDetailList() {
+		return goodsDetailList;
+	}
+	public void setGoodsDetailList(List<GoodsDetail> goodsDetailList) {
+		this.goodsDetailList = goodsDetailList;
+	}
+	public List<GoodsPreviewPicture> getGoodsPreviewPictureList() {
+		return goodsPreviewPictureList;
+	}
+	public void setGoodsPreviewPictureList(List<GoodsPreviewPicture> goodsPreviewPictureList) {
+		this.goodsPreviewPictureList = goodsPreviewPictureList;
+	}
+	public String getGoods_pic_url() {
+		return goods_pic_url;
+	}
+	public void setGoods_pic_url(String goods_pic_url) {
+		this.goods_pic_url = goods_pic_url;
+	}
+
+	public String getGoods_desc_pic_url() {
+		return goods_desc_pic_url;
+	}
+
+	public void setGoods_desc_pic_url(String goods_desc_pic_url) {
+		this.goods_desc_pic_url = goods_desc_pic_url;
+	}
+>>>>>>> master
 }

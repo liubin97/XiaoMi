@@ -4,6 +4,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration> 	 
+<<<<<<< HEAD
 	 <!-- typeAliasese:鐢ㄦ潵閰嶇疆绫诲埆鍚� 
 	 		鍐呯疆绫诲埆鍚�
 	 		int long string map list
@@ -14,6 +15,22 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 </typeAliases>
 	 
 	 
+=======
+	 <!-- typeAliasese:用来配置类别名 
+	 		内置类别名
+	 		int long string map list
+	 -->
+	 <typeAliases>
+	 	<!-- 组建扫描的方式配置类别名，类别名就是类名 -->
+	 	<package name="com.ssm.model.bean"/> 
+	 </typeAliases>
+	 
+	 <plugins>
+	 	<plugin interceptor="com.github.pagehelper.PageHelper">
+	 		<property name="dialect" value="oracle"/>
+	 	</plugin>
+	 </plugins>
+>>>>>>> master
 </configuration>  
 
 
