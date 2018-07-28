@@ -24,7 +24,7 @@ import com.ssm.utils.FileUtil;
 @Controller
 public class GoodsController {
 	//文件绝对路径
-	final String PATH = "E:\\GitHub\\XiaoMi\\XiaoMiShop\\WebContent";
+	final String PATH = "E:/GitHub/XiaoMi/XiaoMiShop/WebContent";
 	@Autowired
 	private GoodsService goodsService;
 	@RequestMapping("insertGoods")
