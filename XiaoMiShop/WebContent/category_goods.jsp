@@ -73,7 +73,7 @@
 <body class="wide-layout">
 
 <div id="pageWrapper" class="page-wrapper">
-    <c:import url="header.jsp"/>
+    <c:import url="header.jsp"></c:import>
 
     <div class="page-container ptb-10">
         <div class="container">
@@ -143,7 +143,7 @@
 
         </div>
     </div>
-    <c:import url="footer.jsp"/>
+    <c:import url="footer.jsp"></c:import>
 </div>
 
 

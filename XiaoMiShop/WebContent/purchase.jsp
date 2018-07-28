@@ -73,7 +73,7 @@
 <body class="wide-layout">
 
 <div id="pageWrapper" class="page-wrapper">
-    <c:import url="header.jsp"/>
+    <c:import url="header.jsp"></c:import>
 
     <div class="page-container ptb-30">
         <div class="container">
@@ -87,16 +87,16 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs panel" role="tablist">
                                 <li role="presentation">
-                                    <a href="#deals" aria-controls="deals" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-home mr-10"></i>概述</a>
+                                    <a href="#deals" aria-controls="deals" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-comment mr-10"></i>概述</a>
                                 </li>
                                 <li role="presentation">
                                     <a href="#coupons" aria-controls="coupons" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-star mr-10"></i>参数</a>
                                 </li>
                                 <li role="presentation" class="active">
-                                    <a href="#coupons" aria-controls="coupons" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-shopping-cart mr-10"></i>立即购买</a>
+                                    <a href="#coupons" aria-controls="coupons" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-star mr-10"></i>立即购买</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-comment mr-10"></i>用户评价</a>
+                                    <a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-user mr-10"></i>用户评价</a>
                                 </li>
                             </ul>
 
@@ -109,7 +109,7 @@
 
         </div>
     </div>
-    <c:import url="footer.jsp"/>
+    <c:import url="footer.jsp"></c:import>
 </div>
 
 
