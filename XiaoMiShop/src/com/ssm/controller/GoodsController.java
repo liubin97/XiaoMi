@@ -24,7 +24,7 @@ import com.ssm.utils.FileUtil;
 @Controller
 public class GoodsController {
 	//文件绝对路径
-	final String PATH = "C:/Users/ttc/Desktop/XiaoMiShop/WebContent/";
+	final String PATH = "E:\\GitHub\\XiaoMi\\XiaoMiShop\\WebContent";
 	@Autowired
 	private GoodsService goodsService;
 	@RequestMapping("insertGoods")
@@ -55,14 +55,15 @@ public class GoodsController {
 			
 			//记录picture
 			List<GoodsPreviewPicture> previewPictureList = new ArrayList<GoodsPreviewPicture>();
-			goods.setPreviewPictureList(previewPictureList);
+			goods.setGoodsPreviewPictureList(previewPictureList);
 			for(MultipartFile picFile : goodsPic){
 				//获取储存文件名
 				name = FileUtil.updateFile(picFile,PATH+picPath);
 				//记录url
 				GoodsPreviewPicture picture = new GoodsPreviewPicture();
 				picture.setGoods_url(picPath+name);				
-				goods.getPreviewPictureList().add(picture);
+				goods.getGoodsPreviewPictureList().add(picture);
+
 			}
 			goodsService.insertGoods(goods);
 			
