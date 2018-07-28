@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd				
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 鍔犺浇db.properties鏂囦欢鍐呭 location鎸囧畾瑕佸姞杞芥枃浠剁殑浣嶇疆 -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	<!-- 閰嶇疆鏁版嵁婧� -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${dbdriver}"/>
+		<property name="url" value="${dburl}"/>
+		<property name="username" value="${dbuser}"/>
+		<property name="password" value="${dbpassword}"/>
+		<property name="maxActive" value="20"/>
+		<property name="maxIdle" value="5"/>
+ 	</bean>
+	<!-- 閰嶇疆鏁版嵁搴撹繛鎺ユ睜  -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+		<!-- 娉ㄥ叆鏁版嵁婧� -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 娉ㄥ叆mybatis鏍稿績閰嶇疆鏂囦欢锛屽畬鎴愯鏂囦欢鐨勫姞杞� -->
+		<property name="configLocation" value="classpath:SqlMapConfig.xml"/>
+	</bean>
+
+	<!-- 绠＄悊鎵�鏈夌殑sql鏄犲皠鏂囦欢 mapper鎵弿 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+		<!-- 缁勫缓鎵弿鎵�鏈塵apper -->
+		<property name="basePackage" value="com.ssm.model.dao"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+
+</beans>
