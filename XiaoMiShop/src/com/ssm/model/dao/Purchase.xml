@@ -5,6 +5,7 @@
 <mapper namespace="com.ssm.model.dao.PurchaseDAO">
 
     <select id="getGoodsInfo" parameterType="int" resultMap="">
+        select * from goods
 
     </select>
 

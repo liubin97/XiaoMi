@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module version="4">
   <component name="EclipseModuleManager">
     <conelement value="org.eclipse.jst.j2ee.internal.web.container" />
     <conelement value="org.eclipse.jst.j2ee.internal.module.container" />
@@ -21,7 +21,16 @@
     </facet>
     <facet type="Spring" name="Spring">
       <configuration>
-        <fileset id="fileset" name="ApplicationContext Transaction" removed="false">
+        <fileset id="web application context" name="MVC application context" removed="true">
+          <file>file://$MODULE_DIR$/src/applicationContext-transaction.xml</file>
+          <file>file://$MODULE_DIR$/src/applicationContext-dao.xml</file>
+        </fileset>
+        <fileset id="web controller servlet context" name="MVC controller servlet context" removed="true">
+          <file>file://$MODULE_DIR$/src/springmvc.xml</file>
+        </fileset>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/applicationContext-dao.xml</file>
+          <file>file://$MODULE_DIR$/src/springmvc.xml</file>
           <file>file://$MODULE_DIR$/src/applicationContext-transaction.xml</file>
         </fileset>
       </configuration>
@@ -29,7 +38,6 @@
   </component>
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/build/classes" />
-    <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
