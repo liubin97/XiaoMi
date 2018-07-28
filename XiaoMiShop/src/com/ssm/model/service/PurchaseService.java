@@ -12,7 +12,7 @@ public class PurchaseService {
     @Autowired
     private PurchaseDAO purchaseDAO;
 
-    public List<Goods> getGoodsInfo(int goods_id){
+    public Goods getGoodsInfo(int goods_id){
         return purchaseDAO.getGoodsInfo(goods_id);
     }
 

@@ -4,10 +4,38 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.model.dao.PurchaseDAO">
 
-    <select id="getGoodsInfo" parameterType="int" resultType="Goods">
-        select * from goods
-
+    <select id="getGoodsInfo" parameterType="int" resultMap="GoodsMap">
+        select * from goods,goods_detail,goods_attribute,picture_set where goods.goods_id = #{goods_id} and
+            goods_detail.goods_id = goods.goods_id and
+            goods_attribute.goods_id = goods.goods_id and
+            picture_set.goods_detail_id = goods_detail.goods_detail_id and
+            goods.goods_status = 0 and
+            goods_detail.goods_detail_status = 0 and
+            goods_attribute.attribute_status = 0 and
+            picture_set.picture_set_status = 0
     </select>
+    <resultMap id="GoodsMap" type="Goods">
+        <result column="goods_id" property="goods_id" />
+        <result column="goods_name" property="goods_name" />
+        <result column="goods_code" property="goods_code" />
+        <collection property="goodsAttributeList" ofType="GoodsAttribute">
+            <result column="goods_attribute_id" property="goods_attribute_id"/>
+            <result column="attribute_name" property="attribute_name"/>
+            <result column="attribute_value" property="attribute_value"/>
+        </collection>
+        <collection property="goodsDetailList" ofType="GoodsDetail">
+            <result column="goods_detail_id" property="goods_detail_id"/>
+            <result column="kind" property="kind"/>
+            <result column="color" property="color"/>
+            <result column="prime_price" property="prime_price"/>
+            <result column="discount_price" property="discount_price"/>
+            <result column="stock" property="stock"/>
+            <collection property="goodsPictureList" ofType="GoodsPicture">
+                <result column="picture_set_id" property="picture_set_id"/>
+                <result column="picture_set_url" property="picture_set_url"/>
+            </collection>
+        </collection>
+    </resultMap>
 
 
 </mapper>
