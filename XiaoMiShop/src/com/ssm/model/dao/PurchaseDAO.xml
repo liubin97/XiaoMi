@@ -37,5 +37,31 @@
         </collection>
     </resultMap>
 
+    <select id="getGoodsComment" resultMap="commentMap">
+        select * from goods_comment gc left join comment_reply cr on gc.goods_comment_id = cr.goods_comment_id
+            left join comment_picture cp on gc.goods_comment_id = cp.goods_comment_id
+        where gc.goods_comment_status=0
+    </select>
+    <resultMap id="commentMap" type="GoodsComment">
+        <result column="goods_comment_id" property="goods_comment_id"/>
+        <result column="user_email" property="user_email"/>
+        <result column="goods_id" property="goods_id"/>
+        <result column="comment" property="comment"/>
+        <result column="comment_date" property="comment_date"/>
+        <result column="comment_level" property="comment_level"/>
+        <result column="like_num" property="like_num"/>
+        <collection property="commentReplyList" ofType="CommentReply">
+            <result column="goods_comment_id" property="goods_comment_id"/>
+            <result column="user_email" property="user_email"/>
+            <result column="reply" property="reply"/>
+            <result column="reply_date" property="reply_date"/>
+        </collection>
+        <collection property="commentPictureList" ofType="CommentPicture">
+            <result column="comment_picture_id" property="comment_picture_id"/>
+            <result column="goods_comment_id" property="goods_comment_id"/>
+            <result column="picture_url" property="picture_url"/>
+        </collection>
+    </resultMap>
+
 
 </mapper>
