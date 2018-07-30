@@ -67,7 +67,6 @@ public class Goods {
 	public void setGoods_pic_url(String goods_pic_url) {
 		this.goods_pic_url = goods_pic_url;
 	}
-
 	public String getGoods_desc_pic_url() {
 		return goods_desc_pic_url;
 	}
@@ -75,4 +74,3 @@ public class Goods {
 	public void setGoods_desc_pic_url(String goods_desc_pic_url) {
 		this.goods_desc_pic_url = goods_desc_pic_url;
 	}
-}
