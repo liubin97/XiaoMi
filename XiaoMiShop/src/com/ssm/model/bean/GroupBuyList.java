@@ -10,7 +10,6 @@ public class GroupBuyList {
 	private int current_num;
 	private Date group_begin_time;
 	private int group_buy_list_status;
-	public int getGroup_id() {
 	private List<User> groupers;
 	public int getGroup_id() {
 		return group_id;
