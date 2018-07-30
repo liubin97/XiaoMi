@@ -12,16 +12,23 @@ public interface GoodsDAO {
 	public void insertGoods(Goods goods);
 	public void insertAttribute(GoodsAttribute goodsAttribute);
 	public void insertDetail(GoodsDetail goodsDetail);
-	public void insertPicture(GoodsPicture goodsPicture);
+	public void insertDetailPicture(GoodsPicture goodsPicture);
 	public void insertGoodsPicture(GoodsPreviewPicture goodsPreviewPicture);
 	public void updateStockAdd(GoodsDetail goodsDetail);
 	public void updateStockChange(GoodsDetail goodsDetail);
+	public void updateGoods(Goods goods);
+	public void updateGoodsPicture(GoodsPreviewPicture pic);
 	public int getGoodIdByCode(int code);
 	public int getDetailIdByInfo(GoodsDetail goodsDetail);
 	public String[] getAllKindByGoodsId(Integer goodsId);
 	public List<GoodsDetail> getAllColorBygoodsIdAndcolor(GoodsDetail goodsDetail);
 	public List<GoodsDetail> getAllDetailByGoodsId(Integer goodsId);
 	public Goods getGoodsByGoodsId(Integer goodsId);
+	public List<GoodsPreviewPicture> getGoodsPicByGoodsId(Integer goodsId);
+	public void deleteGoodsPicture(int goods_preview_pic_id);
+	public List<GoodsAttribute> getAttributesByGoodsId(Integer goodsId);
+
+
 
 
 }

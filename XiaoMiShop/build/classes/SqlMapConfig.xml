@@ -14,11 +14,15 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 	<package name="com.ssm.model.bean"/> 
 	 </typeAliases>
 	 
+<<<<<<< HEAD
+	 
+=======
 	 <plugins>
 	 	<plugin interceptor="com.github.pagehelper.PageHelper">
 	 		<property name="dialect" value="mysql"/>
 	 	</plugin>
 	 </plugins>
+>>>>>>> master
 </configuration>  
 
 

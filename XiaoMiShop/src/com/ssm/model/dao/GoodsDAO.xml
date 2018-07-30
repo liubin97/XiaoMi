@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       value(#{goods_id},#{kind},#{color},#{prime_price},#{discount_price},0,0)
   </insert>
   <!-- 登记商品版本图片 -->
-  <insert id="insertPicture" parameterType="GoodsPicture">
+  <insert id="insertDetailPicture" parameterType="GoodsPicture">
       insert into picture_set(goods_detail_id,picture_set_url,picture_set_status)
       value(#{goods_detail_id},#{picture_set_url},0)
       
@@ -44,6 +44,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        update goods_detail
       set stock=#{stock}
       where goods_detail_id=#{goods_detail_id}
+  </update>
+  <!-- 更改商品信息 -->
+  <update id="updateGoods" parameterType="Goods">
+      update goods 
+      <set>
+          <if test="goods_category_id != null and goods_category_id !=''">
+              goods_category_id=#{goods_category_id},
+          </if>
+          <if test="goods_code != null and goods_code !=''">
+              goods_code=#{goods_code},
+          </if>
+          <if test="goods_name != null and goods_name !=''">
+              goods_name=#{goods_name},
+          </if>
+          <if test="goods_pic_url != null and goods_pic_url !=''">
+              goods_pic_url=#{goods_pic_url},
+          </if>
+          <if test="goods_desc_pic_url != null and goods_desc_pic_url !=''">
+              goods_desc_pic_url=#{goods_desc_pic_url},
+          </if>
+          <if test="video_set_url != null and video_set_url !=''">
+              video_set_url=#{video_set_url}
+          </if>
+         
+      </set>
+     where goods_id=#{goods_id}
+  </update>
+  <!-- 更改商品图片 -->
+  <update id="updateGoodsPicture" parameterType="GoodsPreviewPicture">
+      update goods_preview_pic
+      set goods_url=#{goods_url}
+      where goods_preview_pic_id=#{goods_preview_pic_id}
   </update>
   <!-- 通过商品代码获取商品id -->
   <select id="getGoodIdByCode" parameterType="int" resultType="int">
@@ -73,8 +105,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 通过商品id得到商品信息 -->
   <select id="getGoodsByGoodsId" parameterType="int" resultType="Goods">
       select * from goods
-      where goods_id = #{goodsId}
+      where goods_id=#{goodsId} and goods_status=0
   </select>
+  <!-- 通过商品id查找商品图片 -->
+  <select id="getGoodsPicByGoodsId" parameterType="int" resultType="GoodsPreviewPicture">
+      select * from goods_preview_pic 
+      where goods_id=#{goodsId} and goods_pre_pic_status=0
+  </select>
+  <!-- 通过商品id查找商品参数 -->
+  <select id="getAttributesByGoodsId" parameterType="int" resultType="GoodsAttribute">
+      select * from goods_attribute
+      where goods_id=#{goods_id}
+  </select>
+  <!-- 更改商品照片状态为1标记为删除 -->
+  <update id="deleteGoodsPicture" parameterType="int">
+      update goods_preview_pic
+      set goods_pre_pic_status=1
+      where goods_preview_pic_id=#{goods_preview_pic_id}
+  </update>
 </mapper>
 
 

@@ -118,8 +118,8 @@
 	  <div class="am-modal-dialog">
 		<div class="am-modal-hd">商品信息</div>
 		<div class="am-modal-bd">
-		  <form class="am-form tpl-form-line-form">
-									
+		  <form class="am-form tpl-form-line-form" id="changeGoods" action="updateGoods.action" method="post" enctype="multipart/form-data">
+									<input id="goodsId" type="hidden" name="goods_id">
 									<div class="am-form-group">
 											<label for="user-phone" class="am-u-sm-3 am-form-label">商品类别</label>
 											<div class="am-u-sm-9">
@@ -191,6 +191,7 @@
 							
 					
 				</form>
+				<iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe> 
 		</div>
 		<div class="am-modal-footer">
 		  <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -204,10 +205,11 @@
 	  <div class="am-modal-dialog">
 		<div class="am-modal-hd">商品图片</div>
 		<div class="am-modal-bd">
-		  <form class="am-form tpl-form-line-form">
-
+		  <form class="am-form tpl-form-line-form" id="changePic" action="updateGoodsPic.action" method="post" enctype="multipart/form-data">
+									
 									<div class="am-form-group">
                                         <label for="user-weibo" class="am-u-sm-3 am-form-label">商品图片 </label>
+                                        <input type="hidden" class="goods_id" name="goods_id">
 										<div class="am-u-sm-9">
                                             <table class="am-table am-table-striped am-table-hover">
 												<thead>
@@ -219,19 +221,22 @@
 												</thead>
 												<tbody id="pictureList">
 													<tr>
-														<td><div class="am-form-group">
-														<img src="asset/img/a5.png" style="width:100px;height:50px" alt="">
-														</div></td>
+														<td>
+														<img src="" style="width:100px;height:50px" alt="">
+														</td>
 														<td><div class="am-form-group am-form-file">
 														 <button type="button" class="am-btn am-btn-danger am-btn-sm">
 															<i class="am-icon-cloud-upload"></i> 选择图片上传</button>
-			                                              <input class="doc-form-file" type="file"  name="goodsIntroductionPic">
+			                                              <input class="doc-form-file" type="file"  name="goodsPic">
+			                                              
 			                                              <div class="file-list"></div>
 			                                          	</div></td>
 														<td>
 															<div class="am-btn-group am-btn-group-xs">
+																<input type="hidden" class="goods_preview_pic_id" value="0">
+																
 																<button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-														
+																<input type="hidden" class="goods_pre_pic_status" value="0">
 																<button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
 															</div>
 														</td>
@@ -256,9 +261,10 @@
 	  <div class="am-modal-dialog">
 		<div class="am-modal-hd">商品参数</div>
 		<div class="am-modal-bd">
-		  <form class="am-form tpl-form-line-form">
+		  <form class="am-form tpl-form-line-form" id="changeAttribute">
 							<div class="am-form-group">
                                       <label for="user-weibo" class="am-u-sm-3 am-form-label">商品参数 </label>
+                                      <input type="hidden" class="goods_id" name="goods_id">
 								<div class="am-u-sm-9">
                                           <table class="am-table am-table-striped am-table-hover" >
 										<thead>
@@ -278,8 +284,9 @@
 												</div></td>
 												<td>
 													<div class="am-btn-group am-btn-group-xs">
+														<input type="hidden" class="goods_attribute_id" value="0">
 														<button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-												
+														<input type="hidden" class="attribute_status" value="0">
 														<button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
 													</div>
 												</td>
