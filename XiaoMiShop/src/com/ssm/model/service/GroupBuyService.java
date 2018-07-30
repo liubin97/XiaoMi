@@ -14,7 +14,7 @@ import com.ssm.model.bean.GroupBuyInfo;
 import com.ssm.model.bean.GroupBuyList;
 import com.ssm.model.bean.Order;
 import com.ssm.model.bean.OrderItem;
-import com.ssm.model.bean.UserAddress;
+import com.ssm.model.bean.Address;
 import com.ssm.model.dao.GroupBuyInfoDAO;
 import com.ssm.model.dao.GroupBuyListDAO;
 import com.ssm.model.dao.GroupBuyOrderDAO;
@@ -39,10 +39,11 @@ public class GroupBuyService {
 		return gbi;
 	}
 	
-	public List<UserAddress> selectUserAddress(String user_email){
+	public List<Address> selectUserAddress(String user_email){
 		return groupBuyInfoDAO.selectUserAddress(user_email);
 	}
 	
+	//判断用户是否在该团中
 	public boolean isInGroup(int groupId,String user_email) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("user_email", user_email);
@@ -53,14 +54,37 @@ public class GroupBuyService {
 		return false;
 	}
 	
+	//顾客加入团
 	public void insertGroup(int groupId,int addressId,String user_email) {
+		//先查出要加入的团和团购的信息
 		GroupBuyList group = groupBuyListDAO.selectGroupById(groupId);
 		GroupBuyInfo gbi = groupBuyInfoDAO.selectGroupBuyInfoById(group.getGroup_buy_info_id());
 
 		groupBuyListDAO.insertGroup(group.getGroup_id());
 		generateGroupBuyOrder(gbi.getGoods_detail_id(),user_email,addressId,group.getGroup_id(),gbi.getGroup_buy_price());
+		
+		//获取有人加入团之后的团的信息
+		group = groupBuyListDAO.selectGroupById(groupId);
+		
+		//如果团满了进行该团的订单结算
+		if(group.getCurrent_num() == gbi.getGroup_num()) {
+			settleGroupBuyOrder(groupId);
+		}
 	}
 	
+	//顾客发起团
+	public void insertNewGroup(int groupBuyInfoId,String user_email,int addressId) {
+		GroupBuyList gbl = new GroupBuyList();
+		gbl.setCurrent_num(0);
+		gbl.setGroup_begin_time(new Date());
+		gbl.setGroup_buy_info_id(groupBuyInfoId);
+		gbl.setGroup_buy_list_status(1);
+		groupBuyListDAO.initiateNewGroup(gbl);
+		
+		insertGroup(gbl.getGroup_id(),addressId,user_email);
+	}
+	
+	//生成团购订单
 	public void generateGroupBuyOrder(int goods_detail_id,String user_email,int addressId,int groupId,float sum_money) {
 		Order order = new Order();
 		order.setAddress_id(addressId);
@@ -81,5 +105,9 @@ public class GroupBuyService {
 		orderitem.setComment_flag(1);
 		groupBuyOrderDAO.insertNewOrderItem(orderitem);
 	}
-	
+	//团满时，结算团购订单
+	public void settleGroupBuyOrder(int groupId) {
+		groupBuyOrderDAO.settleGroupBuyOrder(groupId);
+		groupBuyListDAO.settleGroup(groupId);
+	}
 }

@@ -41,4 +41,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	where group_id = groupId
     </update>
     
+    <update id="settleGroup" parameterType="int">
+    	update group_buy_list set group_buy_list_status = 2
+    	where group_id = groupId
+    </update>
+    
+    <insert id="initiateNewGroup" parameterType="GroupBuyList">
+    	<selectKey resultType="int" keyProperty="group_id" order="AFTER">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+    	insert into group_buy_list (group_buy_info_id,current_num,group_begin_time,group_buy_list_status)
+    	values(#{group_buy_info_id},#{current_num},#{group_begin_time},#{group_buy_list_status})
+    </insert>
+    
 </mapper>

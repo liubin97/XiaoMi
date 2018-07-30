@@ -1,7 +1,8 @@
 package com.ssm.model.bean;
 
-public class UserAddress {
+public class Address {
 	private int address_id;
+	private String user_email;
 	private String recv_people;
 	private String telephone;
 	private String areaPath;
@@ -14,6 +15,12 @@ public class UserAddress {
 	}
 	public void setAddress_id(int address_id) {
 		this.address_id = address_id;
+	}
+	public String getUser_email() {
+		return user_email;
+	}
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
 	}
 	public String getRecv_people() {
 		return recv_people;
@@ -51,4 +58,5 @@ public class UserAddress {
 	public void setIsdefault(int isdefault) {
 		this.isdefault = isdefault;
 	}
+	
 }

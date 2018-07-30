@@ -44,9 +44,9 @@
 											</c:forEach>
 									</table>
 								</td>
-								<form method="post" action="">
-									<input type="hidden" name="group_id" value="${grouplist.group_id}">
-								</form>
+								<a href="selectUserAddress.action?groupId=${grouplist.group_id}&groupBuyInfoId=#{resultGroupBuyInfo.goods_detail_id}">
+								加入团	
+								</a>
 							</tr>
 					</c:forEach>
 				</table>

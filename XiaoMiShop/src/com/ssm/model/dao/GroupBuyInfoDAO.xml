@@ -6,11 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectAllGroupBuyInfo" resultMap="groupBuyInfoQuery">
     	select * from selectallgroupbuyinfo
+    	where group_buy_info_status = 1
     </select>
     
     <select id="selectGroupBuyInfoById" parameterType="int" resultMap="groupBuyInfoQuery">
     	select * from selectallgroupbuyinfo
     	where group_buy_info_id = #{groupBuyInfoId}
+    	and group_buy_info_status = 1
     </select>
     
     <resultMap type="GroupBuyInfo" id="groupBuyInfoQuery">
@@ -50,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	<result property="video_set_url" column="video_set_url"/>
     </resultMap>
     
-    <select id="selectUserAddress" parameterType="String" resultType="UserAddress">
+    <select id="selectUserAddress" parameterType="String" resultType="Address">
     	select * from address
     	where user_email = #{user_email}
     </select>

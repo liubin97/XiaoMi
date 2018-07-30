@@ -10,4 +10,6 @@ public interface GroupBuyListDAO {
 	public int isInGroup(Map<String,Object> map);
 	public GroupBuyList selectGroupById(int groupId);
 	public void insertGroup(int groupId);
+	public void settleGroup(int groupId);
+	public void initiateNewGroup(GroupBuyList gbl);
 }
