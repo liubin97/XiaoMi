@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ssm.model.bean.GroupBuyInfo;
-import com.ssm.model.bean.UserAddress;
+import com.ssm.model.bean.Address;
 import com.ssm.model.service.GroupBuyService;
 
 @Controller
@@ -40,7 +40,7 @@ public class GroupBuyController {
 		ModelAndView mav = new ModelAndView();
 
 		String user_email = (String)session.getAttribute("user_email");
-		List<UserAddress> list = groupBuyService.selectUserAddress(user_email);
+		List<Address> list = groupBuyService.selectUserAddress(user_email);
 		
 		GroupBuyInfo gbi = groupBuyService.selectGroupBuyInfoById(groupBuyInfoId);
 		

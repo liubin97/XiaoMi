@@ -8,7 +8,11 @@
 </head>
 <body>
 	<table>
-		
+		<tr>
+			<c:forEach>
+				<td></td>
+			</c:forEach>
+		</tr>
 	</table>
 </body>
 </html>
