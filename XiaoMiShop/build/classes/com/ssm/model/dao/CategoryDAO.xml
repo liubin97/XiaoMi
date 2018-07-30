@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.CategoryDAO">
+    <select id="getAllCategory" resultMap="GoodsCategoryMap">
+        select * from goods_category a, goods b ,goods_detail c where
+            a.goods_category_id = b.goods_category_id
+            and b.goods_id=c.goods_id
+            and a.category_status = 0
+            and b.goods_status = 0
+            and c.goods_detail_status=0
+    </select>
+    <resultMap id="GoodsCategoryMap" type="GoodsCategory">
+        <result column="goods_category_id" property="goods_category_id" />
+        <result column="category_name" property="category_name" />
+        <result column="description" property="description" />
+        <collection property="goodsList" ofType="Goods">
+            <result property="goods_id" column="goods_id"/>
+            <result property="goods_name" column="goods_name"/>
+            <result property="goods_category_id" column="goods_category_id"/>
+            <result property="goods_pic_url" column="goods_pic_url"/>
+            <result property="goods_desc_pic_url" column="goods_desc_pic_url"/>
+        </collection>
+    </resultMap>
+    
+    <select id="getCategoryGoods" parameterType="int" resultMap="GoodsMap">
+        select * from goods a, goods_detail b where a.goods_category_id=#{goods_category_id}
+            and a.goods_id = b.goods_id
+            and a.goods_status=0
+            and b.goods_detail_status=0
+        order by b.discount_price asc
+    </select>
+    <resultMap id="GoodsMap" type="Goods">
+        <result column="goods_id" property="goods_id" />
+        <result column="goods_name" property="goods_name" />
+        <result column="goods_pic_url" property="goods_pic_url" />
+        <result column="goods_desc_pic_url"  property="goods_desc_pic_url" />
+        <collection property="goodsDetailList" ofType="GoodsDetail">
+            <result property="goods_detail_id" column="goods_detail_id"/>
+            <result property="prime_price" column="prime_price"/>
+            <result property="discount_price" column="discount_price"/>
+        </collection>
+    </resultMap>
+    
+</mapper>
