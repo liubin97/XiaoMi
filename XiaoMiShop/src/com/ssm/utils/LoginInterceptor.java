@@ -17,7 +17,11 @@ public class LoginInterceptor implements HandlerInterceptor {
              * 要携带参数：redirectURL。（上一个页面的url，也就是发出当前Request请求的url，
              * 用于登录完成后返回之前的页面继续操作。）
              */
-            String redirectUrl = "login.jsp" + "?redirectURL=" + httpServletRequest.getRequestURI();
+        	String requesturl=httpServletRequest.getRequestURI();
+        	String desturl=requesturl.substring(11);
+            String redirectUrl = "login.jsp" + "?redirectURL=" + desturl;
+            System.out.println(redirectUrl);
+           
             //获取url参数
             redirectUrl += "?" + httpServletRequest.getQueryString();
             httpServletResponse.sendRedirect(redirectUrl);

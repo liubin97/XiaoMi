@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 		内置类别名
 	 		int long string map list
 	 -->
+	 
 	 <typeAliases>
 	 	<!-- 组建扫描的方式配置类别名，类别名就是类名 -->
 	 	<package name="com.ssm.model.bean"/> 
@@ -18,6 +19,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 		<property name="dialect" value="mysql"/>
 	 	</plugin>
 	 </plugins>
+<<<<<<< HEAD
+=======
+	 
+>>>>>>> limingshuai
 </configuration>  
 
 

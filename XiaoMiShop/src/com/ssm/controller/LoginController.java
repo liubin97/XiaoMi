@@ -14,8 +14,7 @@ public class LoginController {
         System.out.println("into login");
         String redirectURL = request.getParameter("redirectURL");
         session.setAttribute("user_email","1");
-        redirectURL += "?" + request.getQueryString();
-        System.out.println(redirectURL);
+        
         return "redirect:"+redirectURL;
     }
 }

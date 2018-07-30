@@ -1,6 +1,8 @@
 package com.ssm.model.bean;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.List;
+
 
 public class GroupBuyList {
 	private int group_id;
@@ -9,7 +11,15 @@ public class GroupBuyList {
 	private Date group_begin_time;
 	private int group_buy_list_status;
 	public int getGroup_id() {
+	private List<User> groupers;
+	public int getGroup_id() {
 		return group_id;
+	}
+	public List<User> getGroupers() {
+		return groupers;
+	}
+	public void setGroupers(List<User> groupers) {
+		this.groupers = groupers;
 	}
 	public void setGroup_id(int group_id) {
 		this.group_id = group_id;

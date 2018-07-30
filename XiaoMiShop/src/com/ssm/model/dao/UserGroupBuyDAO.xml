@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.UserGroupBuyDAO">
+	<select id="selectUserGroupBuyOrder" parameterType="String" resultMap="queryUserOrder">
+		select * from select_user_groupbuy_order
+		where user_email = #{user_email}
+		and order_type = 2
+	</select>
+	
+	<resultMap type="Order" id="queryUserOrder">
+		<result property="order_id" column="order_id"/>
+		<result property="user_email" column="user_email"/>
+		<result property="sum_money" column="sum_money"/>
+		<result property="address_id" column="address_id"/>
+		<result property="order_date" column="order_date"/>
+		<result property="order_type" column="order_type"/>
+		<result property="goods_num" column="goods_num"/>
+		<result property="group_id" column="group_id"/>
+		<result property="order_status" column="order_status"/>
+		<association property="address" column="address_id" javaType="Address" resultMap="addressQuery"/>
+		<collection property="order_item_id" ofType="OrderItem">
+			<result property="order_item_id" column="order_item_id"/>
+			<result property="order_id" column="order_id"/>
+			<result property="goods_detail_id" column="goods_detail_id"/>
+			<result property="item_price" column="item_price"/>
+			<result property="order_item_num" column="order_t=item_num"/>
+			<result property="comment_flag" column="comment_flag"/>
+		</collection>
+	</resultMap>	
+	
+	<resultMap type="Address" id="addressQuery">
+		<result property="address_id" column="address_id"/>
+		<result property="user_email" column="user_email"/>
+		<result property="recv_people" column="recv_people"/>
+		<result property="telephone" column="telephone"/>
+		<result property="areaPath" column="areaPath"/>
+		<result property="zip_code" column="zip_code"/>
+		<result property="detail_address" column="detail_address"/>
+		<result property="isdefault" column="isdefault"/>
+	</resultMap>
+	
+	<select id="selectGoodsDetail" parameterType="int" resultMap="goodsDetailQuery">
+			select * from select_goods_detail
+			where goods_detail_id = #{goodsDetailId}
+	</select>
+	
+	<resultMap type="GoodsDetail" id="goodsDetailQuery">
+    	<result property="goods_detail_id" column="goods_detail_id"/>
+    	<result property="goods_id" column="goods_id"/>
+    	<result property="kind" column="kind"/>
+    	<result property="color" column="color"/>
+    	<result property="prime_price" column="prime_price"/>
+    	<result property="discount_price" column="discount_price"/>
+    	<result property="stock" column="stock"/>
+    	<result property="goods_detail_status" column="goods_detail_status"/>
+    	<association property="goods" column="goods_id" javaType="Goods" resultMap="goodsQuery"/>
+    	<collection property="goodsPictureList" ofType="GoodsPicture">
+    		<result property="picture_set_id" column="picture_set_id"/>
+    		<result property="goods_detail_id" column="goods_detail_id"/>
+    		<result property="picture_set_url" column="picture_set_url"/>
+    		<result property="picture_set_status" column="picture_set_status"/>
+    	</collection>
+    </resultMap>
+    
+    <resultMap type="Goods" id="goodsQuery">
+    	<result property="goods_id" column="goods_id"/>
+    	<result property="goods_category_id" column="goods_category_id"/>
+    	<result property="goods_code" column="goods_code"/>
+    	<result property="goods_name" column="goods_name"/>
+    	<result property="video_set_url" column="video_set_url"/>
+    </resultMap>
+    
+</mapper>
