@@ -63,5 +63,9 @@
         </collection>
     </resultMap>
 
+    <insert id="insertFavorites" parameterType="int">
+        insert into favorites (user_email, goods_id) values(#{user_email},#{goods_id})
+    </insert>
+
 
 </mapper>

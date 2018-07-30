@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 
 	 <plugins>
 	 	<plugin interceptor="com.github.pagehelper.PageHelper">
-	 		<property name="dialect" value="oracle"/>
+	 		<property name="dialect" value="mysql"/>
 	 	</plugin>
 	 </plugins>
 </configuration>  

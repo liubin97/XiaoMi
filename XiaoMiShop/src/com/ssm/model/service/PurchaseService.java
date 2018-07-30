@@ -1,5 +1,6 @@
 package com.ssm.model.service;
 
+import com.ssm.model.bean.Favorites;
 import com.ssm.model.bean.Goods;
 import com.ssm.model.bean.GoodsComment;
 import com.ssm.model.dao.PurchaseDAO;
@@ -19,5 +20,9 @@ public class PurchaseService {
 
     public List<GoodsComment> getGoodsComment(int goods_id){
         return purchaseDAO.getGoodsComment(goods_id);
+    }
+
+    public void insertFavorites(Favorites f){
+        purchaseDAO.insertFavorites(f);
     }
 }
