@@ -172,7 +172,7 @@
                                                         <div class="widget single-deal-widget panel ptb-30 prl-20">
                                                             <div class="widget-body text-center">
                                                                 <h2 class="mb-20 h3">
-                                                                    Wyndham Garden at Palmas del Mar - Puerto Rico
+                                                                    ${goods.gooods_name}
                                                                 </h2>
                                                                 <ul class="deal-meta list-inline mb-10 color-mid">
                                                                     <li><i class="ico fa fa-globe mr-10"></i><a href="store_single_02.html" class="color-mid">Ebay</a>

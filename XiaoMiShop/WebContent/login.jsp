@@ -13,7 +13,7 @@
 </head>
 <body>
 这是登陆拦截测试页面
-<form action="login.action?redirectURL=${param.redirectURL}" method="post">
+<form action="login?redirectURL=${param.redirectURL}" method="post">
     <button type="submit">登陆</button>
 </form>
 </body>

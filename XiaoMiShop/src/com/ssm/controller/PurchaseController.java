@@ -35,7 +35,7 @@ public class PurchaseController {
                 System.out.println("reply:"+cr.getReply());
             }
         }*/
-        mav.addObject("goodsInfo",goods);
+        mav.addObject("goods",goods);
         mav.addObject("commentList",goodsCommentList);
         mav.setViewName("purchase");
         return mav;
