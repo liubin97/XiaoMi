@@ -4,6 +4,7 @@ public class Favorites {
     private int favorites_id;
     private String user_email;
     private int goods_id;
+    private Goods goods;
     private int favorites_status;
 
     public int getFavorites_id() {
@@ -37,4 +38,12 @@ public class Favorites {
     public void setFavorites_status(int favorites_status) {
         this.favorites_status = favorites_status;
     }
+
+	public Goods getGoods() {
+		return goods;
+	}
+
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
 }
