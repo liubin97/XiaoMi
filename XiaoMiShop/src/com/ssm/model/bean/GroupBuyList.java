@@ -3,7 +3,6 @@ package com.ssm.model.bean;
 import java.util.Date;
 import java.util.List;
 
-
 public class GroupBuyList {
 	private int group_id;
 	private int group_buy_info_id;

@@ -14,7 +14,6 @@
 
 	<mvc:annotation-driven></mvc:annotation-driven>
 
-	<mvc:default-servlet-handler/>
 	<!-- 响应的配置 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"  /> 
@@ -22,14 +21,7 @@
 	</bean>
 	<!-- 组建扫描方式管理所有控制器 -->
 	<context:component-scan base-package="com.ssm.controller"></context:component-scan>
-
-	<!-- 配置拦截器 -->
-	<!--<mvc:interceptors>
-        &lt;!&ndash;<mvc:interceptor>
-            <mvc:mapping path="/displayGoodsPurchaseInfo.action"/>
-            <bean class="com.ssm.utils.LoginInterceptor"/>
-        </mvc:interceptor>&ndash;&gt;
-    </mvc:interceptors>-->
+	
 </beans>   
 
 
