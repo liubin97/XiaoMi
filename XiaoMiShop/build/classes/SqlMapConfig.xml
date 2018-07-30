@@ -19,10 +19,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 		<property name="dialect" value="mysql"/>
 	 	</plugin>
 	 </plugins>
-<<<<<<< HEAD
-=======
-	 
->>>>>>> limingshuai
 </configuration>  
 
 
