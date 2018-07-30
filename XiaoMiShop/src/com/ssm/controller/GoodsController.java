@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ssm.model.bean.Goods;
+import com.ssm.model.bean.GoodsAttribute;
 import com.ssm.model.bean.GoodsDetail;
 import com.ssm.model.bean.GoodsPicture;
 import com.ssm.model.bean.GoodsPreviewPicture;
@@ -24,11 +26,11 @@ import com.ssm.utils.FileUtil;
 @Controller
 public class GoodsController {
 	//文件绝对路径
-	final String PATH = "E:/GitHub/XiaoMi/XiaoMiShop/WebContent";
+	final String PATH = "C:/Users/ttc/Desktop/XiaoMiShop/WebContent/";
 	@Autowired
 	private GoodsService goodsService;
 	@RequestMapping("insertGoods")
-	public String insertGoods(Goods goods,HttpServletRequest request,@RequestParam MultipartFile goodsVideo,@RequestParam MultipartFile profilePic,@RequestParam MultipartFile goodsIntroductionPic,@RequestParam MultipartFile[] goodsPic) throws IOException{
+	public String insertGoods(Goods goods,@RequestParam MultipartFile goodsVideo,@RequestParam MultipartFile profilePic,@RequestParam MultipartFile goodsIntroductionPic,@RequestParam MultipartFile[] goodsPic) throws IOException{
 		//文件相对路径
 		String picPath = "goods/"+goods.getGoods_code()+"/picture/";
 		String videoPath = "goods/"+goods.getGoods_code()+"/video/";
@@ -55,15 +57,14 @@ public class GoodsController {
 			
 			//记录picture
 			List<GoodsPreviewPicture> previewPictureList = new ArrayList<GoodsPreviewPicture>();
-			goods.setGoodsPreviewPictureList(previewPictureList);
+			goods.setPreviewPictureList(previewPictureList);
 			for(MultipartFile picFile : goodsPic){
 				//获取储存文件名
 				name = FileUtil.updateFile(picFile,PATH+picPath);
 				//记录url
 				GoodsPreviewPicture picture = new GoodsPreviewPicture();
 				picture.setGoods_url(picPath+name);				
-				goods.getGoodsPreviewPictureList().add(picture);
-
+				goods.getPreviewPictureList().add(picture);
 			}
 			goodsService.insertGoods(goods);
 			
@@ -114,6 +115,11 @@ public class GoodsController {
 		Goods goods = goodsService.getGoodsByGoodsId(goodsId);
 		return goods;
 	}
+	@RequestMapping("getGoodsPicByGoodsId")
+	public @ResponseBody List<GoodsPreviewPicture> getGoodsPicByGoodsId(Integer goodsId){
+		List<GoodsPreviewPicture> picList = goodsService.getGoodsPicByGoodsId(goodsId);
+		return picList;
+	}
 	@RequestMapping("updateStockAdd")
 	public String updateStockAdd(GoodsDetail goodsDetail){
 		goodsService.updateStockAdd(goodsDetail);
@@ -123,6 +129,70 @@ public class GoodsController {
 	public @ResponseBody String updateStockChange(GoodsDetail goodsDetail){
 		goodsService.updateStockChange(goodsDetail);
 		return "change";
+	}
+	@RequestMapping("updateGoods")
+	public void updateGoods(Goods goods,@RequestParam MultipartFile goodsVideo,@RequestParam MultipartFile profilePic,@RequestParam MultipartFile goodsIntroductionPic){
+		//文件相对路径
+				String picPath = "goods/"+goods.getGoods_code()+"/picture/";
+				String videoPath = "goods/"+goods.getGoods_code()+"/video/";
+				//记录文件名称
+				String name = "";
+				try {
+					//记录video
+					//获取储存文件名
+					name = FileUtil.updateFile(goodsVideo, PATH+videoPath);
+					//记录url
+					if(!name.equals("")){
+						goods.setVideo_set_url(videoPath+name);
+					}
+						
+					//记录profile picture
+					//获取储存文件名
+					name = FileUtil.updateFile(profilePic, PATH+picPath);
+					//记录url
+					if(!name.equals("")){
+						goods.setGoods_pic_url(picPath+name);
+					}
+
+					//记录商品介绍图片
+					//获取储存文件名
+					name = FileUtil.updateFile(goodsIntroductionPic, PATH+picPath);
+					//记录url
+					if(!name.equals("")){
+						goods.setGoods_desc_pic_url(picPath+name);
+					}
+	
+					goodsService.updateGoods(goods);
+					
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+	}
+	@RequestMapping("updateGoodsPic")
+	public void updateGoodsPic(Goods goods,@RequestParam MultipartFile[] goodsPic){
+		Goods newGoods = goodsService.getGoodsByGoodsId(goods.getGoods_id());
+		//文件相对路径
+		String picPath = "goods/"+newGoods.getGoods_code()+"/picture/";
+		String name="";
+		int i = 0;
+		for(MultipartFile picFile : goodsPic){
+			//获取储存文件名
+			name = FileUtil.updateFile(picFile,PATH+picPath);
+			//记录url
+			for(int j=i;j<goods.getPreviewPictureList().size();j++){
+				i++;
+				if(goods.getPreviewPictureList().get(j).getGoods_pre_pic_status()==1){
+					goods.getPreviewPictureList().get(j).setGoods_url(picPath+name);	
+					
+					break;
+				}
+				
+			}
+			
+		}
+		goodsService.updateGoodsPic(goods);
 	}
 	@RequestMapping("getAllStockByGoodsId")
 	public @ResponseBody List<GoodsDetail> getAllStockByGoodsId(Integer goodsId){
@@ -135,5 +205,10 @@ public class GoodsController {
 		List<GoodsDetail> detailList = goodsService.getAllDetailByGoodsId(goodsId);
 		return detailList;
 		
+	}
+	@RequestMapping("getAttributesByGoodsId")
+	public @ResponseBody List<GoodsAttribute> getAttributesByGoodsId(Integer goodsId){
+		List<GoodsAttribute> attributeList = goodsService.getAttributesByGoodsId(goodsId);
+		return attributeList;
 	}
 }

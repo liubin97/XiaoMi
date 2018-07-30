@@ -24,13 +24,13 @@ public class GoodsService {
 		int goodsId = goods.getGoods_id();
 		//int goodsId = goodsDAO.getGoodIdByCode(goods.getGoods_code());
 		//插入概述图片表
-		for(GoodsPreviewPicture gpp : goods.getGoodsPreviewPictureList()){
+		for(GoodsPreviewPicture gpp : goods.getPreviewPictureList()){
 			gpp.setGoods_id(goodsId);
 			goodsDAO.insertGoodsPicture(gpp);
 		}
 		
 		//插入商品属性表
-		for(GoodsAttribute goodsAttribute : goods.getGoodsAttributeList()){
+		for(GoodsAttribute goodsAttribute : goods.getAttributeList()){
 			goodsAttribute.setGoods_id(goodsId);
 			goodsDAO.insertAttribute(goodsAttribute);
 		}
@@ -45,13 +45,38 @@ public class GoodsService {
 		//插入商品图片集图片
 		for(GoodsPicture gpic : goodsDetail.getGoodsPictureList()){
 			gpic.setGoods_detail_id(detailId);
-			goodsDAO.insertPicture(gpic);
+			goodsDAO.insertDetailPicture(gpic);
 		}
 	}
 	public void updateStockAdd(GoodsDetail goodsDetail) {
 		goodsDAO.updateStockAdd(goodsDetail);
 	}
-	
+
+	public void updateStockChange(GoodsDetail goodsDetail) {
+		goodsDAO.updateStockChange(goodsDetail);
+		
+	}
+
+	public void updateGoods(Goods goods) {
+		goodsDAO.updateGoods(goods);
+		
+	}
+	public void updateGoodsPic(Goods goods) {
+		for(GoodsPreviewPicture pic : goods.getPreviewPictureList()){
+			pic.setGoods_id(goods.getGoods_id());
+			if(pic.getGoods_pre_pic_status()==1){
+				if(pic.getGoods_preview_pic_id()==0){
+					goodsDAO.insertGoodsPicture(pic);
+				}else{
+					goodsDAO.updateGoodsPicture(pic);
+				}				
+			}
+			if(pic.getGoods_pre_pic_status()==-1){
+				goodsDAO.deleteGoodsPicture(pic.getGoods_preview_pic_id());
+			}
+		}
+		
+	}
 	public String[] getAllKindByGoodsId(Integer goodsId) {
 		String[] kindList = goodsDAO.getAllKindByGoodsId(goodsId);
 		return kindList;
@@ -74,10 +99,19 @@ public class GoodsService {
 		Goods goods = goodsDAO.getGoodsByGoodsId(goodsId);
 		return goods;
 	}
-	public void updateStockChange(GoodsDetail goodsDetail) {
-		goodsDAO.updateStockChange(goodsDetail);
-		
+	public List<GoodsPreviewPicture> getGoodsPicByGoodsId(Integer goodsId) {
+		List<GoodsPreviewPicture> picList = goodsDAO.getGoodsPicByGoodsId(goodsId);
+		return picList;
 	}
+
+	public List<GoodsAttribute> getAttributesByGoodsId(Integer goodsId) {
+		List<GoodsAttribute> attributeList = goodsDAO.getAttributesByGoodsId(goodsId);
+		return attributeList;
+	}
+
+
+
+
 
 	
 

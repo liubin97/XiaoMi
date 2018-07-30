@@ -8,6 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUtil {
 	//文件上传
 	public static String updateFile(MultipartFile file,String path){
+		if(file.getSize()==0){
+			return "";
+		}
 		//获取原文件名
 		String oldName = file.getOriginalFilename();
 		//构建新文件名
