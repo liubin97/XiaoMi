@@ -6,6 +6,7 @@ var goodsOption = "<option value='0'>请选择商品</option>";
 var attributeHtml = "";
 
 var pictureHtml =  "";
+var detailPicHtml = "";
 //记录获取的商品数据
 var goodsData;
 //移除该行
@@ -21,26 +22,57 @@ function removeTr(){
 			$(this).parents("tr").find(".doc-form-file").remove();
 		}
 }
-$.fn.serializeObject = function()    
-{    
-   var o = {};    
-   var a = this.serializeArray();    
-   $.each(a, function() {    
-       if (o[this.name]) {    
-           if (!o[this.name].push) {    
-               o[this.name] = [o[this.name]];    
-           }    
-           o[this.name].push(this.value || '');    
-       } else {    
-           o[this.name] = this.value || '';    
-       }    
-   });    
-   return o;    
-};  
+function getGoodsInfo(goodsId,pageNum){
+	 //获取该类别下的商品
+	$.ajax({
+		 type:"POST", //请求方式  
+      url:"getAllDetailByGoodsId.action",
+      /*data : JSON.stringify(vale),*/
+      data:"goodsId="+goodsId+"&pageNum="+pageNum,//请求路径  
+    /* contentType:'application/json;charset=UTF-8',*/
+   /*  async : false,*/
+      dataType: 'json', 
+      cache: false,   
+      success:function(data){ 
+   	   $("#goodsDetail tr").each(function(){
+   		   $(this).remove();
+   	   })
+   	   var button = "<td class='saveDetail'><div class=\"tpl-table-black-operation\"><a href=\"javascript:; \" class='saveDetail' ><i class=\"am-icon-pencil\"></i> 保存</a><a href=\"javascript:;\" class='deleteDetail' ><i class=\"am-icon-trash\"></i> 删除</a></div></td>";
+   	   var picture = "<td class='picture'><a href='javascript:;' class='picture'> 图片</a></td>"
+   	   for(var i=0;i<data.detailInfo.length; i++){
+	             $("#goodsDetail").append("<tr> <td><input type='text'  value="+data.detailInfo[i].kind+"></td><td><input type='text'  value="+data.detailInfo[i].color+"></td><td><input type='text'  value="+data.detailInfo[i].prime_price+"></td><td><input type='text'  value="+data.detailInfo[i].discount_price+"></td>"+picture+button+"<input type='hidden' class='detailId' value="+data.detailInfo[i].goods_detail_id+"></tr>");  
+   	   }
+	   	$("#page").find("li").remove();
+		   
+	   if(pageNum==1){
+		$("#page").append("<li class='am-disabled'><a href='#'>«</a></li>");
+	   }else{
+		$("#page").append("<li ><a href='#' onclick='getGoodsInfo("+goodsId+","+(pageNum-1)+")'>«</a></li>");
+	   }
+	      	   
+	   for(var i=1;i<=data.pageCount;i++){
+		   if(pageNum==i){
+			$("#page").append("<li class='am-active'><a href='#' onclick='getGoodsInfo("+goodsId+","+i+")'>"+i+"</a></li>");
+		   }else{
+			$("#page").append("<li ><a href='#' onclick='getGoodsInfo("+goodsId+","+i+")'>"+i+"</a></li>");
+		   }   		      		   
+	   }
+	   if(pageNum==data.pageCount){
+		 $("#page").append("<li class='am-disabled'><a href='#'>»</a></li>");
+	   }else{
+		 $("#page").append("<li ><a href='#' onclick='getGoodsInfo("+goodsId+","+(pageNum+1)+")'>»</a></li>");
+	   }
+      }  
+	}); 
+  	   
+  	  
+ }  
+
 
 $(document).ready(function(){
 	attributeHtml = "<tr>"+$("#attribute").find("tr").eq(0).html()+"</tr>";
 	pictureHtml = "<tr>" +$("#pictureList").find("tr").eq(0).html()+"</tr>";
+	detailPicHtml = "<tr>" +$("#detailPictureList").find("tr").eq(0).html()+"</tr>";
 	$.ajax({
 		 type:"POST", //请求方式  
      url:"getALLCategory.action", //请求路径  
@@ -85,29 +117,47 @@ $(document).ready(function(){
 	//记录当前商品名称
 	$("#goods").change(function(){
 		var goodsId = $("#goods option:selected").val();
+		getGoodsInfo(goodsId,1);
 		
+	});
+	$("#goodsDetail").on('click',"a.saveDetail",function(){
+		var kind = $(this).parents("tr").find("input").eq(0).val();
+		var color = $(this).parents("tr").find("input").eq(1).val();
+		var prime_price = $(this).parents("tr").find("input").eq(2).val();
+		var discount_price = $(this).parents("tr").find("input").eq(3).val();
+		var goods_detail_id = $(this).parents("tr").find("input").eq(4).val();
+		var goodsDetail = {"goods_detail_id": goods_detail_id,"kind" : kind,"color" : color,"prime_price" :prime_price,"discount_price" : discount_price};
 		$.ajax({
 			 type:"POST", //请求方式  
-	       url:"getAllDetailByGoodsId.action",
+	       url:"updateDetail.action",
 	       /*data : JSON.stringify(vale),*/
-	       data:"goodsId="+goodsId,//请求路径  
-	     /* contentType:'application/json;charset=UTF-8',*/
+	       data:JSON.stringify(goodsDetail),//请求路径  
+	      contentType:'application/json;charset=UTF-8',
 	    /*  async : false,*/
 	       dataType: 'json', 
 	       cache: false,   
 	       success:function(data){ 
-	    	   $("#goodsDetail tr").each(function(){
-	    		   $(this).remove();
-	    	   })
-	    	   var button = "<td class='saveDetail'><div class=\"tpl-table-black-operation\"><a href=\"javascript:; \" class='saveDetail' ><i class=\"am-icon-pencil\"></i> 保存</a><a href=\"javascript:; \" ><i class=\"am-icon-trash\"></i> 删除</a></div></td>";
-	    	   var picture = "<td class='picture'><a href='javascript:;' class='picture'> 图片</a></td>"
-	    	   for(var i=0;i<data.length; i++){
-		             $("#goodsDetail").append("<tr> <td><input type='text'  value="+data[i].kind+"></td><td><input type='text'  value="+data[i].color+"></td><td><input type='text'  value="+data[i].prime_price+"></td><td><input type='text'  value="+data[i].discount_price+"></td>"+picture+button+"<input type='hidden' value="+data[i].goods_detail_id+"></tr>");  
-	     	 }
-	    	 
-	       }  
+	    	   if(data=="true")
+	    	   alert("保存成功")
+	       }
 	   }); 
-	});
+	})
+	$("#goodsDetail").on('click',"a.deleteDetail",function(){
+		var goods_detail_id = $(this).parents("td").next().val();
+		$.ajax({
+			 type:"POST", //请求方式  
+	       url:"deleteDetail.action",
+	       /*data : JSON.stringify(vale),*/
+	       data:"goods_detail_id="+goods_detail_id,//请求路径  
+	      /*contentType:'application/json;charset=UTF-8',*/
+	       dataType: 'json', 
+	       success:function(data){
+	    	   if(data=="true")
+	    	   alert("删除成功")
+	       }
+	   }); 
+		$(this).parents("tr").remove();
+	})
 	$("#confirm").click(function(){
 		//var number = $("attribute").rows.length-1;
 		var i = 0;
@@ -132,7 +182,10 @@ $(document).ready(function(){
 		$(this).parents("tr").after(pictureHtml);
 	});
 	$("#pictureList").on('click','.am-btn.am-btn-default.am-btn-danger',removeTr);
-	
+	$("#detailPictureList").on('click','.am-btn.am-btn-default.am-btn-success',function(){
+		$(this).parents("tr").after(detailPicHtml);
+	});
+	$("#detailPictureList").on('click','.am-btn.am-btn-default.am-btn-danger',removeTr);
 	$("form").on('change','.doc-form-file', function() {
 		  var fileNames = '';
 		  var filePath = $(this).val();
@@ -142,6 +195,7 @@ $(document).ready(function(){
 		  //表格内的图片
 		  $(this).parents("td").prev().find("img").attr("src",src);
 		  $(this).parents("tr").find("input.goods_pre_pic_status").val(1);
+		  $(this).parents("tr").find("input.picture_set_status").val(1);
 		  $.each(this.files, function() {
 			fileNames += '<span class="am-badge">' + this.name + '</span> ';
 		  });
@@ -197,7 +251,7 @@ $(document).ready(function(){
   //根据goodsId查找商品图片信息
   $('#goodsPicButton').off('click').on('click', function() {
 	  $("#goodsPic tbody").find("tr").remove();
-	  $("#goodsPic tbody").append(pictureHtml);
+	  $("#goodsPic tbody").append(detailPicHtml);
 	  var goodsId = $("#goods option:selected").val();
 	  $.ajax({
 			 type:"POST", //请求方式  
@@ -277,22 +331,88 @@ $(document).ready(function(){
 	$('#goodsAttribute').modal({
 	  relatedTarget: this,
 	  onConfirm: function(e) {
-		alert('你输入的是：' + e.data || '')
+		  $("#changeAttribute").attr("target","rfFrame");
+		  var i = 0;
+			$("#goodsAttribute .attributeName").each(function(){
+				$(this).attr("name","attributeList["+i+"].attribute_name");
+				i++;
+			});
+			i = 0;
+			$("#goodsAttribute .attributeValue").each(function(){
+				$(this).attr("name","attributeList["+i+"].attribute_value");
+				i++;
+			});
+			i=0;
+			$("#goodsAttribute .goods_attribute_id").each(function(){
+				$(this).attr("name","attributeList["+i+"].goods_attribute_id");
+				i++;
+			})
+			i=0;
+			$("#goodsAttribute .attribute_status").each(function(){
+				$(this).attr("name","attributeList["+i+"].attribute_status");
+				i++;
+			})
+			$("#changeAttribute").submit();
 	  },
 	  onCancel: function(e) {
-		alert('不想说!');
+		
 	  }
 	});
   });
-   $('#goodsDetail').on('click','a.picture', function() {	   
+   $('#goodsDetail').on('click','a.picture', function() {	 
+	   	$("#detailPicture tbody").find("tr").remove();
+		$("#detailPicture tbody").append(detailPicHtml);
+		var datailId = $(this).parents("tr").find("input.detailId").val();
+		
+		$.ajax({
+			 type:"POST", //请求方式  
+	       url:"getDetailPicByDetailId.action",
+	       /*data : JSON.stringify(vale),*/
+	       data:"detailId="+datailId,//请求路径  
+	     /* contentType:'application/json;charset=UTF-8',*/
+	       
+	       dataType: 'json',   
+	       success:function(data){ 
+	    	   $("#detailPicture tbody").find("img").attr("src",data[0].picture_set_url);
+	    	   $("#detailPicture .goods_detail_id").val(data[0].goods_detail_id);
+	    	   $("#detailPicture tbody").find(".picture_set_id").val(data[0].picture_set_id);
+	    	   $("#detailPicture tbody").find(".picture_set_status").val(0);
+	    	   for(var i=1;i<data.length;i++){
+	    		   $("#detailPicture tbody").append(detailPicHtml);
+	    		   $("#detailPicture tbody").find("tr").eq(i).find("img").attr("src",data[i].picture_set_url);
+		    	   $("#detailPicture tbody").find("tr").eq(i).find(".picture_set_id").val(data[i].picture_set_id);
+		    	   $("#detailPicture tbody").find("tr").eq(i).find(".picture_set_status").val(0);
+	    	   }
+	       }  
+	   }); 
 		$('#detailPicture').modal({
 		  relatedTarget: this,
 		  onConfirm: function(e) {
-			alert('你输入的是：' + e.data || '')
+			  $("#changeDetailPic").attr("target","rfFrame");
+			  var i = 0;
+			  $("#detailPicture .picture_set_id").each(function(){
+				  $(this).attr("name","goodsPictureList["+i+"].picture_set_id");
+				  i++;
+			  })
+			  i = 0;
+			  $("#detailPicture .picture_set_status").each(function(){
+				  $(this).attr("name","goodsPictureList["+i+"].picture_set_status");
+				  i++;
+			  })
+			   //删除状态为0，id为0的行
+			  $("#detailPicture tbody").find("tr").each(function(){
+				  if($(this).find("input.picture_set_id").val()==0&&$(this).find("input.picture_set_status").val==0){
+					  $(this).remove();
+				  }
+			  });
+			  $("#changeDetailPic").submit();
 		  },
 		  onCancel: function(e) {
 			alert('不想说!');
 		  }
 		});
 	  });
+   $("#attribute").on('change',"input",function(){
+	   $(this).parents("tr").find(".attribute_status").val(1);
+   })
 })

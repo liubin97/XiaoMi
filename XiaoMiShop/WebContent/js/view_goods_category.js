@@ -1,11 +1,56 @@
 var categoryData;
+
 function deleteGoods(){
 	/*$(".deleteGoods").click(function(){
 		alert(1);
 		$(this).parents("tr").remove();
 	})*/
-	alert(1);
+	alert("移除成功");
 	$(this).parents("tr").remove();
+}
+function getGoodsInfo(categoryId,pageNum){
+	 //获取该类别下的商品
+	 $.ajax({
+		 type:"POST", //请求方式  
+      url:"getAllGoodsInfoByCategoryId.action",
+      /*data : JSON.stringify(vale),*/
+      data:"categoryId="+categoryId+"&pageNum="+pageNum,//请求路径  
+    /* contentType:'application/json;charset=UTF-8',*/
+     async : false,
+      traditional:true,
+      dataType: 'json', 
+      cache: false,   
+      success:function(data){ 
+   	   $("#goods tr").each(function(){
+   		   $(this).remove();
+   	   })
+   	   var button = "<td class='deleteGoods'><div class=\"tpl-table-black-operation\"><a href=\"javascript:;\" class=\"tpl-table-black-operation-del\"><i class=\"am-icon-trash\"></i> 删除</a></div></td>";
+   	   for(var i=0;i<data.goodsInfo.length; i++){
+   		  $("#goods").append("<tr class='goods'> <td>"+data.goodsInfo[i].goods_name+"</td><td>"+data.goodsInfo[i].goods_code+"</td><td>"+data.goodsInfo[i].goods_pic_url+"</td><td>"+data.goodsInfo[i].goods_desc_pic_url+"</td><td>"+data.goodsInfo[i].video_set_url+"</td>"+button+"<input type='hidden' value="+data.goodsInfo[i].goods_id+"></tr>");  
+    	}
+   	   $("#page").find("li").remove();
+   	   
+   	   if(pageNum==1){
+   		$("#page").append("<li class='am-disabled'><a href='#'>«</a></li>");
+   	   }else{
+   		$("#page").append("<li ><a href='#' onclick='getGoodsInfo("+categoryId+","+(pageNum-1)+")'>«</a></li>");
+   	   }
+   	      	   
+   	   for(var i=1;i<=data.pageCount;i++){
+   		   if(pageNum==i){
+   			$("#page").append("<li class='am-active'><a href='#' onclick='getGoodsInfo("+categoryId+","+i+")'>"+i+"</a></li>");
+   		   }else{
+   			$("#page").append("<li ><a href='#' onclick='getGoodsInfo("+categoryId+","+i+")'>"+i+"</a></li>");
+   		   }   		      		   
+   	   }
+   	   if(pageNum==data.pageCount){
+   		 $("#page").append("<li class='am-disabled'><a href='#'>»</a></li>");
+   	   }else{
+   		 $("#page").append("<li ><a href='#' onclick='getGoodsInfo("+categoryId+","+(pageNum+1)+")'>»</a></li>");
+   	   }
+   	  
+      }  
+  }); 
 }
 $(document).ready(function(){
 	//获取全部类别
@@ -29,6 +74,10 @@ $(document).ready(function(){
 		if(categoryId==0){
 			 $("#category_name").prop("value","");
 			 $("#description").prop("value","");
+			 $("#goods tr").each(function(){
+		   		   $(this).remove();
+		   	   })
+		   	 $("#page").find("li").remove();
 			 return;
 		}
 		 for(var i=0;i<categoryData.length; i++){
@@ -39,28 +88,7 @@ $(document).ready(function(){
 			 }
 			 
 		 }
-		 //获取该类别下的商品
-		 $.ajax({
-			 type:"POST", //请求方式  
-	       url:"getAllGoodsByCategoryId.action",
-	       /*data : JSON.stringify(vale),*/
-	       data:"categoryId="+categoryId,//请求路径  
-	     /* contentType:'application/json;charset=UTF-8',*/
-	      async : false,
-	       traditional:true,
-	       dataType: 'json', 
-	       cache: false,   
-	       success:function(data){ 
-	    	   $("#goods td").each(function(){
-	    		   $(this).remove();
-	    	   })
-	    	   var button = "<td class='deleteGoods'><div class=\"tpl-table-black-operation\"><a href=\"javascript:;\" class=\"tpl-table-black-operation-del\"><i class=\"am-icon-trash\"></i> 删除</a></div></td>";
-	    	   for(var i=0;i<data.length; i++){
-	    		  
-		             $("#goods").append("<tr class='goods'> <td>"+data[i].goods_name+"</td><td>"+data[i].goods_code+"</td><td>"+data[i].goods_pic_url+"</td><td>"+data[i].goods_desc_pic_url+"</td><td>"+data[i].video_set_url+"</td>"+button+"<input type='hidden' value="+data[i].goods_id+"></tr>");  
-	     	 }
-	       }  
-	   }); 
+		 getGoodsInfo(categoryId,1);
 	});
 	//删除类别中的商品
 	$("#goods").on('click','a.tpl-table-black-operation-del',function(){
@@ -105,6 +133,9 @@ $(document).ready(function(){
 	$("#save").click(function(){
 		var categoryId = $("#category option:selected").val();
 		var category;
+		var category_name = $("#category_name").val();
+		$("#category option:selected").text(category_name);
+		//$("#goodsInfo .category").trigger('changed.selected.amui');
 		 for(var i=0;i<categoryData.length; i++){
 			 if(categoryData[i].goods_category_id==categoryId){
 				 categoryData[i].category_name = $("#category_name").val();

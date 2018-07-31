@@ -2,6 +2,7 @@ package com.ssm.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,11 @@ public class GoodsCategoryController {
 	@RequestMapping("getAllGoodsByCategoryId")
 	public @ResponseBody List<Goods> getAllGoodsByCategoryId(Integer categoryId){
 		return goodsCategoryService.getAllGoodsByCategoryId(categoryId);	
+		
+	}
+	@RequestMapping("getAllGoodsInfoByCategoryId")
+	public @ResponseBody Map<String,Object> getAllGoodsInfoByCategoryId(Integer categoryId,Integer pageNum){
+		return goodsCategoryService.getAllGoodsInfoByCategoryId(categoryId,pageNum);	
 		
 	}
 	@RequestMapping("deleteGoodsInCategory")

@@ -45,7 +45,7 @@
 									<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 										<div class="am-form-group tpl-table-list-select">
 											<select data-am-selected="{btnSize: 'sm'}" id="category">
-											  <option value="0">所有类别</option>
+											  <option value="0">请选择类别</option>
 											</select>
 										</div>
 									</div>
@@ -94,13 +94,8 @@
 									<div class="am-u-lg-12 am-cf">
 
 										<div class="am-fr">
-											<ul class="am-pagination tpl-pagination">
+											<ul class="am-pagination tpl-pagination" id="page">
 												<li class="am-disabled"><a href="#">«</a></li>
-												<li class="am-active"><a href="#">1</a></li>
-												<li><a href="#">2</a></li>
-												<li><a href="#">3</a></li>
-												<li><a href="#">4</a></li>
-												<li><a href="#">5</a></li>
 												<li><a href="#">»</a></li>
 											</ul>
 										</div>

@@ -29,6 +29,7 @@
     </bean>
 	<!-- 组建扫描方式管理所有控制器 -->
 	<context:component-scan base-package="com.ssm.controller"></context:component-scan>
+<<<<<<< HEAD
 
 	<!-- 配置拦截器 -->
 	<mvc:interceptors>
@@ -37,6 +38,9 @@
             <bean class="com.ssm.utils.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+=======
+	
+>>>>>>> SunSenSen
 </beans>   
 
 

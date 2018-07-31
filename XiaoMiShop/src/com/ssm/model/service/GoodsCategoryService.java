@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.ssm.model.bean.Goods;
 import com.ssm.model.bean.GoodsCategory;
 import com.ssm.model.dao.GoodsCategoryDAO;
@@ -15,6 +17,7 @@ import com.ssm.model.dao.GoodsCategoryDAO;
 public class GoodsCategoryService {
 	final String TRASH_NAME = "其他";
 	final String TRASH_DESCRIPTION = "被移除的分类";
+	final int PAGESIZE = 10;
 	@Autowired
 	private GoodsCategoryDAO goodsCategoryDAO;
 	
@@ -31,9 +34,17 @@ public class GoodsCategoryService {
 	public List<GoodsCategory> getALLCategory(){
 		return goodsCategoryDAO.getAllCategory();
 	}
-	public List<Goods> getAllGoodsByCategoryId(Integer categoryId) {
-		
+	public List<Goods> getAllGoodsByCategoryId(Integer categoryId){
 		return goodsCategoryDAO.getAllGoodsByCategoryId(categoryId);
+	}
+	public Map<String,Object> getAllGoodsInfoByCategoryId(Integer categoryId, Integer pageNum) {
+		Page<Goods> page = PageHelper.startPage(pageNum, PAGESIZE);
+		goodsCategoryDAO.getAllGoodsByCategoryId(categoryId);
+		List<Goods> goodsInfo = page.getResult();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("goodsInfo", goodsInfo);
+		map.put("pageCount",page.getPages());
+		return map;
 	}
 	public String deleteGoodsInCategory(Integer goodsId, String categoryName) {
 		if(categoryName.equals(TRASH_NAME)){

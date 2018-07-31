@@ -24,6 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </insert>
   <!-- 登记商品版本信息 -->
   <insert id="insertDetail" parameterType="GoodsDetail">
+       <selectKey keyProperty="goods_detail_id" keyColumn="goods_detail_id" order="AFTER" resultType="int">
+          select LAST_INSERT_ID()
+      </selectKey>
       insert into goods_detail(goods_id,kind,color,prime_price,discount_price,stock,goods_detail_status)
       value(#{goods_id},#{kind},#{color},#{prime_price},#{discount_price},0,0)
   </insert>
@@ -33,6 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       value(#{goods_detail_id},#{picture_set_url},0)
       
   </insert>
+  
   <!-- 增加库存量 -->
   <update id="updateStock" parameterType="GoodsDetail">
       update goods_detail
@@ -77,6 +81,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       set goods_url=#{goods_url}
       where goods_preview_pic_id=#{goods_preview_pic_id}
   </update>
+  <!-- 更改参数 -->
+  <update id="updateAttribute" parameterType="GoodsAttribute">
+      update goods_attribute
+      set attribute_name=#{attribute_name},attribute_value=#{attribute_value}
+      where goods_attribute_id=#{goods_attribute_id}
+  </update>
+  <!-- 更改商品版本信息 -->
+  <update id="updateDetail" parameterType="GoodsDetail">
+      update goods_detail
+      set kind=#{kind},color=#{color},prime_price=#{prime_price},discount_price=#{discount_price}
+      where goods_detail_id=#{goods_detail_id}
+  </update>
+  <!-- 更新商品版本图片 -->
+  <update id="updateDetailPicture" parameterType="GoodsPicture">
+      update picture_set
+      set picture_set_url=#{picture_set_url}
+      where picture_set_id=#{picture_set_id}
+  </update>
+  
   <!-- 通过商品代码获取商品id -->
   <select id="getGoodIdByCode" parameterType="int" resultType="int">
       select goods_id from goods
@@ -89,11 +112,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
   <!-- 通过商品id查找所有版本 -->
   <select id="getAllKindByGoodsId" parameterType="int" resultType="String">
-      select kind from goods_detail
+      select distinct kind from goods_detail
       where goods_id=#{goods_id} and goods_detail_status=0
   </select>
   <!-- 通过商品id和版本名称查找所有颜色 -->
-  <select id="getAllColorBygoodsIdAndcolor" parameterType="GoodsDetail" resultType="GoodsDetail">
+  <select id="getAllColorBygoodsIdAndKind" parameterType="GoodsDetail" resultType="GoodsDetail">
       select goods_detail_id,color,stock from goods_detail
       where goods_id=#{goods_id} and kind=#{kind} and goods_detail_status=0
   </select>
@@ -115,13 +138,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 通过商品id查找商品参数 -->
   <select id="getAttributesByGoodsId" parameterType="int" resultType="GoodsAttribute">
       select * from goods_attribute
-      where goods_id=#{goods_id}
+      where goods_id=#{goods_id} and attribute_status=0
   </select>
+  <!-- 通过商品版本id查找对应版本图片  -->
+  <select id="getDetailPicByDetailId" parameterType="int" resultType="GoodsPicture">
+      select * from picture_set
+      where goods_detail_id=#{detailId} and picture_set_status=0
+  </select>
+  <!-- 通过版本id查找版本信息 -->
+   <select id="getDetailByDetailId" parameterType="int" resultType="GoodsDetail">
+      select * from goods_detail
+      where goods_detail_id=#{goods_detail_id} and goods_detail_status=0
+  </select>
+   
   <!-- 更改商品照片状态为1标记为删除 -->
   <update id="deleteGoodsPicture" parameterType="int">
       update goods_preview_pic
       set goods_pre_pic_status=1
       where goods_preview_pic_id=#{goods_preview_pic_id}
+  </update>
+  <!-- 更改属性状态为1标记为删除 -->
+  <update id="deleteAttribute" parameterType="int">
+      update goods_attribute
+      set attribute_status=1
+      where goods_attribute_id=#{goods_attribute_id}
+  </update>
+  <!-- 更改属性状态为1标记为删除 -->
+  <update id="deleteDetail" parameterType="int">
+      update goods_detail
+      set goods_detail_status=1
+      where goods_detail_id=#{goods_detail_id}
+  </update>
+  <!-- 更改属性状态为1标记为删除 -->
+  <update id="deleteDetailPicture" parameterType="int">
+      update picture_set
+      set picture_set_status=1
+      where picture_set_id=#{picture_set_id}
   </update>
 </mapper>
 

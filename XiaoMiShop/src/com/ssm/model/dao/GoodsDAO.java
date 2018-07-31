@@ -14,19 +14,36 @@ public interface GoodsDAO {
 	public void insertDetail(GoodsDetail goodsDetail);
 	public void insertDetailPicture(GoodsPicture goodsPicture);
 	public void insertGoodsPicture(GoodsPreviewPicture goodsPreviewPicture);
+	
 	public void updateStockAdd(GoodsDetail goodsDetail);
 	public void updateStockChange(GoodsDetail goodsDetail);
 	public void updateGoods(Goods goods);
 	public void updateGoodsPicture(GoodsPreviewPicture pic);
+	public void updateAttribute(GoodsAttribute goodsAttribute);
+	public void updateDetail(GoodsDetail goodsDetail);
+	public void updateDetailPicture(GoodsPicture goodsPicture);
+	
 	public int getGoodIdByCode(int code);
 	public int getDetailIdByInfo(GoodsDetail goodsDetail);
 	public String[] getAllKindByGoodsId(Integer goodsId);
-	public List<GoodsDetail> getAllColorBygoodsIdAndcolor(GoodsDetail goodsDetail);
+	public List<GoodsDetail> getAllColorBygoodsIdAndKind(GoodsDetail goodsDetail);
 	public List<GoodsDetail> getAllDetailByGoodsId(Integer goodsId);
 	public Goods getGoodsByGoodsId(Integer goodsId);
 	public List<GoodsPreviewPicture> getGoodsPicByGoodsId(Integer goodsId);
-	public void deleteGoodsPicture(int goods_preview_pic_id);
 	public List<GoodsAttribute> getAttributesByGoodsId(Integer goodsId);
+	public List<GoodsPicture> getDetailPicByDetailId(Integer detailId);
+	public GoodsDetail getDetailByDetailId(int goods_detail_id);
+	
+	public void deleteGoodsPicture(int goods_preview_pic_id);
+	public void deleteAttribute(int goods_attribute_id);
+	public void deleteDetail(Integer goods_detail_id);
+	public void deleteDetailPicture(int picture_set_id);
+
+
+
+
+
+
 
 
 

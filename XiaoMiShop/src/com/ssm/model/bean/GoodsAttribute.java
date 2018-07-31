@@ -5,7 +5,7 @@ public class GoodsAttribute {
 	private int goods_id;
 	private String attribute_name;
 	private String attribute_value;
-	private String attribute_status;
+	private int attribute_status;
 	
 	public int getGoods_attribute_id() {
 		return goods_attribute_id;
@@ -31,10 +31,10 @@ public class GoodsAttribute {
 	public void setAttribute_value(String attribute_value) {
 		this.attribute_value = attribute_value;
 	}
-	public String getAttribute_status() {
+	public int getAttribute_status() {
 		return attribute_status;
 	}
-	public void setAttribute_status(String attribute_status) {
+	public void setAttribute_status(int attribute_status) {
 		this.attribute_status = attribute_status;
 	}
 	

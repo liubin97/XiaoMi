@@ -88,13 +88,8 @@
 										<div class="am-u-lg-12 am-cf">
 	
 											<div class="am-fr">
-												<ul class="am-pagination tpl-pagination">
-													<li class="am-disabled"><a href="#">«</a></li>
-													<li class="am-active"><a href="#">1</a></li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">5</a></li>
-													<li><a href="#">»</a></li>
+												<ul class="am-pagination tpl-pagination" id="page">
+													
 												</ul>
 											</div>
 										</div>
@@ -119,75 +114,75 @@
 		<div class="am-modal-hd">商品信息</div>
 		<div class="am-modal-bd">
 		  <form class="am-form tpl-form-line-form" id="changeGoods" action="updateGoods.action" method="post" enctype="multipart/form-data">
-									<input id="goodsId" type="hidden" name="goods_id">
-									<div class="am-form-group">
-											<label for="user-phone" class="am-u-sm-3 am-form-label">商品类别</label>
-											<div class="am-u-sm-9">
-												<select data-am-selected="{searchBox: 1}" style="display: none;" class="category" name="goods_category_id">
-													<option value="0">请选择商品类别</option>
-												</select>
+					<input id="goodsId" type="hidden" name="goods_id">
+					<div class="am-form-group">
+							<label for="user-phone" class="am-u-sm-3 am-form-label">商品类别</label>
+							<div class="am-u-sm-9">
+								<select data-am-selected="{searchBox: 1}" style="display: none;" class="category" name="goods_category_id">
+									<option value="0">请选择商品类别</option>
+								</select>
 
-											</div>
-										</div>
-										
-										<div class="am-form-group">
-								  <label class="am-u-sm-3 am-form-label">商品名称</label>
-									<div class="am-u-sm-9">
-                                          <input type="text" placeholder="输入商品名称" id="goods_name" name="goods_name">
-									</div>
-								 
-								</div>
-
-								<div class="am-form-group">
-								  <label class="am-u-sm-3 am-form-label">商品代码</label>
-									<div class="am-u-sm-9">
-                                          <input type="text" placeholder="输入商品代码" id="goods_code" name="goods_code">
-									</div>
-								 
-								</div>
-								<div class="am-form-group">
-                                      <label for="user-weibo" class="am-u-sm-3 am-form-label">商品展示图片 </label>
-                                      <div class="am-u-sm-9">
-                                       <img id="profilePic" src="" style="width:100px;height:50px"></img>
-                                          <div class="am-form-group am-form-file">
-                                             
-                                              <button type="button" class="am-btn am-btn-danger am-btn-sm">
-										<i class="am-icon-cloud-upload"></i> 更改展示图片</button>
-                                              <input class="doc-form-file" type="file"  name="profilePic">
-                                              <div class="file-list"></div>
-                                          </div>
-									
-                                      </div>
-                                  </div>
-                                  <div class="am-form-group">
-                                      <label for="user-weibo" class="am-u-sm-3 am-form-label">商品介绍图片 </label>
-                                      <div class="am-u-sm-9">
-                                       <img id="goodsIntroductionPic" style="width:100px;height:50px"></img>
-                                          <div class="am-form-group am-form-file">
-                                             
-                                              <button type="button" class="am-btn am-btn-danger am-btn-sm">
-										<i class="am-icon-cloud-upload"></i> 选择图片上传</button>
-                                              <input class="doc-form-file" type="file"  name="goodsIntroductionPic">
-                                              <div class="file-list"></div>
-                                          </div>
-									
-                                      </div>
-                                  </div>
+							</div>
+					</div>
 							
-							<div class="am-form-group">
-                                      <label for="user-weibo" class="am-u-sm-3 am-form-label">商品视频 </label>
-                                      <div class="am-u-sm-9">
-                                      	<video id="goodsVideo" controls="controls" style="width:380px;height:220px"></video>
-                                          <div class="am-form-group am-form-file">
-                                              
-                                              <button type="button" class="am-btn am-btn-danger am-btn-sm">
-										<i class="am-icon-cloud-upload"></i> 选择视频上传</button>
-                                              <input class="doc-form-file" type="file" name="goodsVideo">
-                                              <div class="file-list"></div>
-                                          </div>
-									
-                                      </div>
-                                  </div>
+					<div class="am-form-group">
+					  	<label class="am-u-sm-3 am-form-label">商品名称</label>
+						<div class="am-u-sm-9">
+                            <input type="text" placeholder="输入商品名称" id="goods_name" name="goods_name">
+						</div>
+					 
+					</div>
+
+					<div class="am-form-group">
+					  <label class="am-u-sm-3 am-form-label">商品代码</label>
+						<div class="am-u-sm-9">
+                                       <input type="text" placeholder="输入商品代码" id="goods_code" name="goods_code">
+						</div>
+					 
+					</div>
+					<div class="am-form-group">
+                                   <label for="user-weibo" class="am-u-sm-3 am-form-label">商品展示图片 </label>
+                                   <div class="am-u-sm-9">
+                                    <img id="profilePic" src="" style="width:100px;height:50px"></img>
+                                       <div class="am-form-group am-form-file">
+                                          
+                                           <button type="button" class="am-btn am-btn-danger am-btn-sm">
+							<i class="am-icon-cloud-upload"></i> 更改展示图片</button>
+                                           <input class="doc-form-file" type="file"  name="profilePic">
+                                           <div class="file-list"></div>
+                                       </div>
+						
+                                   </div>
+                               </div>
+                     <div class="am-form-group">
+                         <label for="user-weibo" class="am-u-sm-3 am-form-label">商品介绍图片 </label>
+                         <div class="am-u-sm-9">
+                          <img id="goodsIntroductionPic" style="width:100px;height:50px"></img>
+                             <div class="am-form-group am-form-file">
+                                
+                                 <button type="button" class="am-btn am-btn-danger am-btn-sm">
+									<i class="am-icon-cloud-upload"></i> 选择图片上传</button>
+                                 <input class="doc-form-file" type="file"  name="goodsIntroductionPic">
+                                 <div class="file-list"></div>
+                             </div>
+
+                         </div>
+                     </div>
+							
+					<div class="am-form-group">
+                          <label for="user-weibo" class="am-u-sm-3 am-form-label">商品视频 </label>
+                          <div class="am-u-sm-9">
+                          	<video id="goodsVideo" controls="controls" style="width:380px;height:220px"></video>
+                              <div class="am-form-group am-form-file">
+                                  
+                                  <button type="button" class="am-btn am-btn-danger am-btn-sm">
+									<i class="am-icon-cloud-upload"></i> 选择视频上传</button>
+                                  <input class="doc-form-file" type="file" name="goodsVideo">
+                                  <div class="file-list"></div>
+                              </div>
+
+                          </div>
+	                 </div>
 							
 					
 				</form>
@@ -207,48 +202,48 @@
 		<div class="am-modal-bd">
 		  <form class="am-form tpl-form-line-form" id="changePic" action="updateGoodsPic.action" method="post" enctype="multipart/form-data">
 									
-									<div class="am-form-group">
-                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">商品图片 </label>
-                                        <input type="hidden" class="goods_id" name="goods_id">
-										<div class="am-u-sm-9">
-                                            <table class="am-table am-table-striped am-table-hover">
-												<thead>
-													<tr>
-														<th>图片</th>
-														<th>图片上传</th>
-														<th>操作</th>
-													</tr>
-												</thead>
-												<tbody id="pictureList">
-													<tr>
-														<td>
-														<img src="" style="width:100px;height:50px" alt="">
-														</td>
-														<td><div class="am-form-group am-form-file">
-														 <button type="button" class="am-btn am-btn-danger am-btn-sm">
-															<i class="am-icon-cloud-upload"></i> 选择图片上传</button>
-			                                              <input class="doc-form-file" type="file"  name="goodsPic">
-			                                              
-			                                              <div class="file-list"></div>
-			                                          	</div></td>
-														<td>
-															<div class="am-btn-group am-btn-group-xs">
-																<input type="hidden" class="goods_preview_pic_id" value="0">
-																
-																<button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-																<input type="hidden" class="goods_pre_pic_status" value="0">
-																<button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
-															</div>
-														</td>
-													</tr>
-													
-												</tbody>
-											</table>
-										</div>
-                                        
-                                    </div>
+			<div class="am-form-group">
+                <label for="user-weibo" class="am-u-sm-3 am-form-label">商品图片 </label>
+                <input type="hidden" class="goods_id" name="goods_id">
+				<div class="am-u-sm-9">
+                      <table class="am-table am-table-striped am-table-hover">
+						<thead>
+							<tr>
+								<th>图片</th>
+								<th>图片上传</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody id="pictureList">
+							<tr>
+								<td>
+								<img src="" style="width:100px;height:50px" alt="">
+								</td>
+								<td><div class="am-form-group am-form-file">
+								 <button type="button" class="am-btn am-btn-danger am-btn-sm">
+									<i class="am-icon-cloud-upload"></i> 选择图片上传</button>
+                                           <input class="doc-form-file" type="file"  name="goodsPic">
+                                           
+                                           <div class="file-list"></div>
+                                       	</div></td>
+								<td>
+									<div class="am-btn-group am-btn-group-xs">
+										<input type="hidden" class="goods_preview_pic_id" value="0">
+										
+										<button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+										<input type="hidden" class="goods_pre_pic_status" value="0">
+										<button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+									</div>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+                                  
+               </div>
 									
-								</form>
+			</form>
 		</div>
 		<div class="am-modal-footer">
 		  <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -261,12 +256,12 @@
 	  <div class="am-modal-dialog">
 		<div class="am-modal-hd">商品参数</div>
 		<div class="am-modal-bd">
-		  <form class="am-form tpl-form-line-form" id="changeAttribute">
+		  <form class="am-form tpl-form-line-form" id="changeAttribute" action="updateAttribute.action" method="post" enctype="multipart/form-data">
 							<div class="am-form-group">
-                                      <label for="user-weibo" class="am-u-sm-3 am-form-label">商品参数 </label>
-                                      <input type="hidden" class="goods_id" name="goods_id">
+                                <label for="user-weibo" class="am-u-sm-3 am-form-label">商品参数 </label>
+                                <input type="hidden" class="goods_id" name="goods_id">
 								<div class="am-u-sm-9">
-                                          <table class="am-table am-table-striped am-table-hover" >
+                                      <table class="am-table am-table-striped am-table-hover" >
 										<thead>
 											<tr>
 												<th>参数名称</th>
@@ -296,7 +291,7 @@
 									</table>
 								</div>
 							 </div>
-				</form>
+			</form>
 		</div>
 		<div class="am-modal-footer">
 		  <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -309,45 +304,49 @@
 	  <div class="am-modal-dialog">
 		<div class="am-modal-hd">商品版本图片</div>
 		<div class="am-modal-bd">
-		  <form class="am-form tpl-form-line-form">
-
-				<div class="am-form-group">
-                                   <label for="user-weibo" class="am-u-sm-3 am-form-label">商品版本图片 </label>
-					<div class="am-u-sm-9">
-                                       <table class="am-table am-table-striped am-table-hover">
-							<thead>
-								<tr>
-									<th>图片</th>
-									<th>图片上传</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody id="pictureList">
-								<tr>
-									<td><div class="am-form-group">
-									<img src="asset/img/a5.png" style="width:100px;height:50px" alt="">
-									</div></td>
-									<td><div class="am-form-group am-form-file">
-									 <button type="button" class="am-btn am-btn-danger am-btn-sm">
-										<i class="am-icon-cloud-upload"></i> 选择图片上传</button>
-                                            <input class="doc-form-file" type="file"  name="goodsIntroductionPic">
-                                            <div class="file-list"></div>
-                                        	</div></td>
-									<td>
-										<div class="am-btn-group am-btn-group-xs">
-											<button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+		  <form class="am-form tpl-form-line-form" id="changeDetailPic" action="updateDetailPic.action" method="post" enctype="multipart/form-data">
 									
-											<button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
-										</div>
-									</td>
-								</tr>
-								
-							</tbody>
-						</table>
-					</div>
-                                   
-                               </div>
-				
+			<div class="am-form-group">
+                <label for="user-weibo" class="am-u-sm-3 am-form-label">商品图片 </label>
+                <input type="hidden" class="goods_detail_id" name="goods_detail_id">
+				<div class="am-u-sm-9">
+                      <table class="am-table am-table-striped am-table-hover">
+						<thead>
+							<tr>
+								<th>图片</th>
+								<th>图片上传</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody id="detailPictureList">
+							<tr>
+								<td>
+								<img src="" style="width:100px;height:50px" alt="">
+								</td>
+								<td><div class="am-form-group am-form-file">
+								 <button type="button" class="am-btn am-btn-danger am-btn-sm">
+									<i class="am-icon-cloud-upload"></i> 选择图片上传</button>
+                                           <input class="doc-form-file" type="file"  name="detailPic">
+                                           
+                                           <div class="file-list"></div>
+                                       	</div></td>
+								<td>
+									<div class="am-btn-group am-btn-group-xs">
+										<input type="hidden" class="picture_set_id" value="0">
+										
+										<button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+										<input type="hidden" class="picture_set_status" value="0">
+										<button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+									</div>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+                                  
+               </div>
+									
 			</form>
 		</div>
 		<div class="am-modal-footer">

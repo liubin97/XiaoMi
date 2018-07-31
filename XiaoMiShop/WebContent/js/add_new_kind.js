@@ -4,7 +4,7 @@ var goodsOption = "<option value='0'>请选择商品</option>";
 var kindOption = "<option value='0'>请选择版本</option>";
 
 //标记是否为新版本
-var flag = false;
+var flag = true;
 //记录获取的商品数据
 var goodsData;
 $(document).ready(function(){
@@ -83,6 +83,7 @@ $(document).ready(function(){
 	});
 	//已有版本和新版本之间的转换
 	$(".changeKind").click(function(){
+		
 		if(flag){	
 			
 			$("#oldKind").hide();

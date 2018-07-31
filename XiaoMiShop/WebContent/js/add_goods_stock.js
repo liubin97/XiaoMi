@@ -97,7 +97,7 @@ $(document).ready(function(){
 		var kindName = $("#kind option:selected").val();
 		 $.ajax({
 			 type:"POST", //请求方式  
-	       url:"getAllColorBygoodsIdAndcolor.action",
+	       url:"getAllColorBygoodsIdAndKind.action",
 	       /*data : JSON.stringify(vale),*/
 	       data:"goods_id="+goodsId+"&kind="+kindName,//请求路径  
 	     /* contentType:'application/json;charset=UTF-8',*/

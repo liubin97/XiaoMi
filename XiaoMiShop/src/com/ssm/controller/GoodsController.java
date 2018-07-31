@@ -4,6 +4,7 @@ package com.ssm.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,14 +58,14 @@ public class GoodsController {
 			
 			//记录picture
 			List<GoodsPreviewPicture> previewPictureList = new ArrayList<GoodsPreviewPicture>();
-			goods.setPreviewPictureList(previewPictureList);
+			goods.setGoodsPreviewPictureList(previewPictureList);
 			for(MultipartFile picFile : goodsPic){
 				//获取储存文件名
 				name = FileUtil.updateFile(picFile,PATH+picPath);
 				//记录url
 				GoodsPreviewPicture picture = new GoodsPreviewPicture();
 				picture.setGoods_url(picPath+name);				
-				goods.getPreviewPictureList().add(picture);
+				goods.getGoodsPreviewPictureList().add(picture);
 			}
 			goodsService.insertGoods(goods);
 			
@@ -75,9 +76,10 @@ public class GoodsController {
 		return "add_new_goods";
 	}
 	@RequestMapping("insertDetail")
-	public String insertDetail(GoodsDetail goodsDetail,String goodsName,@RequestParam MultipartFile[] goodsPic) throws IOException{
+	public String insertDetail(GoodsDetail goodsDetail,Integer goods_id,@RequestParam MultipartFile[] goodsPic) throws IOException{
+		Goods newGoods = goodsService.getGoodsByGoodsId(goods_id);
 		//文件相对路径
-		String picPath = "goods/"+goodsName+"/picture/";
+		String picPath = "goods/"+newGoods.getGoods_code()+"/picture/";
 		try {
 			//记录储存文件名
 			String name = "";
@@ -105,9 +107,9 @@ public class GoodsController {
 		String[] kindList = goodsService.getAllKindByGoodsId(goodsId);
 		return kindList;
 	}
-	@RequestMapping("getAllColorBygoodsIdAndcolor")
-	public @ResponseBody List<GoodsDetail> getAllColor(GoodsDetail goodsDetail){
-		List<GoodsDetail> datailList = goodsService.getAllColorBygoodsIdAndcolor(goodsDetail);
+	@RequestMapping("getAllColorBygoodsIdAndKind")
+	public @ResponseBody List<GoodsDetail> getAllColorBygoodsIdAndKind(GoodsDetail goodsDetail){
+		List<GoodsDetail> datailList = goodsService.getAllColorBygoodsIdAndKind(goodsDetail);
 		return datailList;		
 	}
 	@RequestMapping("getGoodsByGoodsId")
@@ -120,6 +122,29 @@ public class GoodsController {
 		List<GoodsPreviewPicture> picList = goodsService.getGoodsPicByGoodsId(goodsId);
 		return picList;
 	}
+	@RequestMapping("getAllStockByGoodsId")
+	public @ResponseBody Map<String,Object> getAllStockByGoodsId(Integer goodsId,Integer pageNum){
+
+		return goodsService.getAllStockByGoodsId(goodsId,pageNum);
+		
+	}
+	@RequestMapping("getAllDetailByGoodsId")
+	public @ResponseBody Map<String,Object> getAllDetailByGoodsId(Integer goodsId,Integer pageNum){
+		
+		return goodsService.getAllDetailByGoodsId(goodsId,pageNum);
+		
+	}
+	@RequestMapping("getAttributesByGoodsId")
+	public @ResponseBody List<GoodsAttribute> getAttributesByGoodsId(Integer goodsId){
+		List<GoodsAttribute> attributeList = goodsService.getAttributesByGoodsId(goodsId);
+		return attributeList;
+	}
+	@RequestMapping("getDetailPicByDetailId")
+	public @ResponseBody List<GoodsPicture> getDetailPicByDetailId(Integer detailId){
+		List<GoodsPicture> detailPicList = goodsService.getDetailPicByDetailId(detailId);
+		return detailPicList;
+	}
+	
 	@RequestMapping("updateStockAdd")
 	public String updateStockAdd(GoodsDetail goodsDetail){
 		goodsService.updateStockAdd(goodsDetail);
@@ -181,10 +206,10 @@ public class GoodsController {
 			//获取储存文件名
 			name = FileUtil.updateFile(picFile,PATH+picPath);
 			//记录url
-			for(int j=i;j<goods.getPreviewPictureList().size();j++){
+			for(int j=i;j<goods.getGoodsPreviewPictureList().size();j++){
 				i++;
-				if(goods.getPreviewPictureList().get(j).getGoods_pre_pic_status()==1){
-					goods.getPreviewPictureList().get(j).setGoods_url(picPath+name);	
+				if(goods.getGoodsPreviewPictureList().get(j).getGoods_pre_pic_status()==1){
+					goods.getGoodsPreviewPictureList().get(j).setGoods_url(picPath+name);	
 					
 					break;
 				}
@@ -194,21 +219,48 @@ public class GoodsController {
 		}
 		goodsService.updateGoodsPic(goods);
 	}
-	@RequestMapping("getAllStockByGoodsId")
-	public @ResponseBody List<GoodsDetail> getAllStockByGoodsId(Integer goodsId){
-		List<GoodsDetail> detailList = goodsService.getAllStockByGoodsId(goodsId);
-		return detailList;
-		
+	@RequestMapping("updateAttribute")
+	public void updateAttribute(Goods goods){
+		for(GoodsAttribute goodsAttribute : goods.getGoodsAttributeList()){
+			goodsAttribute.setGoods_id(goods.getGoods_id());
+		}
+		goodsService.updateAttribute(goods.getGoodsAttributeList());
 	}
-	@RequestMapping("getAllDetailByGoodsId")
-	public @ResponseBody List<GoodsDetail> getAllDetailByGoodsId(Integer goodsId){
-		List<GoodsDetail> detailList = goodsService.getAllDetailByGoodsId(goodsId);
-		return detailList;
-		
+	@RequestMapping("updateDetail")
+	public @ResponseBody String updateDetail(@RequestBody GoodsDetail goodsDetail){
+		goodsService.updateDetail(goodsDetail);
+		return "true";
+	}	
+	@RequestMapping("updateDetailPic")
+	public @ResponseBody String updateDetailPic(GoodsDetail goodsDetail,@RequestParam MultipartFile[] detailPic){
+		GoodsDetail newGoodsDetail = goodsService.getDetailByDetailId(goodsDetail.getGoods_detail_id());
+		Goods newGoods = goodsService.getGoodsByGoodsId(newGoodsDetail.getGoods_id());
+		//文件相对路径
+		String picPath = "goods/"+newGoods.getGoods_code()+"/picture/";
+		String name="";
+		int i = 0;
+		for(MultipartFile picFile : detailPic){
+			//获取储存文件名
+			name = FileUtil.updateFile(picFile,PATH+picPath);
+			//记录url
+			for(int j=i;j<goodsDetail.getGoodsPictureList().size();j++){
+				i++;
+				if(goodsDetail.getGoodsPictureList().get(j).getPicture_set_status()==1){
+					goodsDetail.getGoodsPictureList().get(j).setPicture_set_url(picPath+name);	
+					
+					break;
+				}
+				
+			}
+			
+		}
+		goodsService.updateDetailPic(goodsDetail);
+		return "true";
+	} 
+	
+	@RequestMapping("deleteDetail")
+	public void deleteDetail(Integer goods_detail_id){
+		goodsService.deleteDetail(goods_detail_id);
 	}
-	@RequestMapping("getAttributesByGoodsId")
-	public @ResponseBody List<GoodsAttribute> getAttributesByGoodsId(Integer goodsId){
-		List<GoodsAttribute> attributeList = goodsService.getAttributesByGoodsId(goodsId);
-		return attributeList;
-	}
+
 }
