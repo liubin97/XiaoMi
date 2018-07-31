@@ -5,6 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -17,15 +18,30 @@ public class LoginInterceptor implements HandlerInterceptor {
              * 要携带参数：redirectURL。（上一个页面的url，也就是发出当前Request请求的url，
              * 用于登录完成后返回之前的页面继续操作。）
              */
-        	String requesturl=httpServletRequest.getRequestURI();
-        	String desturl=requesturl.substring(11);
+            String requesturl=httpServletRequest.getRequestURI();
+            String desturl=requesturl.substring(11);
             String redirectUrl = "login.jsp" + "?redirectURL=" + desturl;
             System.out.println(redirectUrl);
-           
+
             //获取url参数
             redirectUrl += "?" + httpServletRequest.getQueryString();
-            httpServletResponse.sendRedirect(redirectUrl);
-            return false;// 拦截用户，不可执行该Handler
+
+            //判断是否为ajax请求
+            if (httpServletRequest.getHeader("x-requested-with") != null && httpServletRequest.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")){
+                /*httpServletResponse.setHeader("SESSIONSTATUS", "TIMEOUT");
+                httpServletResponse.setHeader("CONTEXTPATH", redirectUrl);*/
+                httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                PrintWriter out = httpServletResponse.getWriter();
+                out.print("loseSession");//session失效
+                out.flush();
+                return false;
+            }else{//正常请求
+
+                httpServletResponse.sendRedirect(redirectUrl);
+                return false;// 拦截用户，不可执行该Handler
+            }
+
+
         }
         // 用户已经登录，放行。
         return true;

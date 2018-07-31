@@ -53,8 +53,7 @@ public class PurchaseController {
     //加入我喜欢
     @RequestMapping("addFavorites")
     public @ResponseBody void addFavorites(int goods_id, HttpSession session){
-        //String user_email = (String) session.getAttribute("user_email");
-        String user_email = "1";
+        String user_email = (String) session.getAttribute("user_email");
         Favorites favorites = new Favorites();
         favorites.setGoods_id(goods_id);
         favorites.setUser_email(user_email);

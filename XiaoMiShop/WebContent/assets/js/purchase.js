@@ -1,4 +1,4 @@
-//ajax判断库存,并跳转
+//ajax判断库存,并跳转到指定链接
 function checkStock(id,url){
     $.ajax({
         url: "getStock.action",
@@ -11,7 +11,7 @@ function checkStock(id,url){
             if(data>0){
                 window.location.href = url ;
             }else {
-                alert("库存不足")
+                alert("库存不足");
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -30,12 +30,17 @@ $(document).ready(function(){
         datatype: "json",
         type: "POST",
         success: function (data) {
+
             if(data>0){
-
-            }else{
-
+                var favoritesSpan = $("#favorites").children("span");
+                if(favoritesSpan.removeClass("fa-heart-o")){
+                    favoritesSpan.removeClass("fa-heart-o");
+                    favoritesSpan.addClass("fa-heart");
+                }
+                else{
+                    favoritesSpan.addClass("fa-heart");
+                }
             }
-
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("ajax error!");
@@ -67,9 +72,8 @@ $(document).ready(function(){
         //checkStock(id,"addToCart.action?goods_detail_id="+id);
     });
 
-    //加入我喜欢
+    //将商品加入我喜欢
     $("#favorites").click(function () {
-        console.log(goods_id);
         $.ajax({
             url: "addFavorites.action",
             data: "goods_id="+goods_id,
@@ -77,12 +81,26 @@ $(document).ready(function(){
             datatype: "json",
             type: "POST",
             success: function (data) {
-
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("ajax error!");
+            error: function (data) {
+                if(data.responseText == "loseSession"){
+                    //在这个地方进行跳转
+                    var url = window.location.pathname;
+                    url = url.substring(11)+window.location.search;
+                    window.location.href="login.jsp?redirectURL="+url;
+                }
+
             }
         });
+        //更改我喜欢图标
+        if ($(this).children("span").hasClass("fa-heart-o")) {
+            $(this).children("span").removeClass("fa-heart-o");
+            $(this).children("span").addClass("fa-heart");
+        }
+        else if ($(this).children("span").hasClass("fa-heart")) {
+            $(this).children("span").removeClass("fa-heart");
+            $(this).children("span").addClass("fa-heart-o");
+        }
     });
 
 

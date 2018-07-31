@@ -15,6 +15,8 @@ public interface PurchaseDAO {
     public int getFavorites(Favorites favorites);
     //插入收藏商品信息
     public void insertFavorites(Favorites favorites);
+    //删除收藏商品
+    public void deleteFavorites(Favorites favorites);
     //获取商品库存
     public int getStock(int goods_detail_id);
     //插入购物车

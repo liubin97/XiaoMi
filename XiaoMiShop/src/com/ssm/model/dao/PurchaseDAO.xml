@@ -63,11 +63,21 @@
         </collection>
     </resultMap>
     <!-- 查询商品是否加入我喜欢 -->
+    <select id="getFavorites" resultType="int">
+        select count(*) count from favorites where user_email=#{user_email} and goods_id =#{goods_id} and favorites_status=0
+    </select>
 
     <!-- 添加我喜欢 -->
-    <insert id="insertFavorites" parameterType="int">
+    <insert id="insertFavorites" parameterType="Favorites">
         insert into favorites (user_email, goods_id) values(#{user_email},#{goods_id})
     </insert>
+
+    <!-- 删除我喜欢的商品 -->
+    <update id="deleteFavorites" parameterType="Favorites">
+        update favorites
+        set favorites_status = 1
+        where user_email = #{user_email} and goods_id = #{goods_id} and favorites_status = 0;
+    </update>
 
     <!-- 获取商品库存 -->
     <select id="getStock" parameterType="int" resultType="int">

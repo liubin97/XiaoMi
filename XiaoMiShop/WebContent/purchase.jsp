@@ -174,7 +174,7 @@
                                                                             <c:if test="${flag!=1}">
                                                                                 <li class="col-md-6">
                                                                                     <a id="${goodsDetail.goods_detail_id}" >
-                                                                                            ${goodsDetail.kind}&nbsp;
+                                                                                            ${goodsDetail.kind}&nbsp;${goodsDetail.color}
                                                                                                 <span class="price" style="float: right">
                                                                                                     <fmt:formatNumber value="${goodsDetail.discount_price}" type="currency" pattern="￥.00"/>
                                                                                                 </span>
@@ -185,7 +185,7 @@
                                                                             <c:if test="${flag==1}">
                                                                                 <li class="col-md-6">
                                                                                     <a class="active" id="${goodsDetail.goods_detail_id}">
-                                                                                            ${goodsDetail.kind}&nbsp;
+                                                                                            ${goodsDetail.kind}&nbsp;${goodsDetail.color}
                                                                                                 <span class="price" style="float: right">
                                                                                                     <fmt:formatNumber value="${goodsDetail.discount_price}" type="currency" pattern="￥.00"/>
                                                                                                 </span>

@@ -26,8 +26,13 @@ public class PurchaseService {
         return purchaseDAO.getFavorites(favorites);
     }
     //添加我喜欢的商品
-    public void insertFavorites(Favorites f){
-        purchaseDAO.insertFavorites(f);
+    public void insertFavorites(Favorites favorites){
+        if(purchaseDAO.getFavorites(favorites)==0){
+            purchaseDAO.insertFavorites(favorites);
+        }else{
+            purchaseDAO.deleteFavorites(favorites);
+        }
+
     }
     //查询库存信息
     public int getStock(int goods_detail_id){
