@@ -13,10 +13,6 @@ public class Goods {
 	private List<GoodsAttribute> goodsAttributeList;
 	private List<GoodsDetail> goodsDetailList;
 	private List<GoodsPreviewPicture> goodsPreviewPictureList;
-<<<<<<< HEAD
-
-=======
->>>>>>> SunSenSen
 	public int getGoods_id() {
 		return goods_id;
 	}
@@ -41,40 +37,24 @@ public class Goods {
 	public void setGoods_name(String goods_name) {
 		this.goods_name = goods_name;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> SunSenSen
 	public String getGoods_pic_url() {
 		return goods_pic_url;
 	}
-
 	public void setGoods_pic_url(String goods_pic_url) {
 		this.goods_pic_url = goods_pic_url;
 	}
-<<<<<<< HEAD
-
 	public String getGoods_desc_pic_url() {
 		return goods_desc_pic_url;
 	}
-
 	public void setGoods_desc_pic_url(String goods_desc_pic_url) {
 		this.goods_desc_pic_url = goods_desc_pic_url;
 	}
-
-=======
->>>>>>> SunSenSen
 	public String getVideo_set_url() {
 		return video_set_url;
 	}
 	public void setVideo_set_url(String video_set_url) {
 		this.video_set_url = video_set_url;
 	}
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> SunSenSen
 	public List<GoodsAttribute> getGoodsAttributeList() {
 		return goodsAttributeList;
 	}
@@ -94,16 +74,5 @@ public class Goods {
 			List<GoodsPreviewPicture> goodsPreviewPictureList) {
 		this.goodsPreviewPictureList = goodsPreviewPictureList;
 	}
-<<<<<<< HEAD
-=======
-	public String getGoods_desc_pic_url() {
-		return goods_desc_pic_url;
-	}
-	public void setGoods_desc_pic_url(String goods_desc_pic_url) {
-		this.goods_desc_pic_url = goods_desc_pic_url;
-	}
 	
-	
-	
->>>>>>> SunSenSen
 }
