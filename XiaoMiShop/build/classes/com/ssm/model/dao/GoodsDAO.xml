@@ -81,8 +81,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       set goods_url=#{goods_url}
       where goods_preview_pic_id=#{goods_preview_pic_id}
   </update>
-<<<<<<< HEAD
-=======
   <!-- 更改参数 -->
   <update id="updateAttribute" parameterType="GoodsAttribute">
       update goods_attribute
@@ -102,7 +100,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       where picture_set_id=#{picture_set_id}
   </update>
   
->>>>>>> SunSenSen
   <!-- 通过商品代码获取商品id -->
   <select id="getGoodIdByCode" parameterType="int" resultType="int">
       select goods_id from goods
@@ -160,8 +157,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       set goods_pre_pic_status=1
       where goods_preview_pic_id=#{goods_preview_pic_id}
   </update>
-<<<<<<< HEAD
-=======
   <!-- 更改属性状态为1标记为删除 -->
   <update id="deleteAttribute" parameterType="int">
       update goods_attribute
@@ -180,7 +175,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       set picture_set_status=1
       where picture_set_id=#{picture_set_id}
   </update>
->>>>>>> SunSenSen
 </mapper>
 
 
