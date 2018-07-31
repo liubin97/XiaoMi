@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="ch-ZN">
 <head>
@@ -68,7 +69,7 @@
     <!-- Template Stylesheet -->
     <link href="assets/css/base.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
-
+    <link href="assets/css/purchase.css" rel="stylesheet">
 </head>
 <body class="wide-layout">
 
@@ -116,46 +117,25 @@
                                                         <div class="deal-slider">
                                                             <div id="product_slider" class="flexslider">
                                                                 <ul class="slides">
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/product_01.jpg">
-                                                                    </li>
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/product_02.jpg">
-                                                                    </li>
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/product_03.jpg">
-                                                                    </li>
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/product_04.jpg">
-                                                                    </li>
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/product_05.jpg">
-                                                                    </li>
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/product_06.jpg">
-                                                                    </li>
+                                                                    <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
+                                                                        <c:forEach items="${goodsDetail.goodsPictureList}" var="p">
+                                                                            <li>
+                                                                                <img alt="" src="${p.picture_set_url}">
+                                                                            </li>
+                                                                        </c:forEach>
+                                                                    </c:forEach>
+
                                                                 </ul>
                                                             </div>
                                                             <div id="product_slider_nav" class="flexslider flexslider-nav">
                                                                 <ul class="slides">
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/thumb_01.jpg">
-                                                                    </li>
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/thumb_02.jpg">
-                                                                    </li>
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/thumb_03.jpg">
-                                                                    </li>
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/thumb_04.jpg">
-                                                                    </li>
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/thumb_05.jpg">
-                                                                    </li>
-                                                                    <li>
-                                                                        <img alt="" src="assets/images/products/thumb_06.jpg">
-                                                                    </li>
+                                                                    <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
+                                                                        <c:forEach items="${goodsDetail.goodsPictureList}" var="p">
+                                                                            <li>
+                                                                                <img alt="" src="${p.picture_set_url}">
+                                                                            </li>
+                                                                        </c:forEach>
+                                                                    </c:forEach>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -170,53 +150,74 @@
                                                 <div class="row row-tb-10">
                                                     <div class="col-xs-12">
                                                         <div class="widget single-deal-widget panel ptb-30 prl-20">
-                                                            <div class="widget-body text-center">
-                                                                <h2 class="mb-20 h3">
-                                                                    ${goods.gooods_name}
+                                                            <div class="widget-body">
+                                                                <h2 class="mb-20 h2">
+                                                                    ${goods.goods_name}<span id="goods-id" style="display: none">${goods.goods_id}</span>
                                                                 </h2>
                                                                 <ul class="deal-meta list-inline mb-10 color-mid">
-                                                                    <li><i class="ico fa fa-globe mr-10"></i><a href="store_single_02.html" class="color-mid">Ebay</a>
-                                                                    </li>
-                                                                    <li><i class="ico fa fa-map-marker mr-10"></i>California</li>
-                                                                    <li><i class="ico fa fa-shopping-basket mr-10"></i>75 Bought</li>
+                                                                    <li><i class="ico fa fa-shopping-basket mr-10"></i>剩余<span id="stock">${goods.goodsDetailList[0].stock}</span>件</li>
                                                                 </ul>
                                                                 <p class="color-muted">
-                                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit harum quidem eaque amet pariatur aspernatur mollitia ratione maxime.
+                                                                    小米
                                                                 </p>
                                                                 <div class="price mb-20">
-                                                                    <h2 class="price"><span class="price-sale">$200.00</span> $60.00</h2>
+                                                                    <h2 class="price" id="price">
+                                                                        <fmt:formatNumber value="${goods.goodsDetailList[0].discount_price}" type="currency" pattern="￥.00"/>
+                                                                    </h2>
                                                                 </div>
+
+                                                                <h3 class="mb-10 h5">选择版本</h3>
+                                                                <div class="filter-center col-md-12 mb-40">
+                                                                    <ul >
+                                                                        <c:set var="flag" value="1"/>
+                                                                        <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
+                                                                            <c:if test="${flag!=1}">
+                                                                                <li class="col-md-6">
+                                                                                    <a id="${goodsDetail.goods_detail_id}" >
+                                                                                            ${goodsDetail.kind}&nbsp;
+                                                                                                <span class="price" style="float: right">
+                                                                                                    <fmt:formatNumber value="${goodsDetail.discount_price}" type="currency" pattern="￥.00"/>
+                                                                                                </span>
+                                                                                                <span class="stock" style="display: none">${goodsDetail.stock}</span>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </c:if>
+                                                                            <c:if test="${flag==1}">
+                                                                                <li class="col-md-6">
+                                                                                    <a class="active" id="${goodsDetail.goods_detail_id}">
+                                                                                            ${goodsDetail.kind}&nbsp;
+                                                                                                <span class="price" style="float: right">
+                                                                                                    <fmt:formatNumber value="${goodsDetail.discount_price}" type="currency" pattern="￥.00"/>
+                                                                                                </span>
+                                                                                                <span class="stock" style="display: none">${goodsDetail.stock}</span>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <c:set var="flag" value="2"/>
+                                                                            </c:if>
+                                                                        </c:forEach>
+
+                                                                    </ul>
+                                                                </div>
+
                                                                 <div class="buy-now mb-40">
-                                                                    <a href="#" target="_blank" class="btn btn-block btn-lg">
-                                                                        <i class="fa fa-shopping-cart font-16 mr-10"></i> Buy now
-                                                                    </a>
+                                                                    <ul class="list-inline" style="margin-left: 30px">
+                                                                        <li>
+                                                                            <a id="purchase" href="javascript:void(0);" target="_blank" class="btn " style="color:#E5511D;background: #f2dede;border-color: #F0CAB6;">
+                                                                                立即购买
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a id="add-cart" href="javascript:void(0);" class="btn">
+                                                                                <i class="fa fa-shopping-cart font-16 mr-10"></i> 加入购物车
+                                                                            </a>
+                                                                        </li>
+                                                                        <li style="float: right; margin-right: 30px;">
+                                                                            <a id="favorites" href="javascript:void(0)" class="btn" style="color:red;background: #f5f5f5;border-color: #f5f5f5;">
+                                                                                <span class="fa fa-heart-o font-22"></span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
                                                                 </div>
-                                                                <div class="time-left mb-30">
-                                                                    <p class="t-uppercase color-muted">
-                                                                        Hurry up Only a few deals left
-                                                                    </p>
-                                                                    <div class="color-mid font-14 font-lg-16">
-                                                                        <i class="ico fa fa-clock-o mr-10"></i>
-                                                                        <span data-countdown="2020/10/10 12:25:10"></span>
-                                                                    </div>
-                                                                </div>
-                                                                <ul class="list-inline social-icons social-icons--colored t-center">
-                                                                    <li class="social-icons__item">
-                                                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                                                    </li>
-                                                                    <li class="social-icons__item">
-                                                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                                                    </li>
-                                                                    <li class="social-icons__item">
-                                                                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                                                                    </li>
-                                                                    <li class="social-icons__item">
-                                                                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                                    </li>
-                                                                    <li class="social-icons__item">
-                                                                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                                                                    </li>
-                                                                </ul>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -431,6 +432,6 @@
 <!-- Custom Template JavaScript                   -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
-
+<script type="text/javascript" src="assets/js/purchase.js"></script>
 </body>
 </html>
