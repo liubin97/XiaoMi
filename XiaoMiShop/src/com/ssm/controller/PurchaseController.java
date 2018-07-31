@@ -1,4 +1,11 @@
 package com.ssm.controller;
+/*
+* 购买页面的商品信息显示
+* 购买商品
+* 加入购物车
+* 显示评论
+* 加入我喜欢的商品
+* */
 
 import com.ssm.model.bean.*;
 import com.ssm.model.service.PurchaseService;
@@ -29,10 +36,25 @@ public class PurchaseController {
         return mav;
     }
 
+    //判断商品是否已经加入我喜欢
+    @RequestMapping("checkFavorites")
+    public @ResponseBody int checkFavorites(int goods_id,HttpSession session){
+        String user_email = (String) session.getAttribute("user_email");
+        if(user_email != null && !"".equals(user_email)){
+            Favorites favorites = new Favorites();
+            favorites.setUser_email(user_email);
+            favorites.setGoods_id(goods_id);
+            return purchaseService.getFavorites(favorites);
+        }else {
+            return 0;
+        }
+    }
+
     //加入我喜欢
     @RequestMapping("addFavorites")
     public @ResponseBody void addFavorites(int goods_id, HttpSession session){
-        String user_email = (String) session.getAttribute("user_email");
+        //String user_email = (String) session.getAttribute("user_email");
+        String user_email = "1";
         Favorites favorites = new Favorites();
         favorites.setGoods_id(goods_id);
         favorites.setUser_email(user_email);
@@ -44,4 +66,12 @@ public class PurchaseController {
     public @ResponseBody int getStock(int goods_detail_id){
         return purchaseService.getStock(goods_detail_id);
     }
+
+    //加入商品到购物车
+    @RequestMapping("addToCart")
+    public void addToCart(int goods_detail_id){
+
+    }
+
+
 }

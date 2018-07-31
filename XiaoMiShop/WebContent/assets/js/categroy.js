@@ -44,17 +44,6 @@ $(document).ready(function(){
         }
     });
 
-    /*$.ajax({
-        url: "getAllCategory.action",
-        async: false,
-        type: "POST",
-        success: function (data) {//这里的data是由请求页面返回的数据
-            /!*for (var i = 0; i < data.length; i++) {
-                var trHTML = "<tr><td>"+data[i].username+"</td><td>"+ data[i].age +"</td><td>" +data[i].email+"</td>";
-                $("#result").append(trHTML);
-            }*!/
-        },
-    });*/
     //上下图标切换
     $(".category-list").click(function(){
         if ($(this).children("span").hasClass("fa-chevron-up")) {

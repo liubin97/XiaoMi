@@ -152,7 +152,7 @@
                                                         <div class="widget single-deal-widget panel ptb-30 prl-20">
                                                             <div class="widget-body">
                                                                 <h2 class="mb-20 h2">
-                                                                    ${goods.goods_name}
+                                                                    ${goods.goods_name}<span id="goods-id" style="display: none">${goods.goods_id}</span>
                                                                 </h2>
                                                                 <ul class="deal-meta list-inline mb-10 color-mid">
                                                                     <li><i class="ico fa fa-shopping-basket mr-10"></i>剩余<span id="stock">${goods.goodsDetailList[0].stock}</span>件</li>
@@ -207,19 +207,16 @@
                                                                             </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a href="#" target="_blank" class="btn">
+                                                                            <a id="add-cart" href="javascript:void(0);" class="btn">
                                                                                 <i class="fa fa-shopping-cart font-16 mr-10"></i> 加入购物车
                                                                             </a>
                                                                         </li>
                                                                         <li style="float: right; margin-right: 30px;">
-                                                                            <a href="#" class="btn" style="color:red;background: #f5f5f5;border-color: #f5f5f5;">
-                                                                                <span class="fa fa-heart-o font-22" ></span>
+                                                                            <a id="favorites" href="javascript:void(0)" class="btn" style="color:red;background: #f5f5f5;border-color: #f5f5f5;">
+                                                                                <span class="fa fa-heart-o font-22"></span>
                                                                             </a>
                                                                         </li>
                                                                     </ul>
-
-
-
                                                                 </div>
                                                             </div>
                                                         </div>
