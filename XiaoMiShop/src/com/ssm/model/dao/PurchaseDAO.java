@@ -10,4 +10,5 @@ public interface PurchaseDAO {
     public Goods getGoodsInfo(int goods_id);
     public List<GoodsComment> getGoodsComment(int goods_id);
     public void insertFavorites(Favorites favorites);
+    public int getStock(int goods_detail_id);
 }
