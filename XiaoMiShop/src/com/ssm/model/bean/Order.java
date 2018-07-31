@@ -13,10 +13,9 @@ public class Order {
 	private int goods_num;
 	private int group_id;
 	private int order_status;
-	
-	private Address address;
+ 	private Address address;
 	private List<OrderItem> order_items;
-	
+
 	public Address getAddress() {
 		return address;
 	}

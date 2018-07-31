@@ -62,6 +62,8 @@
             <result column="picture_url" property="picture_url"/>
         </collection>
     </resultMap>
+    <!-- 查询商品是否加入我喜欢 -->
+
     <!-- 添加我喜欢 -->
     <insert id="insertFavorites" parameterType="int">
         insert into favorites (user_email, goods_id) values(#{user_email},#{goods_id})

@@ -21,20 +21,21 @@ function checkStock(id,url){
 }
 
 $(document).ready(function(){
+    var goods_id = $("#goods-id").text();
     //判断商品是否被加入我的喜欢
     $.ajax({
-        url: "addFavorites.action",
-        data: "goods_id="+id,
+        url: "checkFavorites.action",
+        data: "goods_id="+goods_id,
         async: false,
         datatype: "json",
         type: "POST",
         success: function (data) {
-            console.log(data);
             if(data>0){
-                window.location.href = url ;
-            }else {
-                alert("库存不足")
+
+            }else{
+
             }
+
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("ajax error!");
@@ -68,21 +69,15 @@ $(document).ready(function(){
 
     //加入我喜欢
     $("#favorites").click(function () {
-        var goods_id = $("#goods-id").text();
         console.log(goods_id);
         $.ajax({
             url: "addFavorites.action",
-            data: "goods_id="+id,
+            data: "goods_id="+goods_id,
             async: false,
             datatype: "json",
             type: "POST",
             success: function (data) {
-                console.log(data);
-                if(data>0){
-                    window.location.href = url ;
-                }else {
-                    alert("库存不足")
-                }
+
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("ajax error!");
