@@ -18,6 +18,7 @@ $(document).ready(function(){
                     "                        </h3>\n" +
                     "                     </header>\n" +
                     "                    <div id=\"" +data[i].goods_category_id + "\" class=\"row row-rl-15 row-tb-15 t-center collapse in\">\n" ;
+
                 for(var j = 0; j < data[i].goodsList.length; j++){
                     // console.log(data[i].goodsList[j].goods_pic_url);
                     categoryHtml += "            <div class=\"col-xs-6 col-sm-4 col-md-3 col-lg-2\">\n" +
@@ -35,6 +36,7 @@ $(document).ready(function(){
                 categoryHtml += "        </div>\n" +
                     "                </section>\n" +
                     "            </div>";
+
                 $("#allCategory").append(categoryHtml);
             }
 

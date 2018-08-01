@@ -7,6 +7,7 @@ package com.ssm.controller;
 * 加入我喜欢的商品
 * */
 
+
 import com.ssm.model.bean.*;
 import com.ssm.model.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,12 @@ public class PurchaseController {
     public ModelAndView disPlayGoods(int goods_id){
         ModelAndView mav = new ModelAndView();
         Goods goods = purchaseService.getGoodsInfo(goods_id);
-        List<GoodsComment> goodsCommentList = purchaseService.getGoodsComment(goods_id);
+
         mav.addObject("goods",goods);
-        mav.addObject("commentList",goodsCommentList);
         mav.setViewName("purchase");
         return mav;
     }
+
 
     //判断商品是否已经加入我喜欢
     @RequestMapping("checkFavorites")
@@ -53,8 +54,7 @@ public class PurchaseController {
     //加入我喜欢
     @RequestMapping("addFavorites")
     public @ResponseBody void addFavorites(int goods_id, HttpSession session){
-        //String user_email = (String) session.getAttribute("user_email");
-        String user_email = "1";
+        String user_email = (String) session.getAttribute("user_email");
         Favorites favorites = new Favorites();
         favorites.setGoods_id(goods_id);
         favorites.setUser_email(user_email);
@@ -67,11 +67,6 @@ public class PurchaseController {
         return purchaseService.getStock(goods_detail_id);
     }
 
-    //加入商品到购物车
-    @RequestMapping("addToCart")
-    public void addToCart(int goods_detail_id){
-
-    }
 
 
 }

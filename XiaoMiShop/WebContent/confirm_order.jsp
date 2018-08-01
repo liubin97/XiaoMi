@@ -66,6 +66,8 @@
     <link href="assets/vendors/flexslider/flexslider.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
+    <link href="assets/css/mi.base.css" rel="stylesheet">
+    <link href="assets/css/mi.checkout.css" rel="stylesheet">
     <link href="assets/css/base.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/purchase.css" rel="stylesheet">
@@ -74,6 +76,142 @@
 
 <div id="pageWrapper" class="page-wrapper">
     <c:import url="header.jsp"/>
+    <div class="cart-area ptb-60">
+        <div class="container">
+            <div class="cart-wrapper">
+                <h3 class="h-title mb-30 t-uppercase">确认订单</h3>
+
+                <div class="panel ptb-30">
+                    <div class="section section-address">
+                        <div class="section-header clearfix">
+                            <h3 class="title">收货地址</h3>
+
+                            <div class="more">
+                            </div>
+                            <div class="mitv-tips hide" style="margin-left: 0;border: none;" id="J_bigproPostTip"></div>
+                        </div>
+                        <div class="section-body clearfix" id="J_addressList">
+                            <!-- addresslist begin -->
+                            <div class="address-item J_addressItem  selected" data-address_id="10160117115815113" data-consignee="刘斌" data-tel="158****7259" data-province_id="7" data-province_name="辽宁" data-city_id="72" data-city_name="沈阳市" data-district_id="832" data-district_name="浑南区" data-area="832002" data-area_name="白塔街道" data-address="东北大学浑南校区" data-tag_name="" data-zipcode="110015" data-editable="Y" data-neededit="N">
+                                <dl>
+                                    <dt>
+                                        <span class="tag"></span>
+                                        <em class="uname">刘斌</em>
+                                    </dt>
+                                    <dd class="utel">
+                                        158****7259                            </dd>
+                                    <dd class="uaddress">
+                                        辽宁 沈阳市 浑南区 白塔街道<br>
+                                        东北大学浑南校区                            </dd>
+                                </dl>
+                                <div class="actions">
+                                    <a href="javascript:void(0);" class="modify J_addressModify" data-stat-id="8a158e0ee8f2f343" onclick="_msq.push(['trackEvent', '17a1f380b9d4cd2e-8a158e0ee8f2f343', 'javascript:void0', 'pcpid', '']);">修改</a>
+                                </div>
+                            </div>
+                            <div class="address-item J_addressItem" data-address_id="10171124146402386" data-consignee="刘海东" data-tel="137****0231" data-province_id="17" data-province_name="河南" data-city_id="204" data-city_name="驻马店市" data-district_id="1962" data-district_name="西平县" data-area="1962002" data-area_name="柏亭街道" data-address="杨庄高中园丁小区" data-tag_name="" data-zipcode="463900" data-editable="Y" data-neededit="N">
+                                <dl>
+                                    <dt>
+                                        <span class="tag"></span>
+                                        <em class="uname">刘海东</em>
+                                    </dt>
+                                    <dd class="utel">
+                                        137****0231                            </dd>
+                                    <dd class="uaddress">
+                                        河南 驻马店市 西平县 柏亭街道<br>
+                                        杨庄高中园丁小区                            </dd>
+                                </dl>
+                                <div class="actions">
+                                    <a href="javascript:void(0);" class="modify J_addressModify" data-stat-id="56e48742c2477f6b" onclick="_msq.push(['trackEvent', '17a1f380b9d4cd2e-56e48742c2477f6b', 'javascript:void0', 'pcpid', '']);">修改</a>
+                                </div>
+                            </div>
+                            <div class="address-item J_addressItem" data-address_id="10160122117930418" data-consignee="刘斌" data-tel="158****7259" data-province_id="17" data-province_name="河南" data-city_id="204" data-city_name="驻马店市" data-district_id="1962" data-district_name="西平县" data-area="1962002" data-area_name="柏亭街道" data-address="杨庄高中园丁小区" data-tag_name="" data-zipcode="463900" data-editable="Y" data-neededit="N">
+                                <dl>
+                                    <dt>
+                                        <span class="tag"></span>
+                                        <em class="uname">刘斌</em>
+                                    </dt>
+                                    <dd class="utel">
+                                        158****7259                            </dd>
+                                    <dd class="uaddress">
+                                        河南 驻马店市 西平县 柏亭街道<br>
+                                        杨庄高中园丁小区                            </dd>
+                                </dl>
+                                <div class="actions">
+                                    <a href="javascript:void(0);" class="modify J_addressModify" data-stat-id="0ad49162d21ae5b9" onclick="_msq.push(['trackEvent', '17a1f380b9d4cd2e-0ad49162d21ae5b9', 'javascript:void0', 'pcpid', '']);">修改</a>
+                                </div>
+                            </div>
+                            <!-- addresslist end -->
+                            <div class="address-item address-item-new" id="J_newAddress">
+                                <i class="iconfont"></i>
+                                添加新地址
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <table id="cart_list" class="cart-list mb-30">
+                    <thead class="panel t-uppercase">
+                    <tr>
+                        <th>商品名称</th>
+                        <th>商品单价</th>
+                        <th>商品数量</th>
+                        <th>商品总价</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="panel alert">
+                        <td>
+                            <div class="media-left is-hidden-sm-down">
+                                <figure class="product-thumb">
+                                    <img src="assets/images/cart/product_01.jpg" alt="product">
+                                </figure>
+                            </div>
+                            <div class="media-body valign-middle">
+                                <h6 class="title mb-15 t-uppercase"><a href="#">Diamond engagement ring</a></h6>
+                                <div class="type font-12"><span class="t-uppercase">Type : </span>Women's Cloths</div>
+                            </div>
+                        </td>
+                        <td>$235</td>
+                        <td>
+                            <input class="quantity-label" type="number" value="02">
+                        </td>
+                        <td>
+                            <div class="sub-total">$470</div>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="cart-price">
+                    <h5 class="t-uppercase mb-20">订单信息</h5>
+                    <ul class="panel mb-20">
+                        <li>
+                            <div class="item-name">
+                                商品总数
+                            </div>
+                            <div class="price">
+                                1
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-name">
+                                <strong class="t-uppercase">订单总价</strong>
+                            </div>
+                            <div class="price">
+                                <span>$150.50</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="t-right">
+                        <a href="orderConfirm.action" class="btn btn-rounded btn-lg">确认订单</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <c:import url="footer.jsp"/>
 </div>
@@ -117,6 +255,5 @@
 <!-- Custom Template JavaScript                   -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
-<script type="text/javascript" src="assets/js/purchase.js"></script>
 </body>
 </html>
