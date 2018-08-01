@@ -17,10 +17,7 @@ public class PurchaseService {
     public Goods getGoodsInfo(int goods_id){
         return purchaseDAO.getGoodsInfo(goods_id);
     }
-    //获取评论信息
-    public List<GoodsComment> getGoodsComment(int goods_id){
-        return purchaseDAO.getGoodsComment(goods_id);
-    }
+
     //查看商品是否在我喜欢的商品中
     public int getFavorites(Favorites favorites){
         return purchaseDAO.getFavorites(favorites);
@@ -38,9 +35,6 @@ public class PurchaseService {
     public int getStock(int goods_detail_id){
         return purchaseDAO.getStock(goods_detail_id);
     }
-    //加入购物车
-    public void insertIntoCart(int goods_detail_id){
 
-    }
 
 }

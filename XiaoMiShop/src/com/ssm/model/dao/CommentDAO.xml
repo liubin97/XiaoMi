@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.CommentDAO">
+    <!-- 获取商品信息 -->
+
+    <!-- 获取商品评论 -->
+    <select id="getGoodsComment" resultMap="commentMap">
+        select *,cr.user_email reply_user from goods_comment gc left join comment_reply cr on gc.goods_comment_id = cr.goods_comment_id
+            left join comment_picture cp on gc.goods_comment_id = cp.goods_comment_id
+        where gc.goods_comment_status=0
+    </select>
+    <resultMap id="commentMap" type="GoodsComment">
+        <result column="goods_comment_id" property="goods_comment_id"/>
+        <result column="user_email" property="user_email"/>
+        <result column="goods_id" property="goods_id"/>
+        <result column="comment" property="comment"/>
+        <result column="comment_date" property="comment_date"/>
+        <result column="comment_level" property="comment_level"/>
+        <result column="like_num" property="like_num"/>
+        <collection property="commentReplyList" ofType="CommentReply">
+            <result column="comment_reply_id" property="comment_reply_id"/>
+            <result column="reply_user" property="user_email"/>
+            <result column="reply" property="reply"/>
+            <result column="reply_date" property="reply_date"/>
+            <result column="reply_type" property="reply_type"/>
+        </collection>
+        <collection property="commentPictureList" ofType="CommentPicture">
+            <result column="comment_picture_id" property="comment_picture_id"/>
+            <result column="picture_url" property="picture_url"/>
+        </collection>
+    </resultMap>
+
+</mapper>

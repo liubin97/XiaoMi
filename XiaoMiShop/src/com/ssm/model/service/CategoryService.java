@@ -12,11 +12,11 @@ import java.util.List;
 public class CategoryService{
     @Autowired
     private CategoryDAO categoryDAO;
-
+    //展示所有分类
     public List<GoodsCategory> getAllCategory(){
         return categoryDAO.getAllCategory();
     }
-
+    //展示单个分类下的所商品
     public List<Goods> getCategoryGoods(int goods_category_id){
         return categoryDAO.getCategoryGoods(goods_category_id);
     }

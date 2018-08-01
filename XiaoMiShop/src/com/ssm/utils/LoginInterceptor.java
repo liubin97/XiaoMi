@@ -30,7 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             if (httpServletRequest.getHeader("x-requested-with") != null && httpServletRequest.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")){
                 /*httpServletResponse.setHeader("SESSIONSTATUS", "TIMEOUT");
                 httpServletResponse.setHeader("CONTEXTPATH", redirectUrl);*/
-                httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);//403禁止
                 PrintWriter out = httpServletResponse.getWriter();
                 out.print("loseSession");//session失效
                 out.flush();

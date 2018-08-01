@@ -9,7 +9,7 @@ function checkStock(id,url){
         success: function (data) {
             console.log(data);
             if(data>0){
-                window.location.href = url ;
+                window.open(url);
             }else {
                 alert("库存不足");
             }
@@ -47,10 +47,27 @@ $(document).ready(function(){
         }
     });
 
+    //ajax获取商品评价
+    $.ajax({
+        url: "getGoodsComment.action",
+        data: "goods_id="+goods_id,
+        async: false,
+        datatype: "json",
+        type: "POST",
+        success: function (data) {
+            console.log(data);
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("ajax error!");
+        }
+    });
+
     /*点击品类*/
     $(" .filter-center a").click(function(){
         $(this).parent("li").siblings().children("a").removeClass("active");
         $(this).addClass("active");
+
         //更改显示价格
         var price = $(this).children(".price").text();
         $("#price").text(price);
@@ -63,7 +80,24 @@ $(document).ready(function(){
     $("#purchase").click(function () {
         var goods_detail_id = $(" .filter-center a.active").attr("id");
         //获取库存，判断是否跳转
-        checkStock(goods_detail_id,"purchaseImmediately.action?goods_detail_id="+goods_detail_id);
+        $.ajax({
+            url: "getStock.action",
+            data: "goods_detail_id="+goods_detail_id,
+            async: false,
+            datatype: "json",
+            type: "POST",
+            success: function (data) {
+                console.log(data);
+                if(data>0){
+                    window.open("purchaseImmediately.action?goods_detail_id="+goods_detail_id);
+                }else {
+                    alert("库存不足");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("ajax error!");
+            }
+        });
     });
 
     //加入购物车
@@ -89,7 +123,6 @@ $(document).ready(function(){
                     url = url.substring(11)+window.location.search;
                     window.location.href="login.jsp?redirectURL="+url;
                 }
-
             }
         });
         //更改我喜欢图标
@@ -102,6 +135,7 @@ $(document).ready(function(){
             $(this).children("span").addClass("fa-heart-o");
         }
     });
+
 
 
 
