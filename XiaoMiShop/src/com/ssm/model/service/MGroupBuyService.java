@@ -21,7 +21,7 @@ public class MGroupBuyService {
 	private MGroupBuyDAO mGroupBuyDAO;
 	
 	public void addGroupBuy(GroupBuyInfo groupBuyInfo) {
-		mGroupBuyDAO.addGroupBuy(groupBuyInfo);
+		mGroupBuyDAO.insertGroupBuy(groupBuyInfo);
 		
 	}
 	public List<Goods> getAllGoods(){
@@ -57,8 +57,8 @@ public class MGroupBuyService {
 		return map;
 	}
 
-	public void editGroupBuyInfo(GroupBuyInfo groupBuyInfo) {
-		mGroupBuyDAO.editGroupBuyInfo(groupBuyInfo);
+	public void updateGroupBuyInfo(GroupBuyInfo groupBuyInfo) {
+		mGroupBuyDAO.updateGroupBuyInfo(groupBuyInfo);
 		Date date = new Date();
 		SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = format0.format(date);
@@ -71,7 +71,7 @@ public class MGroupBuyService {
 			m.setRead_flag(0);
 			m.setUser_email(u);
 			m.setSend_date(time);
-			mGroupBuyDAO.addEditMessage(m);
+			mGroupBuyDAO.insertEditMessage(m);
 		}
 
 	}
@@ -87,15 +87,16 @@ public class MGroupBuyService {
 		return goodsDetail;
 	}
 
-	public void deleteGroupBuying(int group_buy_info_id) {
+	public void deleteGroupBuyingTwo(int group_buy_info_id) {
 		int sum_goods = 0 ;
 		Map<String,Integer> map = new HashMap<>();
+		GroupBuyInfo groupBuyInfo = mGroupBuyDAO.selectGroupBuyInfoById(group_buy_info_id);
 		mGroupBuyDAO.deleteGroupBuying(group_buy_info_id);//删除团购
 		//查询未完成的团购列表
 		List<GroupBuyList> groupBuyList = mGroupBuyDAO.selectGroupListByGroupBuyId(group_buy_info_id);
-		for(GroupBuyList g : groupBuyList){
-			sum_goods = sum_goods+g.getCurrent_num();
-		}
+
+			sum_goods = groupBuyList.size()*groupBuyInfo.getGroup_num();
+
 		map.put("group_buy_info_id",group_buy_info_id);
 		map.put("sum_goods",sum_goods);
 		//返还库存
@@ -118,8 +119,34 @@ public class MGroupBuyService {
 			m.setRead_flag(0);
 			m.setUser_email(u);
 			m.setSend_date(time);
-			mGroupBuyDAO.addEditMessage(m);
+			mGroupBuyDAO.insertEditMessage(m);
 		}
 
+	}
+
+	public void deleteGroupBuyingOne(int group_buy_info_id) {
+		mGroupBuyDAO.deleteGroupBuying(group_buy_info_id);
+	}
+
+	public int validateGroupBuyPrice(float group_buy_price, int goods_detail_id) {
+		float prime_price = mGroupBuyDAO.selectGoodsDetailPriceById(goods_detail_id);
+		int result = 0;
+		if(prime_price>group_buy_price){
+			result=0;
+		}else {
+			result=1;
+		}
+		return result;
+	}
+
+	public int validateGroupNum(int group_num, int goods_detail_id) {
+		int stock = mGroupBuyDAO.selectGoodsDetailStockById(goods_detail_id);
+		int result = 0;
+		if(stock>=group_num){
+			result=0;
+		}else {
+			result=1;
+		}
+		return result;
 	}
 }

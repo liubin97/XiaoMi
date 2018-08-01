@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.model.dao.MGroupBuyDAO">
-	<insert id="addGroupBuy" parameterType="GroupBuyInfo">
+	<insert id="insertGroupBuy" parameterType="GroupBuyInfo">
 		insert into group_buy_info(goods_detail_id,group_num,group_buy_price,group_starttime,group_endtime,group_buy_info_status)
 		values(#{goods_detail_id},#{group_num},#{group_buy_price},#{group_starttime},#{group_endtime},#{group_buy_info_status})
 	</insert>
@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="selectGroupBuyInfo" parameterType="GroupBuyInfo" resultType="GroupBuyInfo">
 		select * from group_buy_info
-			where group_buy_info_status=0
+			where group_buy_info_status=1
 			<if test="group_starttime !=null and group_starttime !='' ">
 				and group_starttime >= #{group_starttime}
 			</if>
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 
 	</select>
-	<update id="editGroupBuyInfo" parameterType="GroupBuyInfo">
+	<update id="updateGroupBuyInfo" parameterType="GroupBuyInfo">
 		update group_buy_info set goods_detail_id=#{goods_detail_id},group_buy_info_status=#{group_buy_info_status},group_buy_price=#{group_buy_price},
 							group_starttime=#{group_starttime},group_endtime=#{group_endtime}
 							where group_buy_info_id=#{group_buy_info_id}
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from goods_detail
 			where goods_detail_id=#{goods_detail_id}
 	</select>
-	<insert id="addEditMessage" parameterType="Message">
+	<insert id="insertEditMessage" parameterType="Message">
 		insert into message(message_title,message_text,message_type,user_email,read_flag,send_date)
 			values(#{message_title},#{message_text},#{message_type},#{user_email},#{read_flag},#{send_date})
 	</insert>
@@ -52,25 +52,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			where h.group_id=o.group_id
  				and g.group_buy_info_id=h.group_buy_info_id
  				and h.group_buy_list_status=1
- 				and g.group_buy_info_status=0
+ 				and g.group_buy_info_status=1
  				and g.group_buy_info_id=#{group_buy_info_id}
 	</select>
 	<update id="deleteGroupBuying" parameterType="int">
-		update group_buy_info set group_buy_info_status=1 where group_buy_info_id=#{group_buy_info_id}
+		update group_buy_info set group_buy_info_status=2 where group_buy_info_id=#{group_buy_info_id}
 	</update>
 	<update id="updateGroupBuyingList" parameterType="int">
-		update group_buy_list set group_buy_list_status=3 where grouy_buy_info_id=#{group_buy_info_id}
+		update group_buy_list set group_buy_list_status=3 where group_buy_info_id=#{group_buy_info_id}
 	</update>
 	<update id="updateGroupBuyingOrder" parameterType="int">
-		update "order" o,group_buy_list h,group_buy_info g  set o.order_status=4
+		update `order` o,group_buy_list h,group_buy_info g  set o.order_status=4
 		where o.group_id=h.group_id and h.group_buy_info_id=g.group_buy_info_id and g.group_buy_info_id=#{group_buy_info_id}
 	</update>
 	<select id="selectGroupListByGroupBuyId" parameterType="int" resultType="GroupBuyList">
-		select * from group_buy_list where grouy_buy_info_id=#{grouy_buy_info_id} and group_buy_list_status=1
+		select * from group_buy_list where group_buy_info_id=#{group_buy_info_id} and group_buy_list_status=1
 	</select>
 	<update id="updateGroupBuyGoodsStock" parameterType="map">
 		update group_buy_info g,goods_detail d
 			set d.stock = d.stock+#{sum_goods}
-			where g.group_buy_info_id=#{grouy_buy_info_id} and d.goods_detail_id=g.goods_detail_id
+			where g.group_buy_info_id=#{group_buy_info_id} and d.goods_detail_id=g.goods_detail_id
 	</update>
+	<select id="selectGroupBuyInfoById" parameterType="int" resultType="GroupBuyInfo">
+		select * from group_buy_info where group_buy_info_id=#{group_buy_info_id}
+	</select>
+	<select id="selectGoodsDetailPriceById" parameterType="int" resultType="float">
+		select prime_price from goods_detail where goods_detail_id=#{group_buy_info_id}
+	</select>
+	<select id="selectGoodsDetailStockById" parameterType="int" resultType="int">
+		select stock from goods_detail where goods_detail_id=#{group_buy_info_id}
+	</select>
 </mapper>

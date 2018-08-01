@@ -13,7 +13,9 @@ public class GroupBuyInfo {
 	private int group_buy_info_status;
 	private GoodsDetail goodsdetail;
 	private List<GroupBuyList> groupList;
-	
+
+
+
 	public GoodsDetail getGoodsdetail() {
 		return goodsdetail;
 	}

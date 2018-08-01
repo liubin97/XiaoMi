@@ -5,23 +5,33 @@ import java.util.Date;
 public class SecKillInfo {
 	private int seckill_id;
 	private int goods_detail_id;
-	private int seckill_number;
+	private int seckill_num;
 	private Date seckill_starttime;
 	private Date seckill_endtime;
 	private Date create_time;
 	private int seckill_status;
 	private float seckill_money;
+	private String seckill_name;
+	public String getSeckill_name() {
+		return seckill_name;
+	}
+
+	public void setSeckill_name(String seckill_name) {
+		this.seckill_name = seckill_name;
+	}
+
+
 	public int getGoods_detail_id() {
 		return goods_detail_id;
 	}
 	public void setGoods_detail_id(int goods_detail_id) {
 		this.goods_detail_id = goods_detail_id;
 	}
-	public int getSeckill_number() {
-		return seckill_number;
+	public int getSeckill_num() {
+		return seckill_num;
 	}
-	public void setSeckill_number(int seckill_number) {
-		this.seckill_number = seckill_number;
+	public void setSeckill_num(int seckill_num) {
+		this.seckill_num = seckill_num;
 	}
 	public Date getSeckill_starttime() {
 		return seckill_starttime;

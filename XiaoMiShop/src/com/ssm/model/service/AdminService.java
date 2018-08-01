@@ -13,9 +13,17 @@ public class AdminService {
 	@Autowired
 	private AdminDAO adminDao;
 	
-	public List<Admin> selectAdmin(){
-		return adminDao.selectAdmin();
-		
-	}
-	
+
+
+    public int validateLogin(String admin_name, String admin_password) {
+		Admin admin = new Admin();
+		admin.setAdmin_name(admin_name);
+		admin.setAdmin_password(admin_password);
+		List<Admin> list = adminDao.selectAdmin(admin);
+		if(list.size()!=0){
+			return 0;
+		}else {
+			return 1;
+		}
+    }
 }

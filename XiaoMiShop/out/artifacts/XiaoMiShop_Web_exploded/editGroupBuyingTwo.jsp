@@ -16,19 +16,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" href="asset/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="asset/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <script src="assets/js/echarts.min.js"></script>
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
-    <link rel="stylesheet" href="assets/css/app.css">
-    <script src="assets/js/jquery.min.js"></script>
+    <script src="asset/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="asset/css/amazeui.min.css" />
+    <link rel="stylesheet" href="asset/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="asset/css/app.css">
+    <script src="asset/js/jquery.min.js"></script>
     <script src="laydate/laydate.js"></script>
     <script src="js/editGroupBuyTwo.js"></script>
 </head>
 <body data-type="widgets">
-<script src="assets/js/theme.js"></script>
+<script src="asset/js/theme.js"></script>
 
 <div class="am-g tpl-g">
     <%@include file="xm_topleft.jsp" %>
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="widget-body am-fr">
-                            <form class="am-form tpl-form-line-form" action="editGroupBuy.action" method="post">
+                            <form class="am-form tpl-form-line-form" id="editGroupBuy" action="editGroupBuy.action" method="post">
                                 <input type="hidden" id="group_buy_info_id" name="group_buy_info_id" value="${result.group_buy_info_id}" />
                                 <div class="am-form-group">
                                     <label for="goodsId" class="am-u-sm-3 am-form-label">团购商品 <span class="tpl-form-line-small-title">Author</span></label>
@@ -101,13 +101,16 @@
                                         <span></span>
                                     </div>
                                 </div>
+
                                 <div class="am-form-group">
                                     <label for="endtime" class="am-u-sm-3 am-form-label">团购结束时间 <span class="tpl-form-line-small-title">Time</span></label>
                                     <div class="am-u-sm-8">
+                                        <input type="hidden" id="endtime_ref" name="endtime_ref" >
                                         <input  type="text" id="endtime"  class="am-form-field tpl-form-no-bg" name="endtime" value="<fmt:formatDate value="${result.group_endtime}" pattern="yyyy-MM-dd HH:mm:ss" />"  readonly="readonly">
                                         <small>团购结束时间为必填</small>
                                     </div>
                                     <div class="am-u-sm-1">
+                                        <img id="validate_endtime" src="">
                                         <span></span>
                                     </div>
                                 </div>
@@ -115,7 +118,7 @@
 
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
-                                        <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success " onclick="editGroupBuy()">提交</button>
                                     </div>
                                 </div>
                             </form>
@@ -128,14 +131,15 @@
 </div>
 
 <script>
-    laydate.render({
+    var end=laydate.render({
         elem: '#endtime'
         ,type: 'datetime'
+        ,btns: ['now', 'confirm']
     });
 </script>
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/amazeui.datatables.min.js"></script>
-<script src="assets/js/dataTables.responsive.min.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="asset/js/amazeui.min.js"></script>
+<script src="asset/js/amazeui.datatables.min.js"></script>
+<script src="asset/js/dataTables.responsive.min.js"></script>
+<script src="asset/js/app.js"></script>
 </body>
 </html>

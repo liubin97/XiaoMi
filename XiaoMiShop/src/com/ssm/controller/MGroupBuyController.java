@@ -38,8 +38,9 @@ public class MGroupBuyController {
 			e.printStackTrace();
 		}
 		groupBuyInfo.setGroup_starttime(goods_starttime);
+
 		groupBuyInfo.setGroup_endtime(goods_endtime);
-		groupBuyInfo.setGroup_buy_info_status(0);
+		groupBuyInfo.setGroup_buy_info_status(1);
 		mGroupBuyService.addGroupBuy(groupBuyInfo);
 		return "manageGroupBuying";
 	}
@@ -82,10 +83,10 @@ public class MGroupBuyController {
 				goodsDetailId = goods_detail_id.intValue();
 			}
 			try {
-				if(starttime!=null&&starttime!=""){
+				if(starttime!=null&&!"".equals(starttime)){
 					goods_starttime = sdf.parse(starttime);
 				}
-				if(endtime!=null&&endtime!=""){
+				if(endtime!=null&&!"".equals(endtime)){
 					goods_endtime = sdf.parse(endtime);
 				}
 			} catch (ParseException e) {
@@ -137,8 +138,8 @@ public class MGroupBuyController {
         }
         groupBuyInfo.setGroup_starttime(goods_starttime);
         groupBuyInfo.setGroup_endtime(goods_endtime);
-        groupBuyInfo.setGroup_buy_info_status(0);
-        mGroupBuyService.editGroupBuyInfo(groupBuyInfo);
+        groupBuyInfo.setGroup_buy_info_status(1);
+        mGroupBuyService.updateGroupBuyInfo(groupBuyInfo);
 
 		return "manageGroupBuying";
 	}
@@ -157,9 +158,26 @@ public class MGroupBuyController {
         mav.addObject("result",groupBuyInfo);
 	    return mav;
     }
-    @RequestMapping("deleteGroupBuying")
-	public String deleteGroupBuying(int group_buy_info_id){
-		mGroupBuyService.deleteGroupBuying(group_buy_info_id);
+    @RequestMapping("deleteGroupBuyingTwo")
+	public String deleteGroupBuyingTwo(int group_buy_info_id){
+		mGroupBuyService.deleteGroupBuyingTwo(group_buy_info_id);
 		return null;
+	}
+	@RequestMapping("deleteGroupBuyingOne")
+	public String deleteGroupBuyingOne(int group_buy_info_id){
+		mGroupBuyService.deleteGroupBuyingOne(group_buy_info_id);
+		return null;
+	}
+	@RequestMapping("validate_group_buy_price")
+	@ResponseBody
+	public int validateGroupBuyPrice(float group_buy_price,int goods_detail_id){
+		int result = mGroupBuyService.validateGroupBuyPrice(group_buy_price,goods_detail_id);
+		return result;
+	}
+	@RequestMapping("validate_group_num")
+	@ResponseBody
+	public int validateGroupNum(int group_num,int goods_detail_id){
+		int result = mGroupBuyService.validateGroupNum(group_num,goods_detail_id);
+		return result;
 	}
 }

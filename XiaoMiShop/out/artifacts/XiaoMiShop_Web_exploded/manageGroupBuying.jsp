@@ -14,13 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" href="asset/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="asset/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <script src="assets/js/echarts.min.js"></script>
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
-    <link rel="stylesheet" href="assets/css/app.css">
+    <script src="asset/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="asset/css/amazeui.min.css" />
+    <link rel="stylesheet" href="asset/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="asset/css/app.css">
     <script src="laydate/laydate.js"></script>
 </head>
 <body data-type="widgets">
@@ -94,11 +94,11 @@
                                                     <a class="am-disabled" ><i class="am-icon-pencil">编辑</i> </a>
                                                 </c:if>
                                                 <c:if test="${isEdit[loop.count-1]==0}">
-                                                    <a href="#" class="tpl-table-black-operation-del">
+                                                    <a href="deleteGroupBuyingOne.action?group_buy_info_id=${groupBuyInfo.group_buy_info_id}" class="tpl-table-black-operation-del">
                                                         <i class="am-icon-trash">删除</i></a>
                                                 </c:if>
                                                 <c:if test="${isEdit[loop.count-1]==1}">
-                                                    <a href="#" class="tpl-table-black-operation-del">
+                                                    <a href="deleteGroupBuyingTwo.action?group_buy_info_id=${groupBuyInfo.group_buy_info_id}" class="tpl-table-black-operation-del">
                                                         <i class="am-icon-trash">删除</i></a>
                                                 </c:if>
                                                 <c:if test="${isEdit[loop.count-1]==2}">
@@ -140,22 +140,53 @@
     </div>
 </div>
 <script>
-    laydate.render({
+    var start=laydate.render({
         elem: '#starttime'
         ,type: 'datetime'
+        ,min:-0//设置最小时间为当前时间
+        ,done:function (value,date,endDate) {
+            end.config.min={
+                year:date.year,
+                month:date.month-1,
+                date:date.date,
+                hours:date.hours,
+                minutes:date.minutes,
+                seconds:date.seconds
+            };//开始日选好后重置结束日期的最小日期
+            end.config.value={
+                year:date.year,
+                month:date.month-1,
+                date:date.date,
+                hours:date.hours,
+                minutes:date.minutes,
+                seconds:date.seconds
+            };//将结束日的初始值设为开始日
+        }
+
     });
 </script>
 <script>
-    laydate.render({
+    var end=laydate.render({
         elem: '#endtime'
         ,type: 'datetime'
+        ,min:-0
+        ,done:function (value,date,endDate) {
+            start.config.max={
+                year:date.year,
+                month:date.month-1,
+                date:date.date,
+                hours:date.hours,
+                minutes:date.minutes,
+                seconds:date.seconds
+            }
+        }
     });
 </script>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/theme.js"></script>
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/amazeui.datatables.min.js"></script>
-<script src="assets/js/dataTables.responsive.min.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="asset/js/jquery.min.js"></script>
+<script src="asset/js/theme.js"></script>
+<script src="asset/js/amazeui.min.js"></script>
+<script src="asset/js/amazeui.datatables.min.js"></script>
+<script src="asset/js/dataTables.responsive.min.js"></script>
+<script src="asset/js/app.js"></script>
 </body>
 </html>

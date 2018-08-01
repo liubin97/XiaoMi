@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.MGoodsCommentDAO">
+    <select id="selectMGoodsComment" parameterType="map" resultType="GoodsComment">
+        select * from goods_comment where goods_comment_status=0
+        <if test="goods_id != 0 and goods_detail_id != null ">
+            and goods_id = #{goods_id}
+        </if>
+        <if test="start_time!=null and start_time !='' ">
+            and comment_date >= #{start_time}
+        </if>
+        <if test="endtime!=null and end_time != '' ">
+            and  #{endtime} >= comment_date
+        </if>
+    </select>
+    <select id="selectMGoodsCommentDetail" parameterType="int" resultMap="GoodsCommentResult">
+        select *,c.user_email cuser_email from (goods_comment g left join comment_reply c on c.goods_comment_id=g.goods_comment_id)
+            left join comment_picture p on g.goods_comment_id=p.comment_id
+          where g.goods_comment_id=#{goods_comment_id}
+
+    </select>
+    <resultMap id="GoodsCommentResult" type="GoodsComment">
+        <result column="goods_comment_id" property="goods_comment_id" />
+        <result column="user_email" property="user_email" />
+        <result column="goods_id" property="goods_id"/>
+        <result column="comment" property="comment" />
+        <result column="comment_date" property="comment_date" />
+        <result column="comment_level" property="comment_level" />
+        <result column="like_num" property="like_num" />
+        <collection property="commentReplyList" ofType="CommentReply">
+            <result column="comment_reply_id" property="comment_reply_id" />
+            <result column="goods_comment_id" property="goods_comment_id" />
+            <result column="cuser_email" property="user_email" />
+            <result column="reply" property="reply" />
+            <result column="reply_date" property="reply_date" />
+            <result column="reply_type" property="reply_type" />
+        </collection>
+        <collection property="commentPictureList" ofType="CommentPicture">
+            <result property="comment_picture_id" column="comment_picture_id" />
+            <result column="goods_comment_id" property="goods_comment_id" />
+            <result column="comment_id" property="comment_id" />
+            <result column="picture_url" property="picture_url" />
+        </collection>
+    </resultMap>
+    <update id="deleteMGoodsComment" parameterType="int">
+        update goods_comment set goods_comment_status=1 where goods_comment_id=#{goods_comment_id}
+    </update>
+    <insert id="insertMCommentReply" parameterType="CommentReply">
+        insert into comment_reply(goods_comment_id,user_email,reply,reply_date,reply_status,reply_type)
+                values (#{goods_comment_id},#{user_email},#{reply},#{reply_date},0,#{reply_type})
+    </insert>
+</mapper>
