@@ -19,9 +19,205 @@ function checkStock(id,url){
         }
     });
 }
+//日期格式转化
+Date.prototype.format = function(fmt) {
+    var o = {
+        "M+" : this.getMonth() + 1, //月份
+        "d+" : this.getDate(), //日
+        "h+" : this.getHours(), //小时
+        "m+" : this.getMinutes(), //分
+        "s+" : this.getSeconds(), //秒
+        "q+" : Math.floor((this.getMonth() + 3) / 3), //季度
+        "S" : this.getMilliseconds()
+        //毫秒
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+            .substr(4 - RegExp.$1.length));
+    for ( var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k])
+                : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+};
+
+
+//获取商品评价，通过判断size加载更多
+function getComments(offset,size,goods_id){
+    //ajax获取商品评价
+    $.ajax({
+        url: "getGoodsComment.action",
+        data: "goods_id="+goods_id,
+        async: false,
+        datatype: "json",
+        type: "POST",
+        success: function (data) {
+            //var data = reponse.list;
+            //var sum = reponse.list.length;
+            var sum = data.length;
+            var result = '';
+
+            /****业务逻辑块：实现拼接内容并append到页面*********/
+
+            //console.log(offset , size, sum);
+
+            /*如果剩下的记录数不够分页，就让分页数取剩下的记录数
+            * 例如分页数是5，只剩2条，则只取2条
+            *
+            * 实际MySQL查询时不写这个不会有问题
+            */
+            if(sum - offset < size ){
+                size = sum - offset;
+            }
+
+            /*使用for循环模拟SQL里的limit(offset,size)*/
+            for(var i=offset; i< (offset+size); i++){
+
+                var reply_size = 2;//默认显示两条评论回复
+
+                //拼接评论
+                result += '<li class="com-item J_resetImgCon J_canZoomBox"> <img class="user-img" src="'+ data[i].user.imgurl +'" />\n' +
+                    '    <div class="comment-info">\n' +
+                    '        <a class="user-name" href="javascript:void(0);">'+ data[i].user.nickname +'</a>\n' +
+                    '        <p class="time">'+ new Date(data[i].comment_date).format("yyyy-MM-dd hh:mm:ss") +'</p>\n' +
+                    '    </div>\n' +
+                    '    <div class="comment-eval">\n' +
+                    '        <div class="rating">\n' +
+                    '           <span class="rating-stars" data-rating="'+ data[i].comment_level +'"> ';
+                //显示评价等级
+                for(var index = 5;index>0;index--){
+                    if(index == data[i].comment_level){
+                        result +='<i class="fa fa-star-o star-active"></i>';
+                    }else{
+                        result +='<i class="fa fa-star-o"></i>';
+                    }
+                }
+                 result += '     </span>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="comment-txt">\n' +
+                    '        <a href="javascript:void(0);" target="_blank">' +  data[i].comment  + '</a>\n' +
+                    '    </div>\n' +
+                    '    <div class="m-img-list clearfix h-img-list">\n';
+                //拼接评论图片
+                for(var j=0;j<data[i].commentPictureList.length;j++) {
+                    result +=   '        <div class="img-item showimg">\n' +
+                                '            <img class="J_resetImgItem J_canZoom" src="'+ data[i].commentPictureList[j].picture_url +'" />\n' +
+                                '        </div>\n';
+                }
+                result += '</div>\n' +
+                    '    <div class="comment-handler">\n' +
+                    '        <a href="javascript:void(0);" data-commentid="'+ data[i].goods_comment_id +'" class="J_hasHelp">' +
+                    '           <i class="iconfont"></i>&nbsp; <span class="amount"> '+ data[i].like_num +' </span> ' +
+                    '        </a>\n' +
+                    '    </div>\n' +
+                    '    <div class="comment-input">\n' +
+                    '        <input type="text" placeholder="回复楼主" class="J_commentAnswerInput" />\n' +
+                    '        <a href="javascript:void(0);" class="comment-reply-link btn btn-md btn-gray btn-rounded " data-commentid="'+ data[i].goods_comment_id +'">回复</a>\n' +
+                    '    </div>\n' +
+                    '    <div class="comment-answer">\n';
+
+                //将评论回复按照类型排序
+                data[i].commentReplyList.sort(function(a,b){
+                    return  b.reply_type - a.reply_type;
+                });
+                //判断评论回复是否需要分页显示
+                if(reply_size<data[i].commentReplyList.length){//评论需要分页显示
+                    for(var k = 0;k<reply_size;k++) {
+                        //若回复类型为官方回复
+                        if(data[i].commentReplyList[k].reply_type == 1){
+                            result +=  '  <div class="answer-item">\n' +
+                                '            <img class="answer-img" src="assets/images/logo.png" />\n' +
+                                '            <div class="answer-content">\n' +
+                                '                <h3 class="official-name">官方回复</h3>\n' +
+                                '                <p> '+ data[i].commentReplyList[k].reply +
+                                '                   <a href="javascript:void(0);" class="J_csLike " data-commentid="156453477"> <i class="iconfont"></i>&nbsp; <span class="amount"> ' + data[i].commentReplyList[k].reply_like_num + ' </span> </a> ' +
+                                '                </p>\n' +
+                                '            </div>\n' +
+                                '        </div>\n';
+                        }//回复类型为普通回复
+                        else if(data[i].commentReplyList[k].reply_type == 0){
+                            result += '        <div class="answer-item">\n' +
+                                '            <img class="answer-img" src="'+ data[i].commentReplyList[k].user.imgurl +'" />\n' +
+                                '            <div class="answer-content" data-txt="">\n' +
+                                '                <h3 class="">'+data[i].commentReplyList[k].user.nickname+'</h3>\n' +
+                                '                <p>'+ data[i].commentReplyList[k].reply +'  </p>\n' +
+                                '            </div>\n' +
+                                '        </div>\n' ;
+                        }
+
+                    }
+                    result += '  <div class="comment-more">\n' +
+                        '            <a class="show-more" href="goToCommentPage.action?comment_id=" target="_blank">查看全部 ' +
+                        '               <span>'+data[i].commentReplyList.length +'</span>条回复</a>\n' +
+                        '        </div>\n' +
+                        '    </div> \n' +
+                        '</li>'   ;
+                }else {//评论不需要分页显示
+                    for(var k = 0;k<data[i].commentReplyList.length;k++) {
+                        //若回复类型为官方回复
+                        if(data[i].commentReplyList[k].reply_type == 1){
+                            result +=  '  <div class="answer-item">\n' +
+                                '            <img class="answer-img" src="assets/images/logo.png" />\n' +
+                                '            <div class="answer-content">\n' +
+                                '                <h3 class="official-name">官方回复</h3>\n' +
+                                '                <p> '+ data[i].commentReplyList[k].reply +
+                                '<a href="javascript:void(0);" class="J_csLike " data-commentid="156453477"> <i class="iconfont"></i>&nbsp; <span class="amount"> ' + data[i].commentReplyList[k].reply_like_num + ' </span> </a> </p>\n' +
+                                '            </div>\n' +
+                                '        </div>\n';
+                        }//回复类型为普通回复
+                        else if(data[i].commentReplyList[k].reply_type == 0){
+                            result += '        <div class="answer-item">\n' +
+                                '            <img class="answer-img" src="'+ data[i].commentReplyList[k].user.imgurl +'" />\n' +
+                                '            <div class="answer-content" data-txt="">\n' +
+                                '                <h3>' + data[i].commentReplyList[k].user.nickname +'</h3>\n' +
+                                '                <p> ' + data[i].commentReplyList[k].reply +  '</p>\n' +
+                                '            </div>\n' +
+                                '        </div>\n' ;
+                        }
+
+                    }
+                }
+
+
+            }
+
+            $('#comment-list').append(result);
+
+
+            /*隐藏more按钮*/
+            if ( (offset + size) >= sum){
+                $("#load-more").hide();
+            }else{
+                $("#load-more").show();
+            }
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("ajax error!");
+        }
+    });
+}
 
 $(document).ready(function(){
+    //获取goods_id
     var goods_id = $("#goods-id").text();
+    //加载评论
+
+    /*初始化*/
+    var counter = 0; /*计数器*/
+    var pageStart = 0; /*offset*/
+    var pageSize = 2; /*size*/
+
+    /*首次加载*/
+    getComments(pageStart, pageSize,goods_id);
+
+    /*监听加载更多*/
+    $("#load-more").click(function(){
+        counter ++;
+        pageStart = counter * pageSize;
+        getComments(pageStart, pageSize,goods_id);
+    });
     //判断商品是否被加入我的喜欢
     $.ajax({
         url: "checkFavorites.action",
@@ -47,21 +243,6 @@ $(document).ready(function(){
         }
     });
 
-    //ajax获取商品评价
-    $.ajax({
-        url: "getGoodsComment.action",
-        data: "goods_id="+goods_id,
-        async: false,
-        datatype: "json",
-        type: "POST",
-        success: function (data) {
-            console.log(data);
-
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("ajax error!");
-        }
-    });
 
     /*点击品类*/
     $(" .filter-center a").click(function(){
@@ -89,7 +270,7 @@ $(document).ready(function(){
             success: function (data) {
                 console.log(data);
                 if(data>0){
-                    window.open("purchaseImmediately.action?goods_detail_id="+goods_detail_id);
+                    window.location.href = "purchaseImmediately.action?goods_detail_id="+goods_detail_id ;
                 }else {
                     alert("库存不足");
                 }

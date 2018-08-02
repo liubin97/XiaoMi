@@ -25,11 +25,17 @@
             <result column="reply" property="reply"/>
             <result column="reply_date" property="reply_date"/>
             <result column="reply_type" property="reply_type"/>
+            <result column="reply_like_num" property="reply_like_num"/>
         </collection>
         <collection property="commentPictureList" ofType="CommentPicture">
             <result column="comment_picture_id" property="comment_picture_id"/>
             <result column="picture_url" property="picture_url"/>
         </collection>
     </resultMap>
+
+    <!-- 获取评论用户 -->
+    <select id="getCommentUser" parameterType="String" resultType="User">
+        select * from user where user_email = #{user_email}
+    </select>
 
 </mapper>

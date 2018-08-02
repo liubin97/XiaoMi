@@ -244,12 +244,12 @@
                                                                             </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a id="add-cart" href="javascript:void(0);" class="btn">
+                                                                             <a id="add-cart" href="javascript:void(0);" class="btn">
                                                                                 <i class="fa fa-shopping-cart font-16 mr-10"></i> 加入购物车
                                                                             </a>
                                                                         </li>
                                                                         <li style="float: right; margin-right: 30px;">
-                                                                            <a id="favorites" href="javascript:void(0)" class="btn" style="color:red;background: #f5f5f5;border-color: #f5f5f5;">
+                                                                            <a id="favorites" href="javascript:void(0);" class="btn" style="color:red;background: #f5f5f5;border-color: #f5f5f5;">
                                                                                 <span class="fa fa-heart-o font-22"></span>
                                                                             </a>
                                                                         </li>
@@ -258,7 +258,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </aside>
                                             <!-- End Blog Sidebar -->
@@ -267,86 +266,11 @@
                                 </div>
                                 <div role="tabpanel" class="tab-pane ptb-20" id="reviews">
                                     <div class="m-comment-box J_commentList">
-                                            <ul class="m-comment-list J_listBody">
-                                                <li class="com-item J_resetImgCon J_canZoomBox" data-id="156453477"> <a class="user-img" href="/comment/user?user_id=241767281"> <img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-data-mishop/52cc4721e1eaed5af47af693906205c8.jpg" /> </a>
-                                                    <div class="comment-info">
-                                                        <a class="user-name" href="/comment/user?user_id=241767281">241767281</a>
-                                                        <p class="time">2018年7月6日</p>
-                                                    </div>
-                                                    <div class="comment-eval">
-                                                        <div class="rating ">
-                                                                <span class="rating-stars" data-rating="5">
-                                                                    <i class="fa fa-star-o star-active"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="comment-txt">
-                                                        <a href="/comment/detail?comment_id=156453477" target="_blank">狠米粉，全家都在用。本来以为手机会大点，没想到和M5X一般大。屏幕超级帅，听说客服妹子会作诗。（我爱佑悦）我儿子和丫头的名字。客服妹子为你点赞。 </a>
-                                                    </div>
-                                                    <div class="m-img-list clearfix h-img-list">
-                                                        <div class="img-item showimg">
-                                                            <img class="J_resetImgItem J_canZoom"  src="goods/小米8/index1.jpg"  />
-                                                        </div>
-                                                        <div class="img-item showimg">
-                                                            <img class="J_resetImgItem J_canZoom" src="//i1.mifile.cn/a2/1530843011_8722115_s1000_750wh.jpg"  />
-                                                            <div class="loader loader-gray"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="comment-handler">
-                                                        <a href="javascript:;" data-commentid="156453477" class="J_hasHelp"> <i class="iconfont"></i>&nbsp; <span class="amount"> 259 </span> </a>
-                                                    </div>
-                                                    <div class="comment-input">
-                                                        <input type="text" placeholder="回复楼主" class="J_commentAnswerInput" />
-                                                        <a href="javascript:void(0);" class="comment-reply-link btn btn-md btn-gray btn-rounded " data-commentid="156453477">回复</a>
-                                                    </div>
-                                                    <div class="comment-answer">
-                                                        <div class="answer-item">
-                                                            <img class="answer-img" src="//s01.mifile.cn/i/logo.png" />
-                                                            <div class="answer-content">
-                                                                <h3 class="official-name">官方回复</h3>
-                                                                <p> 我花撩乱扑流水，爱猎关西纣猎东。佑日陪尘迎驷马，悦摇娇影媚清风。小米祝您生活愉快、家庭幸福^ ^ <a href="javascript:void(0);" class="J_csLike " data-commentid="156453477"> <i class="iconfont"></i>&nbsp; <span class="amount"> 733 </span> </a> </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="answer-item">
-                                                            <a class="answer-img" href="/comment/user?user_id=1220485752"><img src="https://s1.mi-img.com/mfsv2/avatar/fdsc3/p01yD0ilbiXi/Xo0FM9RPUm9J5Y.jpg" /></a>
-                                                            <div class="answer-content">
-                                                                <h3 class="">1220485752</h3>
-                                                                <p> 是全网通的吗 </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="answer-item">
-                                                            <a class="answer-img" href="/comment/user?user_id=1248488632"><img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-data-mishop/f790b51a76afd7b41522048fa779d69d.jpg" /></a>
-                                                            <div class="answer-content">
-                                                                <h3 class="">李剑华</h3>
-                                                                <p> 好像没有收音机吧！ </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="answer-item">
-                                                            <a class="answer-img" href="/comment/user?user_id=1346969930"><img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-data-mishop/c52c11c915d43e0ac3286161eec4fcaf.jpg" /></a>
-                                                            <div class="answer-content">
-                                                                <h3 class="">1346969930</h3>
-                                                                <p> 我爱佑悦~翻译皇家 </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="comment-more">
-                                                            <a class="show-more" href="/comment/detail?comment_id=156453477" target="_blank">查看全部 <span>5</span>条回复</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="J_canZoomData">
-                                                        <div class="h-userInfo" data-username="241767281" data-showtime="2018年7月6日" data-txt="狠米粉，全家都在用。本来以为手机会大点，没想到和M5X一般大。屏幕超级帅，听说客服妹子会作诗。（我爱佑悦）我儿子和丫头的名字。客服妹子为你点赞。" data-avatar="https://cdn.cnbj0.fds.api.mi-img.com/b2c-data-mishop/52cc4721e1eaed5af47af693906205c8.jpg" data-upnum="259" data-commentid="156453477"></div>
-                                                        <div class="h-answerInfo">
-                                                            <div class="answer-item" data-name="官方回复" data-txt="我花撩乱扑流水，爱猎关西纣猎东。佑日陪尘迎驷马，悦摇娇影媚清风。小米祝您生活愉快、家庭幸福^ ^" data-upnum="733" data-office="true">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                            <ul class="m-comment-list J_listBody" id="comment-list">
+
                                             </ul>
                                             <div class="comment-more">
-                                                <a class="load-more J_loadMore" href="javascript:;" style="display: block;">加载更多</a>
+                                                <a id="load-more" class="load-more J_loadMore" href="javascript:void(0);" style="display: block;">加载更多</a>
                                             </div>
                                         </div>
 
