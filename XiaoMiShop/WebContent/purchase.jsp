@@ -336,13 +336,9 @@
 <script type="text/javascript" src="assets/js/purchase.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        var goods_detail={
-
-        }
-
-        //alert(goods);
-    });
+    var user_emial = "${sessionScope.user_email}";
+    var user_nickname = "${sessionScope.nickname}";
+    var user_imgurl = "${sessionScope.user_imgurl}";
 </script>
 </body>
 </html>

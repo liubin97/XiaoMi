@@ -7,7 +7,8 @@
 
     <!-- 获取商品评论 -->
     <select id="getGoodsComment" resultMap="commentMap">
-        select *,cr.user_email reply_user from goods_comment gc left join comment_reply cr on gc.goods_comment_id = cr.goods_comment_id
+        select *,cr.user_email reply_user from goods_comment gc
+            left join comment_reply cr on gc.goods_comment_id = cr.goods_comment_id
             left join comment_picture cp on gc.goods_comment_id = cp.goods_comment_id
         where gc.goods_comment_status=0
     </select>
@@ -37,5 +38,30 @@
     <select id="getCommentUser" parameterType="String" resultType="User">
         select * from user where user_email = #{user_email}
     </select>
+
+    <!-- 插入评论回复 -->
+    <insert id="insetCommentReply" parameterType="CommentReply">
+        insert into comment_reply (goods_comment_id, user_email, reply, reply_date) values
+            (#{goods_comment_id},#{user_email},#{reply},#{reply_date})
+    </insert>
+
+    <!-- 更新评论点赞数量 -->
+    <update id="updateCommentLikeNum" parameterType="GoodsComment">
+        update goods_comment set like_num = #{like_num} where goods_comment_id=#{goods_comment_id}
+    </update>
+
+    <!-- 更新评论回复点赞数量 -->
+    <update id="updateReplyLikeNum" parameterType="CommentReply">
+        update comment_reply set reply_like_num = #{reply_like_num} where comment_reply_id=#{comment_reply_id}
+    </update>
+
+    <!-- 通过评论ID获取评论 -->
+    <select id="getCommentById" parameterType="int" resultMap="commentMap">
+        select *,cr.user_email reply_user from goods_comment gc
+            left join comment_reply cr on gc.goods_comment_id = cr.goods_comment_id
+            left join comment_picture cp on gc.goods_comment_id = cp.goods_comment_id
+        where gc.goods_comment_id=#{goods_comment_id} and gc.goods_comment_status=0
+    </select>
+
 
 </mapper>

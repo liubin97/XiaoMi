@@ -62,8 +62,6 @@ function getComments(offset,size,goods_id){
             //console.log(offset , size, sum);
 
             /*如果剩下的记录数不够分页，就让分页数取剩下的记录数
-            * 例如分页数是5，只剩2条，则只取2条
-            *
             * 实际MySQL查询时不写这个不会有问题
             */
             if(sum - offset < size ){
@@ -92,11 +90,12 @@ function getComments(offset,size,goods_id){
                         result +='<i class="fa fa-star-o"></i>';
                     }
                 }
+                //拼接评论内容
                  result += '     </span>\n' +
                     '        </div>\n' +
                     '    </div>\n' +
                     '    <div class="comment-txt">\n' +
-                    '        <a href="javascript:void(0);" target="_blank">' +  data[i].comment  + '</a>\n' +
+                    '        <a href="goToCommentPage.action?goods_comment_id='+ data[i].goods_comment_id +'" target="_blank">' +  data[i].comment  + '</a>\n' +
                     '    </div>\n' +
                     '    <div class="m-img-list clearfix h-img-list">\n';
                 //拼接评论图片
@@ -131,7 +130,8 @@ function getComments(offset,size,goods_id){
                                 '            <div class="answer-content">\n' +
                                 '                <h3 class="official-name">官方回复</h3>\n' +
                                 '                <p> '+ data[i].commentReplyList[k].reply +
-                                '                   <a href="javascript:void(0);" class="J_csLike " data-commentid="156453477"> <i class="iconfont"></i>&nbsp; <span class="amount"> ' + data[i].commentReplyList[k].reply_like_num + ' </span> </a> ' +
+                                '                   <a href="javascript:void(0);" class="J_csLike " data-commentid="'+ data[i].commentReplyList[k].comment_reply_id +'"> ' +
+                                '                       <i class="iconfont"></i>&nbsp; <span class="amount"> ' + data[i].commentReplyList[k].reply_like_num + ' </span> </a> ' +
                                 '                </p>\n' +
                                 '            </div>\n' +
                                 '        </div>\n';
@@ -148,7 +148,7 @@ function getComments(offset,size,goods_id){
 
                     }
                     result += '  <div class="comment-more">\n' +
-                        '            <a class="show-more" href="goToCommentPage.action?comment_id=" target="_blank">查看全部 ' +
+                        '            <a class="show-more" href="goToCommentPage.action?goods_comment_id='+ data[i].goods_comment_id +'" target="_blank">查看全部 ' +
                         '               <span>'+data[i].commentReplyList.length +'</span>条回复</a>\n' +
                         '        </div>\n' +
                         '    </div> \n' +
@@ -162,7 +162,8 @@ function getComments(offset,size,goods_id){
                                 '            <div class="answer-content">\n' +
                                 '                <h3 class="official-name">官方回复</h3>\n' +
                                 '                <p> '+ data[i].commentReplyList[k].reply +
-                                '<a href="javascript:void(0);" class="J_csLike " data-commentid="156453477"> <i class="iconfont"></i>&nbsp; <span class="amount"> ' + data[i].commentReplyList[k].reply_like_num + ' </span> </a> </p>\n' +
+                                '                   <a href="javascript:void(0);" class="J_csLike " data-commentid="'+ data[i].commentReplyList[k].comment_reply_id +'">' +
+                                '                   <i class="iconfont"></i>&nbsp; <span class="amount"> ' + data[i].commentReplyList[k].reply_like_num + ' </span> </a> </p>\n' +
                                 '            </div>\n' +
                                 '        </div>\n';
                         }//回复类型为普通回复
@@ -203,21 +204,23 @@ $(document).ready(function(){
     //获取goods_id
     var goods_id = $("#goods-id").text();
     //加载评论
+    $(function () {
+        /*初始化*/
+        var counter = 0; /*计数器*/
+        var pageStart = 0; /*offset*/
+        var pageSize = 2; /*size*/
 
-    /*初始化*/
-    var counter = 0; /*计数器*/
-    var pageStart = 0; /*offset*/
-    var pageSize = 2; /*size*/
-
-    /*首次加载*/
-    getComments(pageStart, pageSize,goods_id);
-
-    /*监听加载更多*/
-    $("#load-more").click(function(){
-        counter ++;
-        pageStart = counter * pageSize;
+        /*首次加载*/
         getComments(pageStart, pageSize,goods_id);
+
+        /*监听加载更多*/
+        $("#load-more").click(function(){
+            counter ++;
+            pageStart = counter * pageSize;
+            getComments(pageStart, pageSize,goods_id);
+        });
     });
+
     //判断商品是否被加入我的喜欢
     $.ajax({
         url: "checkFavorites.action",
@@ -317,7 +320,127 @@ $(document).ready(function(){
         }
     });
 
+    //评论回复
+    $(document).on('click','.comment-reply-link',function () {
+        var goods_comment_id = $(this).attr("data-commentid");
+        var input = $(this).parent().children(".J_commentAnswerInput");
+        var reply = input.val();
+        if(reply == ''){
+            alert("请输入评论");
+        }else{
+            $.ajax({
+                url: "makeCommentReply.action",
+                data: {
+                    goods_comment_id:goods_comment_id,
+                    reply:reply
+                },
+                async: false,
+                datatype: "json",
+                type: "POST",
+                success: function (data) {
+                },
+                error: function (data) {
+                    if(data.responseText == "loseSession"){
+                        //在这个地方进行跳转
+                        var url = window.location.pathname;
+                        url = url.substring(11)+window.location.search;
+                        window.location.href="login.jsp?redirectURL="+url;
+                    }
+                }
+            });
+            input.val('');//清空回复框
+            var reply_sapn = $(this).parent().parent().find(".show-more").children("span");
+            var reply_num = reply_sapn.text();
+            var new_num = reply_num*1 + 1;
+            reply_sapn.text(new_num);
+            //拼接回复评论
+            reply_result = '<div class="answer-item">\n' +
+                '            <img class="answer-img" src="'+ user_imgurl +'">\n' +
+                '            <div class="answer-content" data-txt="">\n' +
+                '                <h3 class="">'+user_nickname+'</h3>\n' +
+                '                <p>'+ reply +'</p>\n' +
+                '            </div>\n' +
+                '        </div>';
+            $(this).parent().parent().find(".comment-answer").prepend(reply_result);
+
+        }
+
+    });
 
 
+    //评论点赞
+    $(document).on('click','.J_hasHelp',function () {
+        var goods_comment_id = $(this).attr("data-commentid");
+        console.log(goods_comment_id);
+        var amount_span = $(this).find(".amount");
+        var amount = amount_span.text()*1;
+        //判断是否已经点赞
+        if($(this).hasClass("cur")){
+            amount = amount - 1;
+        }else{
+            amount = amount + 1;
+        }
+        $(this).toggleClass("cur");
+        amount_span.text(amount);
+        console.log(amount);
+        $.ajax({
+            url: "commentLike.action",
+            data: {
+                goods_comment_id:goods_comment_id,
+                like_num:amount
+            },
+            async: false,
+            datatype: "json",
+            type: "POST",
+            success: function (data) {
 
+            },
+            error: function (data) {
+                if(data.responseText == "loseSession"){
+                    //在这个地方进行跳转
+                    var url = window.location.pathname;
+                    url = url.substring(11)+window.location.search;
+                    window.location.href="login.jsp?redirectURL="+url;
+                }
+            }
+        });
+    });
+
+    //评论回复点赞
+    $(document).on('click','.J_csLike',function () {
+        var comment_reply_id = $(this).attr("data-commentid");
+        console.log(comment_reply_id);
+        var amount_span = $(this).find(".amount");
+        var amount = amount_span.text()*1;
+        //判断是否已经点赞
+        if($(this).hasClass("cur")){
+            amount = amount - 1;
+        }else{
+            amount = amount + 1;
+        }
+        $(this).toggleClass("cur");
+        amount_span.text(amount);
+        console.log(amount);
+        $.ajax({
+            url: "replyLike.action",
+            data: {
+                comment_reply_id:comment_reply_id,
+                reply_like_num:amount
+            },
+            async: false,
+            datatype: "json",
+            type: "POST",
+            success: function (data) {
+
+            },
+            error: function (data) {
+                if(data.responseText == "loseSession"){
+                    //在这个地方进行跳转
+                    var url = window.location.pathname;
+                    url = url.substring(11)+window.location.search;
+                    window.location.href="login.jsp?redirectURL="+url;
+                }
+            }
+        });
+    });
 });

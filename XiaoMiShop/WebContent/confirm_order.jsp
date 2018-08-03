@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="ch-ZN">
 <head>
@@ -69,7 +71,6 @@
     <link href="assets/css/mi.checkout.css" rel="stylesheet">
     <link href="assets/css/base.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/purchase.css" rel="stylesheet">
 </head>
 <body class="wide-layout">
 
@@ -79,7 +80,6 @@
         <div class="container">
             <div class="cart-wrapper">
                 <h3 class="h-title mb-30 t-uppercase">确认订单</h3>
-
                 <div class="panel ptb-30">
                     <div class="section section-address">
                         <div class="section-header clearfix">
@@ -91,54 +91,51 @@
                         </div>
                         <div class="section-body clearfix" id="J_addressList">
                             <!-- addresslist begin -->
-                            <div class="address-item J_addressItem  selected" data-address_id="10160117115815113" data-consignee="刘斌" data-tel="158****7259" data-province_id="7" data-province_name="辽宁" data-city_id="72" data-city_name="沈阳市" data-district_id="832" data-district_name="浑南区" data-area="832002" data-area_name="白塔街道" data-address="东北大学浑南校区" data-tag_name="" data-zipcode="110015" data-editable="Y" data-neededit="N">
-                                <dl>
-                                    <dt>
-                                        <span class="tag"></span>
-                                        <em class="uname">刘斌</em>
-                                    </dt>
-                                    <dd class="utel">
-                                        158****7259                            </dd>
-                                    <dd class="uaddress">
-                                        辽宁 沈阳市 浑南区 白塔街道<br>
-                                        东北大学浑南校区                            </dd>
-                                </dl>
-                                <div class="actions">
-                                    <a href="javascript:void(0);" class="modify J_addressModify" data-stat-id="8a158e0ee8f2f343" onclick="_msq.push(['trackEvent', '17a1f380b9d4cd2e-8a158e0ee8f2f343', 'javascript:void0', 'pcpid', '']);">修改</a>
-                                </div>
-                            </div>
-                            <div class="address-item J_addressItem" data-address_id="10171124146402386" data-consignee="刘海东" data-tel="137****0231" data-province_id="17" data-province_name="河南" data-city_id="204" data-city_name="驻马店市" data-district_id="1962" data-district_name="西平县" data-area="1962002" data-area_name="柏亭街道" data-address="杨庄高中园丁小区" data-tag_name="" data-zipcode="463900" data-editable="Y" data-neededit="N">
-                                <dl>
-                                    <dt>
-                                        <span class="tag"></span>
-                                        <em class="uname">刘海东</em>
-                                    </dt>
-                                    <dd class="utel">
-                                        137****0231                            </dd>
-                                    <dd class="uaddress">
-                                        河南 驻马店市 西平县 柏亭街道<br>
-                                        杨庄高中园丁小区                            </dd>
-                                </dl>
-                                <div class="actions">
-                                    <a href="javascript:void(0);" class="modify J_addressModify" data-stat-id="56e48742c2477f6b" onclick="_msq.push(['trackEvent', '17a1f380b9d4cd2e-56e48742c2477f6b', 'javascript:void0', 'pcpid', '']);">修改</a>
-                                </div>
-                            </div>
-                            <div class="address-item J_addressItem" data-address_id="10160122117930418" data-consignee="刘斌" data-tel="158****7259" data-province_id="17" data-province_name="河南" data-city_id="204" data-city_name="驻马店市" data-district_id="1962" data-district_name="西平县" data-area="1962002" data-area_name="柏亭街道" data-address="杨庄高中园丁小区" data-tag_name="" data-zipcode="463900" data-editable="Y" data-neededit="N">
-                                <dl>
-                                    <dt>
-                                        <span class="tag"></span>
-                                        <em class="uname">刘斌</em>
-                                    </dt>
-                                    <dd class="utel">
-                                        158****7259                            </dd>
-                                    <dd class="uaddress">
-                                        河南 驻马店市 西平县 柏亭街道<br>
-                                        杨庄高中园丁小区                            </dd>
-                                </dl>
-                                <div class="actions">
-                                    <a href="javascript:void(0);" class="modify J_addressModify" data-stat-id="0ad49162d21ae5b9" onclick="_msq.push(['trackEvent', '17a1f380b9d4cd2e-0ad49162d21ae5b9', 'javascript:void0', 'pcpid', '']);">修改</a>
-                                </div>
-                            </div>
+                            <c:forEach items="${addressList}" var="address">
+                                <c:if test="${address.isdefault == 1}">
+                                    <div class="address-item J_addressItem  selected" data-address_id="${address.address_id}" >
+                                        <dl>
+                                            <dt>
+                                                <span class="tag"></span>
+                                                <em class="uname">${address.recv_people}</em>
+                                            </dt>
+                                            <dd class="utel">
+                                                ${address.telephone}
+                                            </dd>
+                                            <dd class="uaddress">
+                                                    ${fn:replace(address.areaPath, "_", " ")}<br>
+                                                    ${address.detail_address}
+                                            </dd>
+                                        </dl>
+                                        <div class="actions">
+                                            <a href="javascript:void(0);" class="modify J_addressModify"  onclick="javascript:void(0);">修改</a>
+                                        </div>
+                                    </div>
+
+                                </c:if>
+                                <c:if test="${address.isdefault == 0}">
+                                    <div class="address-item J_addressItem " data-address_id="${address.address_id}" >
+                                        <dl>
+                                            <dt>
+                                                <span class="tag"></span>
+                                                <em class="uname">${address.recv_people}</em>
+                                            </dt>
+                                            <dd class="utel">
+                                                    ${address.telephone}
+                                            </dd>
+                                            <%--<c:set var="areaPath" value="${address.areaPath}"/>--%>
+                                            <dd class="uaddress">
+                                                    ${fn:replace(address.areaPath, "_", " ")}<br>
+                                                    ${address.detail_address}
+                                            </dd>
+                                        </dl>
+                                        <div class="actions">
+                                            <a href="javascript:void(0);" class="modify J_addressModify" >修改</a>
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                            </c:forEach>
                             <!-- addresslist end -->
                             <div class="address-item address-item-new" id="J_newAddress">
                                 <i class="iconfont"></i>
@@ -159,28 +156,33 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="panel alert">
-                        <td>
-                            <div class="media-left is-hidden-sm-down">
-                                <figure class="product-thumb">
-                                    <img src="assets/images/cart/product_01.jpg" alt="product">
-                                </figure>
-                            </div>
-                            <div class="media-body valign-middle">
-                                <h6 class="title mb-15 t-uppercase"><a href="#">Diamond engagement ring</a></h6>
-                                <div class="type font-12"><span class="t-uppercase">Type : </span>Women's Cloths</div>
-                            </div>
-                        </td>
-                        <td>$235</td>
-                        <td>
-                            <input class="quantity-label" type="number" value="02">
-                        </td>
-                        <td>
-                            <div class="sub-total">$470</div>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
+                    <c:set var="sum_money" value="0"/>
+                    <c:forEach items="${goodsItems}" var="item">
+                        <c:set var="sum_money" value="${sum_money+item.sumMoney}"/>
+                        <tr class="panel alert">
+                            <td>
+                                <div class="media-left is-hidden-sm-down">
+                                    <figure class="product-thumb">
+                                        <img src="${item.goodsItem.goods.goods_pic_url}" alt="product">
+                                    </figure>
+                                </div>
+                                <div class="media-body valign-middle">
+                                    <h6 class="title mb-15 t-uppercase"><a href="#">${item.goodsItem.goods.goods_name}</a></h6>
+                                    <div class="type font-12"><span class="t-uppercase">规格 : </span>${item.goodsItem.kind}&nbsp;${item.goodsItem.color}</div>
+                                </div>
+                            </td>
+                            <td><fmt:formatNumber value="${item.goodsItem.discount_price}" type="currency" pattern="￥.00"/></td>
+                            <td>
+                                <input class="quantity-label" type="number" readonly value="${item.goodsNum}">
+                            </td>
+                            <td>
+                                <div class="sub-total"><fmt:formatNumber value="${item.sumMoney}" type="currency" pattern="￥.00"/></div>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
 
                     </tbody>
                 </table>
@@ -192,7 +194,7 @@
                                 商品总数
                             </div>
                             <div class="price">
-                                1
+                                ${fn:length(goodsItems)}
                             </div>
                         </li>
                         <li>
@@ -200,12 +202,12 @@
                                 <strong class="t-uppercase">订单总价</strong>
                             </div>
                             <div class="price">
-                                <span>$150.50</span>
+                                <span><fmt:formatNumber value="${sum_money}" type="currency" pattern="￥.00"/></span>
                             </div>
                         </li>
                     </ul>
                     <div class="t-right">
-                        <a href="orderConfirm.action" class="btn btn-rounded btn-lg">确认订单</a>
+                        <a href="javascript:void(0);" class="btn btn-rounded btn-lg">确认订单</a>
                     </div>
                 </div>
             </div>
@@ -254,5 +256,6 @@
 <!-- Custom Template JavaScript                   -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/js/confirm_order.js"></script>
 </body>
 </html>

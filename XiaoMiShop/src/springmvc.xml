@@ -34,6 +34,18 @@
             <mvc:mapping path="/addFavorites.action"/>
             <bean class="com.ssm.utils.LoginInterceptor"/>
         </mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/makeCommentReply.action"/>
+			<bean class="com.ssm.utils.LoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/commentLike.action"/>
+			<bean class="com.ssm.utils.LoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/replyLike.action"/>
+			<bean class="com.ssm.utils.LoginInterceptor"/>
+		</mvc:interceptor>
     </mvc:interceptors>
 </beans>   
 
