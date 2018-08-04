@@ -105,9 +105,9 @@
                                 <div class="am-form-group">
                                     <label for="endtime" class="am-u-sm-3 am-form-label">团购结束时间 <span class="tpl-form-line-small-title">Time</span></label>
                                     <div class="am-u-sm-8">
-                                        <input type="hidden" id="endtime_ref" name="endtime_ref" >
+                                        <input type="hidden" id="endtime_ref" name="endtime_ref" value="${result.group_endtime}" pattern="yyyy-MM-dd HH:mm:ss" />
                                         <input  type="text" id="endtime"  class="am-form-field tpl-form-no-bg" name="endtime" value="<fmt:formatDate value="${result.group_endtime}" pattern="yyyy-MM-dd HH:mm:ss" />"  readonly="readonly">
-                                        <small>团购结束时间为必填</small>
+                                        <small>新结束时间必须比原时间大，原结束时间为<fmt:formatDate value="${result.group_endtime}" pattern="yyyy-MM-dd HH:mm:ss" /></small>
                                     </div>
                                     <div class="am-u-sm-1">
                                         <img id="validate_endtime" src="">
@@ -129,7 +129,17 @@
         </div>
     </div>
 </div>
-
+<div class="am-modal am-modal-alert" tabindex="-1" id="validate_alert">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">无法提交</div>
+        <div class="am-modal-bd">
+           请输入比原结束时间更大的时间！
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn">确定</span>
+        </div>
+    </div>
+</div>
 <script>
     var end=laydate.render({
         elem: '#endtime'

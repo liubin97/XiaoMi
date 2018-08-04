@@ -41,29 +41,30 @@
                         <div class="widget-body widget-body-lg am-fr">
                             <form class="am-form-inline" action="selectMGoodsComment.action" method="post">
 
-                                <div class="am-u-sm-12 am-u-lg-3 am-u-md-6 ">
+                                    <div class="am-u-sm-12 am-u-lg-3 am-u-md-6 ">
 
-                                    <div class="am-form-group">
-                                        <input type="text" class="am-form-field " name="starttime" id="starttime" placeholder="请选择开始日期"  readonly required >
+                                        <div class="am-form-group">
+                                            <input type="text" class="am-form-field " name="starttime" id="starttime" placeholder="请选择开始日期"  readonly required >
+                                        </div>
+
+                                    </div>
+                                    <div class="am-u-sm-12 am-u-lg-3 am-u-md-6 ">
+
+                                        <div class="am-form-group">
+                                            <input type="text" class="am-form-field " name="endtime" id="endtime" placeholder="请选择结束日期"  readonly required >
+                                        </div>
                                     </div>
 
-                                </div>
-                                <div class="am-u-sm-12 am-u-lg-3 am-u-md-6 ">
+                                    <div class="am-u-sm-12 am-u-lg-3 am-u-md-12 am-u-end">
+                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                                            <input type="text" class="am-form-field" placeholder="请输入商品ID"/>
+                                            <span class="am-input-group-btn">
+                                        <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit"></button>
+                                        </span>
+                                        </div>
 
-                                    <div class="am-form-group">
-                                        <input type="text" class="am-form-field " name="endtime" id="endtime" placeholder="请选择结束日期"  readonly required >
-                                    </div>
-                                </div>
-
-                                <div class="am-u-sm-12 am-u-lg-3 am-u-md-12 am-u-end">
-                                    <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                        <input type="text" class="am-form-field" placeholder="请输入商品ID"/>
-                                        <span class="am-input-group-btn">
-                                    <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit"></button>
-                                    </span>
                                     </div>
 
-                                </div>
                             </form>
 
 

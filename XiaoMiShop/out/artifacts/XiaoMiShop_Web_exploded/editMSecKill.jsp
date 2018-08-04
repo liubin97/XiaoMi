@@ -147,7 +147,7 @@
         </div>
     </div>
 </div>
-<script>
+<script >
     var start=laydate.render({
         elem: '#starttime'
         ,type: 'datetime'

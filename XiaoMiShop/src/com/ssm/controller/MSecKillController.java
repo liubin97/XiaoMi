@@ -85,7 +85,7 @@ public class MSecKillController {
 
 	}
 	@RequestMapping("addSecKill")
-	public String addSecKill(SecKillInfo secKillInfo,String starttime,String endtime) {
+	public String addSecKill(SecKillInfo secKillInfo,String starttime,String endtime) {//新增秒杀
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		//System.out.println(secKillInfo.getSeckill_name());
@@ -106,7 +106,7 @@ public class MSecKillController {
 		return "manageSecKill";
 	}
 	@RequestMapping("selectEditMSecKill")
-	public ModelAndView selectEditMSecKillById(int seckill_id){
+	public ModelAndView selectEditMSecKillById(int seckill_id){//选出要修改的秒杀的信息
 		SecKillInfo secKillInfo = mSecKillService.selectEditMSecKillById(seckill_id);
 		GoodsDetail goodsDetail = mSecKillService.selectGoodsDetailById(secKillInfo.getGoods_detail_id());
 		ModelAndView mav = new ModelAndView();
@@ -117,7 +117,7 @@ public class MSecKillController {
 	}
 
 
-	@RequestMapping("editMSecKill")
+	@RequestMapping("editMSecKill")//修改秒杀
 	public String editMSecKill(SecKillInfo secKillInfo,String starttime,String endtime,int seckill_num_ref){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date seckill_starttime = new Date();
@@ -136,19 +136,19 @@ public class MSecKillController {
 		mSecKillService.updateMSecKill(secKillInfo,seckill_num_ref);
 		return "manageSecKill";
 	}
-	@RequestMapping("deleteMSecKill")
+	@RequestMapping("deleteMSecKill")//删除秒杀
 	public String deleteMSecKill(int seckill_id,int pageNum){
 		mSecKillService.deleteMSecKill(seckill_id);
 
 		return "redirect:selectSecKill.action?pageNum="+pageNum;
 	}
-	@RequestMapping("validate_seckill_num")
+	@RequestMapping("validate_seckill_num")//校验秒杀最大数量小于库存
 	@ResponseBody
 	public int validateSecKillNum(int seckill_num, int goods_detail_id){
 		int result = mSecKillService.validateSecKillNum(seckill_num,goods_detail_id);
 		return result;
 	}
-	@RequestMapping("validate_seckill_money")
+	@RequestMapping("validate_seckill_money")//校验秒杀价格小于原价
 	@ResponseBody
 	public int validateSecKillMoney(float seckill_money,int goods_detail_id){
 		int result = mSecKillService.validateSecKillMoney(seckill_money,goods_detail_id);

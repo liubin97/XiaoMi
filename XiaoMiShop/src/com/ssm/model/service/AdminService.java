@@ -1,6 +1,8 @@
 package com.ssm.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,4 +28,27 @@ public class AdminService {
 			return 1;
 		}
     }
+
+    public float selectMonthInterest(String YearMonth) {
+    	float monthInterest = adminDao.selectMonthInterest(YearMonth);
+    	return monthInterest;
+    }
+
+	public float selectTermInterest(String yearMonth, String starttime) {
+		Map<String,Object> map =new HashMap<>();
+		map.put("yearMonth",yearMonth);
+		map.put("starttime",starttime);
+    	float termInterest = adminDao.selectTermInterest(map);
+    	return termInterest;
+	}
+
+	public Float selectNormalChartInterest(String sysdate) {
+		Float normal = adminDao.selectNormalChartInterest(sysdate);
+    	return normal;
+	}
+
+	public Float selectGroupChartInterest(String sysdate) {
+		Float group = adminDao.selectGroupChartInterest(sysdate);
+    	return group;
+	}
 }

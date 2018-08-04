@@ -44,7 +44,7 @@
                             <div class="widget-body am-fr">
                                 <form class="am-form tpl-form-line-form" id="addGroupBuy" action="addGroupBuy.action" method="post">
                                     <div class="am-form-group">
-                                        <label for="goodsId" class="am-u-sm-3 am-form-label">团购商品 <span class="tpl-form-line-small-title">Author</span></label>
+                                        <label for="goodsId" class="am-u-sm-3 am-form-label">团购商品 <span class="tpl-form-line-small-title">Goods</span></label>
                                         <div class="am-u-sm-8">
                                             <select data-am-selected="{searchBox: 1}" style="display: none;" id="goodsId">
                                                 <option value="0" selected>请选择商品</option>
@@ -59,7 +59,7 @@
 
                                     </div>
                                     <div class="am-form-group">
-                                        <label for="goods_detail_id" class="am-u-sm-3 am-form-label">团购商品型号 <span class="tpl-form-line-small-title">Author</span></label>
+                                        <label for="goods_detail_id" class="am-u-sm-3 am-form-label">团购商品型号 <span class="tpl-form-line-small-title">Detail</span></label>
                                         <div class="am-u-sm-8">
                                             <select data-am-selected="{searchBox: 1}" style="display: none;" id="goods_detail_id" name="goods_detail_id">
                                                 <option value="0" selected>请选择商品型号</option>
@@ -72,7 +72,7 @@
                                         </div>
                                     </div>
                                     <div class="am-form-group">
-                                        <label for="group_num" class="am-u-sm-3 am-form-label">团购所需人数 <span class="tpl-form-line-small-title">Title</span></label>
+                                        <label for="group_num" class="am-u-sm-3 am-form-label">团购所需人数 <span class="tpl-form-line-small-title">Number</span></label>
                                         <div class="am-u-sm-8">
                                             <input type="text" class="tpl-form-input" id="group_num" name="group_num" placeholder="请输入团购所需人数">
                                             <small>请填写大于1的整数。</small>
@@ -84,7 +84,7 @@
                                     </div>
 
                                     <div class="am-form-group">
-                                        <label for="group_buy_price" class="am-u-sm-3 am-form-label">团购价格 <span class="tpl-form-line-small-title">Title</span></label>
+                                        <label for="group_buy_price" class="am-u-sm-3 am-form-label">团购价格 <span class="tpl-form-line-small-title">Price</span></label>
                                         <div class="am-u-sm-8">
                                             <input type="text" class="tpl-form-input" id="group_buy_price" name="group_buy_price" placeholder="团购价格">
                                             <small>请填写小于商品原价的正数。</small>
@@ -123,7 +123,7 @@
 
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success " onclick="addGroupBuy()">提交</button>
+                                            <button type="button" id="addGroupBuyButton" class="am-btn am-btn-primary tpl-btn-bg-color-success " >提交</button>
                                         </div>
                                     </div>
                                 </form>
@@ -134,11 +134,23 @@
             </div>
     </div>
     </div>
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">添加提醒</div>
+        <div class="am-modal-bd">
+            你，确定要添加这个团购吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
 <script>
     var start=laydate.render({
         elem: '#starttime'
         ,type: 'datetime'
-        ,min:-0//设置最小时间为当前时间
+        ,min:+1//设置最小时间为当前时间
         ,value:new Date()
         ,isInitValue:true
         ,btns: ['now', 'confirm']
@@ -165,7 +177,7 @@
     var end=laydate.render({
         elem: '#endtime'
         ,type: 'datetime'
-        ,min:-0
+        ,min:+1
         ,value:new Date()
         ,isInitValue:true
         ,btns: ['now', 'confirm']

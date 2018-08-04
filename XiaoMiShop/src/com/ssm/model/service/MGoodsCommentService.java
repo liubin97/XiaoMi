@@ -44,7 +44,7 @@ public class MGoodsCommentService {
         commentReply.setReply(reply);
         commentReply.setGoods_comment_id(goods_comment_id);
         commentReply.setReply_type(1);
-        commentReply.setUser_email("小米官方");
+        commentReply.setUser_email("xiaomi@mi.com");
         commentReply.setReply_date(sysTime);
 
         mGoodsCommentDAO.insertMCommentReply(commentReply);

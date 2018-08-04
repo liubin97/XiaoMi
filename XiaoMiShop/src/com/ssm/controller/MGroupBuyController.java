@@ -27,8 +27,12 @@ public class MGroupBuyController {
 	private MGroupBuyService mGroupBuyService;	
 
 	@RequestMapping("addGroupBuy")
-	public String addGroupBuy(GroupBuyInfo groupBuyInfo,String starttime,String endtime) {//添加团购
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	public String addGroupBuy(GroupBuyInfo groupBuyInfo,String starttime,String endtime) {
+		/*添加团购
+		* 传入团购属性
+		*
+		* */
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");//转换日期格式
 		Date goods_starttime = new Date();
 		Date goods_endtime = new Date();
 		try {
@@ -37,10 +41,9 @@ public class MGroupBuyController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		groupBuyInfo.setGroup_starttime(goods_starttime);
-
+		groupBuyInfo.setGroup_starttime(goods_starttime);//把日期封装
 		groupBuyInfo.setGroup_endtime(goods_endtime);
-		groupBuyInfo.setGroup_buy_info_status(1);
+		groupBuyInfo.setGroup_buy_info_status(1);//设置初始状态为1
 		mGroupBuyService.addGroupBuy(groupBuyInfo);
 		return "manageGroupBuying";
 	}
@@ -98,9 +101,9 @@ public class MGroupBuyController {
 		groupBuyInfo.setGroup_endtime(goods_endtime);
 		groupBuyInfo.setGoods_detail_id(goodsDetailId);
 		Map<String,Object> map = mGroupBuyService.selectGroupBuyInfo(groupBuyInfo,pagenum,pageSize);
-		List<GroupBuyInfo> list = (List<GroupBuyInfo>) map.get("list");
-		int maxPageNum = (int) map.get("maxPageNum");
-		List isEdit = new ArrayList();
+		List<GroupBuyInfo> list = (List<GroupBuyInfo>) map.get("list");//返回的该页的结果
+		int maxPageNum = (int) map.get("maxPageNum");//返回的总页数
+		List isEdit = new ArrayList();//设置是否可修改，0指还未开始，1指开始但还未结束，2指已结束
 		for(GroupBuyInfo u : list){
 			if(u.getGroup_starttime().before(systemTime)){
 				if(u.getGroup_endtime().before(systemTime)){
@@ -113,7 +116,7 @@ public class MGroupBuyController {
 			}
 
 		}
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView();//返回页面
 		mav.addObject("resultList",list);
 		mav.addObject("isEdit",isEdit);
 		mav.addObject("maxPageNum",maxPageNum);
@@ -146,7 +149,7 @@ public class MGroupBuyController {
 	@RequestMapping("selectEditGroupBuying")
     public ModelAndView selectEditGroupBuy(int group_buy_info_id,int type){//查询要修改的团购商品信息
 	    GroupBuyInfo groupBuyInfo = mGroupBuyService.selectEditGroupBuy(group_buy_info_id);
-	    GoodsDetail goodsDetail = mGroupBuyService.selectGoodsDetailById(groupBuyInfo.getGoods_detail_id());
+	    GoodsDetail goodsDetail = mGroupBuyService.selectGoodsDetailById(groupBuyInfo.getGoods_detail_id());//查询要修改团购的详细商品
 	    
 	    ModelAndView mav = new ModelAndView();
 	    if(type==0) {
@@ -159,24 +162,25 @@ public class MGroupBuyController {
 	    return mav;
     }
     @RequestMapping("deleteGroupBuyingTwo")
-	public String deleteGroupBuyingTwo(int group_buy_info_id){
+	public String deleteGroupBuyingTwo(int group_buy_info_id){//删除正在进行的团购
 		mGroupBuyService.deleteGroupBuyingTwo(group_buy_info_id);
 		return null;
 	}
 	@RequestMapping("deleteGroupBuyingOne")
-	public String deleteGroupBuyingOne(int group_buy_info_id){
+	public String deleteGroupBuyingOne(int group_buy_info_id){//删除还未开始的团购
 		mGroupBuyService.deleteGroupBuyingOne(group_buy_info_id);
 		return null;
 	}
 	@RequestMapping("validate_group_buy_price")
 	@ResponseBody
-	public int validateGroupBuyPrice(float group_buy_price,int goods_detail_id){
+	public int validateGroupBuyPrice(float group_buy_price,int goods_detail_id){//校验团购价是否低于原价
 		int result = mGroupBuyService.validateGroupBuyPrice(group_buy_price,goods_detail_id);
 		return result;
 	}
 	@RequestMapping("validate_group_num")
 	@ResponseBody
-	public int validateGroupNum(int group_num,int goods_detail_id){
+	public int validateGroupNum(int group_num,int goods_detail_id){//校验每个团需求人数小于等于库存数，保证至少一个团
+
 		int result = mGroupBuyService.validateGroupNum(group_num,goods_detail_id);
 		return result;
 	}

@@ -62,10 +62,10 @@ public class MGroupBuyService {
 		Date date = new Date();
 		SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = format0.format(date);
-		List<String> list = mGroupBuyDAO.selectEditMessgeUser(groupBuyInfo.getGroup_buy_info_id());
+		List<String> list = mGroupBuyDAO.selectEditMessgeUser(groupBuyInfo.getGroup_buy_info_id());//获取被修改的团购信息的用户
 		for(String u : list){
 			Message m = new Message();
-			m.setMessage_text("您购买的团购商品+信息已修改");
+			m.setMessage_text("您购买的团购商品信息已修改");
 			m.setMessage_title("重要消息");
 			m.setMessage_type(0);
 			m.setRead_flag(0);
@@ -88,7 +88,7 @@ public class MGroupBuyService {
 	}
 
 	public void deleteGroupBuyingTwo(int group_buy_info_id) {
-		int sum_goods = 0 ;
+		int sum_goods = 0 ;//总共需要返回库存的商品数
 		Map<String,Integer> map = new HashMap<>();
 		GroupBuyInfo groupBuyInfo = mGroupBuyDAO.selectGroupBuyInfoById(group_buy_info_id);
 		mGroupBuyDAO.deleteGroupBuying(group_buy_info_id);//删除团购
@@ -129,10 +129,10 @@ public class MGroupBuyService {
 	}
 
 	public int validateGroupBuyPrice(float group_buy_price, int goods_detail_id) {
-		float prime_price = mGroupBuyDAO.selectGoodsDetailPriceById(goods_detail_id);
+		float prime_price = mGroupBuyDAO.selectGoodsDetailPriceById(goods_detail_id);//获取详细商品原价
 		int result = 0;
 		if(prime_price>group_buy_price){
-			result=0;
+			result=0;//原价大于团购价，满足校验，返回0
 		}else {
 			result=1;
 		}
@@ -140,10 +140,10 @@ public class MGroupBuyService {
 	}
 
 	public int validateGroupNum(int group_num, int goods_detail_id) {
-		int stock = mGroupBuyDAO.selectGoodsDetailStockById(goods_detail_id);
+		int stock = mGroupBuyDAO.selectGoodsDetailStockById(goods_detail_id);//获取团购商品库存
 		int result = 0;
 		if(stock>=group_num){
-			result=0;
+			result=0;//库存大于等于团购所需人数，满足校验，返回0
 		}else {
 			result=1;
 		}

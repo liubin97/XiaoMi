@@ -175,29 +175,37 @@ $(document).ready(function(){
             }
         }
     });//校验秒杀价格，非空，正数，小于原价
-    $("#starttime").change(function(){
-        if($(this).val() == "" || $.trim($(this).val()).length == 0){
+
+    $('#addSecKillButton').on('click', function() {
+        if($('#starttime').val() == "" || $.trim($('#starttime').val()).length == 0){
             $('#validate_starttime').attr("src","img/error.png");
             flag_4=0;
-        } else{
-            $('#validate_starttime').attr("src","img/tick.png");
+        }else {
             flag_4=1;
+            $('#validate_starttime').attr("src","img/tick.png");
         }
-    });//校验开始时间非空
-    $("#endtime").change(function(){
-        if($(this).val() == "" || $.trim($(this).val()).length == 0){
+        if($('#endtime').val() == "" || $.trim($('#endtime').val()).length == 0){
             $('#validate_endtime').attr("src","img/error.png");
             flag_5=0;
-        } else{
-            $('#validate_endtime').attr("src","img/tick.png");
+        }else {
             flag_5=1;
+            $('#validate_endtime').attr("src","img/tick.png");
         }
-    });//校验结束时间非空
+        if(flag_1==flag_2==flag_3==flag_4==flag_5==1){
+            $('#my-confirm').modal({
+                relatedTarget: this,
+                onConfirm: function(options) {
+                    $('#addSecKill').submit();
+                },
+                // closeOnConfirm: false,
+                onCancel: function() {
+
+                }
+            });
+
+        }else{
+            alert("请输入正确信息");
+        }
+
+    });
 });
-function addSecKill() {
-    if(flag_1==flag_2==flag_3==flag_4==flag_5==1){
-        $('#addSecKill').submit();
-    }else{
-        alert("请输入正确信息");
-    }
-}

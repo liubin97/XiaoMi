@@ -27,77 +27,85 @@
 </head>
 <body data-type="widgets">
 <div class="am-g tpl-g">
-    <c:import url="xm_topleft.jsp"></c:import>
-    <div class="tpl-content-wrapper">
-        <div class="row-content am-cf">
-            <div class="row">
-                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                    <div class="widget am-cf">
-                        <div class="widget-head am-cf">
-                            <div class="widget-title  am-cf">文章列表</div>
+        <c:import url="xm_topleft.jsp"></c:import>
+        <div class="tpl-content-wrapper">
+            <div class="row-content am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title  am-cf">文章列表</div>
 
 
-                        </div>
-                        <div class="widget-body  am-fr">
-                            <div class="am-u-sm-12">
+                            </div>
+                            <div class="widget-body  am-fr">
+                                <div class="am-u-sm-12">
 
-                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
-                                    <thead>
-                                    <tr>
-                                        <th>评论编号</th>
-                                        <th>用户</th>
-                                        <th>商品编号</th>
-                                        <th>评论时间</th>
-                                        <th>评论等级</th>
-                                        <th>点赞数</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="gradeX">
-
-                                            <td class="am-text-middle">${goodsComment.goods_comment_id}</td>
-                                            <td class="am-text-middle">${goodsComment.user_email}</td>
-                                            <td class="am-text-middle">${goodsComment.goods_id}</td>
-                                            <td class="am-text-middle"><fmt:formatDate value="${goodsComment.comment_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                            <td class="am-text-middle">${goodsComment.comment_level}</td>
-                                            <td class="am-text-middle">${goodsComment.like_num}</td>
-                                            <td class="am-text-middle">
-                                                <div class="tpl-table-black-operation">
-                                                    <a href="#" id="doc-prompt-toggle">
-                                                        <i class="am-icon-pencil"></i>回复
-                                                    </a>
-                                                    <a href="deleteMGoodsComment.action?goods_comment_id=${goodsComment.goods_comment_id}&pageNum=${pageNum}" class="tpl-table-black-operation-del">
-                                                        <i class="am-icon-trash"></i> 删除
-                                                    </a>
-                                                </div>
-                                            </td>
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                                        <thead>
+                                        <tr>
+                                            <th>评论编号</th>
+                                            <th>用户</th>
+                                            <th>商品编号</th>
+                                            <th>评论时间</th>
+                                            <th>评论等级</th>
+                                            <th>点赞数</th>
                                         </tr>
-                                        <tr class="gradeX">
-                                            <td>评论内容:</td>
-                                            <td>${goodsComment.comment}</td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <c:forEach items="${goodsComment.commentPictureList}" var="CommentPicture">
-                                                <td>
-                                                    <img src="${CommentPicture.picture_url}" class="tpl-table-line-img" alt="评论图片">
+                                        </thead>
+                                        <tbody>
+                                            <tr class="gradeX">
+
+                                                <td class="am-text-middle">${goodsComment.goods_comment_id}</td>
+                                                <td class="am-text-middle">${goodsComment.user_email}</td>
+                                                <td class="am-text-middle">${goodsComment.goods_id}</td>
+                                                <td class="am-text-middle"><fmt:formatDate value="${goodsComment.comment_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                                <td class="am-text-middle">${goodsComment.comment_level}</td>
+                                                <td class="am-text-middle">${goodsComment.like_num}</td>
+                                                <td class="am-text-middle">
+                                                    <div class="tpl-table-black-operation">
+                                                        <a href="#" id="doc-prompt-toggle">
+                                                            <i class="am-icon-pencil"></i>回复
+                                                        </a>
+                                                        <a href="deleteMGoodsComment.action?goods_comment_id=${goodsComment.goods_comment_id}&pageNum=${pageNum}" class="tpl-table-black-operation-del">
+                                                            <i class="am-icon-trash"></i> 删除
+                                                        </a>
+                                                    </div>
                                                 </td>
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td>评论内容:</td>
+                                                <td>${goodsComment.comment}</td>
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <c:forEach items="${goodsComment.commentPictureList}" var="CommentPicture">
+                                                    <td>
+                                                        <img src="${CommentPicture.picture_url}" class="tpl-table-line-img" alt="评论图片">
+                                                    </td>
+                                                </c:forEach>
+                                            </tr>
+                                            <c:forEach items="${goodsComment.commentReplyList}" var="CommentReply">
+                                                <tr>
+                                                    <td>${CommentReply.user_email}</td>
+                                                    <td><fmt:formatDate value="${CommentReply.reply_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>回复内容：</td>
+                                                    <td>${CommentReply.reply}</td>
+                                                </tr>
                                             </c:forEach>
-                                        </tr>
-                                        <c:forEach items="${goodsComment.commentReplyList}" var="CommentReply">
-                                            <tr>
-                                                <td>${CommentReply.user_email}</td>
-                                                <td><fmt:formatDate value="${CommentReply.reply_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>回复内容：</td>
-                                                <td>${CommentReply.reply}</td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
+                                        </tbody>
 
 
-                                </table>
-
+                                    </table>
+                                    <div data-am-sticky>
+                                        <div data-am-widget="gotop" class="am-gotop am-gotop-default" >
+                                            <a href="#top" title="回到顶部">
+                                                <span class="am-gotop-title">回到顶部</span>
+                                                <i class="am-gotop-icon  am-icon-hand-o-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -105,7 +113,7 @@
             </div>
         </div>
     </div>
-</div>
+
 </div>
 <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
     <div class="am-modal-dialog">

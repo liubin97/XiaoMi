@@ -25,7 +25,7 @@
 <body data-type="widgets">
 <script src="asset/js/theme.js"></script>
 <div class="am-g tpl-g">
-	<%@include file="xm_topleft.html"  %>
+	<%@include file="xm_topleft.jsp"  %>
 	<div class="tpl-content-wrapper">
 
         <div class="row-content am-cf">
@@ -128,7 +128,7 @@
 
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
-                                        <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success " onclick="addSecKill()">提交</button>
+                                        <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success " id="addSecKillButton">提交</button>
                                     </div>
                                 </div>
                             </form>
@@ -136,6 +136,18 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">添加提醒</div>
+        <div class="am-modal-bd">
+            你，确定要添加这个秒杀吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
         </div>
     </div>
 </div>
@@ -186,5 +198,9 @@
         }
     });
 </script>
+<script src="asset/js/amazeui.min.js"></script>
+<script src="asset/js/amazeui.datatables.min.js"></script>
+<script src="asset/js/dataTables.responsive.min.js"></script>
+<script src="asset/js/app.js"></script>
 </body>
 </html>

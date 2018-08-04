@@ -6,6 +6,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectAdmin" parameterType="Admin" resultType="Admin">
     	select * from admin where admin_name=#{admin_name} and admin_password=#{admin_password}
     </select>
+    <select id="selectMonthInterest" parameterType="String" resultType="float">
+        select IFNULL(sum(sum_money),0) from `order` where date_format(order_date,'%Y%m')=#{YearMonth} and order_type in (1,3)
+    </select>
+    <select id="selectTermInterest" parameterType="map" resultType="float">
+        select IFNULL(sum(sum_money),0) from `order` where date_format(order_date,'%Y%m') between #{starttime} and #{yearMonth}  and order_type in (1,3)
+    </select>
+    <select id="selectNormalChartInterest" parameterType="String" resultType="Float">
+        select IFNULL(sum(sum_money),0) from `order`
+        where date_format(order_date,'%Y-%m-%d') = #{sysdate}
+        and order_type = 1
+
+    </select>
+    <select id="selectGroupChartInterest" parameterType="String" resultType="Float">
+        select IFNULL(sum(sum_money),0) from `order`
+        where date_format(order_date,'%Y-%m-%d') = #{sysdate}
+              and order_type = 3
+    </select>
 </mapper>
 
 

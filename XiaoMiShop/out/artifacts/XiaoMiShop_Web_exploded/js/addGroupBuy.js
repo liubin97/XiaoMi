@@ -81,6 +81,9 @@ $(document).ready(function(){
                     alert("请选择商品");
                     $('#validate_minNumber').attr("src","img/error.png");
                     flag_2=0;
+                }else if(group_num==1) {
+                    $('#validate_minNumber').attr("src","img/error.png");
+                    flag_2=0;
                 }else {
                     $.ajax({
                         url:"validate_group_num.action",
@@ -166,29 +169,37 @@ $(document).ready(function(){
             }
         }
     });
-    $("#starttime").change(function(){
-        if($(this).val() == "" || $.trim($(this).val()).length == 0){
+    $('#addGroupBuyButton').on('click', function() {
+        if($('#starttime').val() == "" || $.trim($('#starttime').val()).length == 0){
             $('#validate_starttime').attr("src","img/error.png");
             flag_4=0;
-        } else{
-            $('#validate_starttime').attr("src","img/tick.png");
+        }else {
             flag_4=1;
+            $('#validate_starttime').attr("src","img/tick.png");
         }
-    });
-    $("#endtime").change(function(){
-        if($(this).val() == "" || $.trim($(this).val()).length == 0){
+        if($('#endtime').val() == "" || $.trim($('#endtime').val()).length == 0){
             $('#validate_endtime').attr("src","img/error.png");
             flag_5=0;
-        } else{
-            $('#validate_endtime').attr("src","img/tick.png");
+        }else {
             flag_5=1;
+            $('#validate_endtime').attr("src","img/tick.png");
         }
+        if(flag_1==flag_2==flag_3==flag_4==flag_5==1){
+            $('#my-confirm').modal({
+                relatedTarget: this,
+                onConfirm: function(options) {
+                    $('#addGroupBuy').submit();
+                },
+                // closeOnConfirm: false,
+                onCancel: function() {
+
+                }
+            });
+
+        }else{
+            alert("请输入正确信息");
+        }
+
     });
 });
-function addGroupBuy() {
-    if(flag_1==flag_2==flag_3==flag_4==flag_5==1){
-        $('#addGroupBuy').submit();
-    }else{
-        alert("请输入正确信息");
-    }
-}
+

@@ -35,7 +35,7 @@
 
                     <!-- 退出 -->
                     <li class="am-text-sm">
-                        <a href="javascript:;">
+                        <a href="adminLogin.jsp">
                             <span class="am-icon-sign-out"></span> 退出
                         </a>
                     </li>
@@ -66,7 +66,7 @@
         <li class="sidebar-nav-heading">小米商城管理</li>
         <ul class="sidebar-nav">
             <li class="sidebar-nav-link">
-                <a href="addGroupBuying.html">
+                <a href="adminIndex.jsp">
                     <i class="am-icon-home sidebar-nav-link-logo"></i>首页
                 </a>
             </li>

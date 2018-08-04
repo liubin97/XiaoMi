@@ -1,4 +1,4 @@
-var flag = 0;
+
 $(document).ready(function(){
     $.ajax({
         url:"getAllGoods.action",
@@ -64,25 +64,20 @@ $(document).ready(function(){
             },
         });
     });
-    $('#endtime').change(function(){
-        var startTime=$("#endtime_ref").val();
-        var start=new Date(startTime.replace("-", "/").replace("-", "/"));
-        var endTime=$("#endtime").val();
-        var end=new Date(endTime.replace("-", "/").replace("-", "/"));
-        if(end<start){
-            $('#validate_endtime').attr("src","img/error.png");
-            flag=0;
-        }else {
-            $('#validate_endtime').attr("src","img/tick.png");
-            flag=1;
-        }
-
-    });
 });
-function editGroupBuy() {
-    if(flag=1){
-        $('#editGroupBuy').submit();
+function editGroupBuy() {//提交表单是校验新的结束时间是否比之前大
+    var endtime_ref = $('#endtime_ref').val();
+    var endtime=$("#endtime").val();
+    var d1 = new Date(endtime_ref.replace(/\-/g, "\/"));
+    var d2 = new Date(endtime.replace(/\-/g, "\/"));
+    if(endtime_ref!=""&&endtime!=""&&d1>=d2)
+    {
+        $('#validate_alert').modal('toggle');
+        return false;
     }else {
-        alert("请输入正确信息");
+        $('#editGroupBuy').submit();
     }
+
+
+
 }
