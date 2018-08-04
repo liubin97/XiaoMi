@@ -1,4 +1,65 @@
 $(function(){
+
+	//类别名
+	var category = [];
+	//最近
+	var num = [];
+	//饼状图数据
+	var barData = [];
+	//最近7天的时间
+	var weekData = [];
+	//折线图数据
+	var lineData = [];
+	$.ajax({
+		 type:"POST", //请求方式  
+     url:"getAllNum.action",
+     /*data : JSON.stringify(vale),*/
+     
+   /* contentType:'application/json;charset=UTF-8',*/
+  async : false,
+     dataType: 'json', 
+     cache: false,   
+     success:function(data){ 
+    	 
+    	 for(var i = 0;i<data.length;i++){
+    		 
+    		 category.push(data[i].category_name);
+    		 num.push(data[i].number);
+    		 barData.push({
+    			 value : data[i].number,
+    			 name : data[i].category_name
+    		 })
+    	 }
+  	   }
+	});
+	$.ajax({
+		 type:"POST", //请求方式  
+    url:"getStatustics.action",
+    /*data : JSON.stringify(vale),*/
+    
+  /* contentType:'application/json;charset=UTF-8',*/
+    async : false,
+    dataType: 'json', 
+    cache: false,   
+    success:function(data){ 
+    	for(var i = 0;i<data[0].statisticsList.length;i++){
+    		weekData.push(data[0].statisticsList[i].date); 
+	   	 }
+	   	 for(var i = 0;i<data.length;i++){
+	   		 var numData = [];
+	   		 for(var j = 0;j<data[i].statisticsList.length;j++){
+	   			numData.push(data[i].statisticsList[j].number);
+	   		}
+	   		 lineData.push({
+	   			 name:data[i].category_name,
+ 	            type:'line',
+ 	            stack: '总量',
+ 	            data:numData
+	   		 });
+	   		
+	   	 }
+ 	   }
+	});
 	// 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init($('#main')[0]);
     var chart2 = echarts.init($('#chart2')[0]);
@@ -6,27 +67,26 @@ $(function(){
     // 指定图表的配置项和数据
     var option = {
         title: {
-            text: 'ECharts 入门示例'
+            text: '销售量'
         },
         tooltip: {},
         legend: {
             data:['销量']
         },
         xAxis: {
-            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            data: category
         },
         yAxis: {},
         series: [{
             name: '销量',
             type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
+            data: num
         }]
     };
     //饼状图
     var option2 = {
     	    title : {
-    	        text: '某站点用户访问来源',
-    	        subtext: '纯属虚构',
+    	        text: '最近一周内各个类别的销售量',
     	        x:'center'
     	    },
     	    tooltip : {
@@ -36,21 +96,15 @@ $(function(){
     	    legend: {
     	        orient: 'vertical',
     	        left: 'left',
-    	        data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+    	        data: category
     	    },
     	    series : [
     	        {
-    	            name: '访问来源',
+    	            name: '销售量',
     	            type: 'pie',
     	            radius : '55%',
     	            center: ['50%', '60%'],
-    	            data:[
-    	                {value:335, name:'直接访问'},
-    	                {value:310, name:'邮件营销'},
-    	                {value:234, name:'联盟广告'},
-    	                {value:135, name:'视频广告'},
-    	                {value:1548, name:'搜索引擎'}
-    	            ],
+    	            data:barData,
     	            itemStyle: {
     	                emphasis: {
     	                    shadowBlur: 10,
@@ -64,13 +118,13 @@ $(function(){
     //折线图
     option3 = {
     	    title: {
-    	        text: '折线图堆叠'
+    	        text: '销售量'
     	    },
     	    tooltip: {
     	        trigger: 'axis'
     	    },
     	    legend: {
-    	        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+    	        data:category
     	    },
     	    grid: {
     	        left: '3%',
@@ -86,43 +140,12 @@ $(function(){
     	    xAxis: {
     	        type: 'category',
     	        boundaryGap: false,
-    	        data: ['周一','周二','周三','周四','周五','周六','周日']
+    	        data: weekData
     	    },
     	    yAxis: {
     	        type: 'value'
     	    },
-    	    series: [
-    	        {
-    	            name:'邮件营销',
-    	            type:'line',
-    	            stack: '总量',
-    	            data:[120, 132, 101, 134, 90, 230, 210]
-    	        },
-    	        {
-    	            name:'联盟广告',
-    	            type:'line',
-    	            stack: '总量',
-    	            data:[220, 182, 191, 234, 290, 330, 310]
-    	        },
-    	        {
-    	            name:'视频广告',
-    	            type:'line',
-    	            stack: '总量',
-    	            data:[150, 232, 201, 154, 190, 330, 410]
-    	        },
-    	        {
-    	            name:'直接访问',
-    	            type:'line',
-    	            stack: '总量',
-    	            data:[320, 332, 301, 334, 390, 330, 320]
-    	        },
-    	        {
-    	            name:'搜索引擎',
-    	            type:'line',
-    	            stack: '总量',
-    	            data:[820, 932, 901, 934, 1290, 1330, 1320]
-    	        }
-    	    ]
+    	    series: lineData
     	};
 
     // 使用刚指定的配置项和数据显示图表。
