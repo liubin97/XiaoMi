@@ -1,0 +1,7 @@
+/SqlMapConfig.xml
+/applicationContext-dao.xml
+/applicationContext-transaction.xml
+/com/
+/db.properties
+/log4j.properties
+/springmvc.xml
