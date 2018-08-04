@@ -200,9 +200,136 @@ function getComments(offset,size,goods_id){
     });
 }
 
+//数组去重
+Array.prototype.unique = function(){
+    var res = [];
+    var json = {};
+    for(var i = 0; i < this.length; i++){
+        if(!json[this[i]]){
+            res.push(this[i]);
+            json[this[i]] = 1;
+        }
+    }
+    return res;
+};
+
+//通过商品版本、颜色查找具体的商品
+function getGoodsByKindAndColor(kind,color){
+    var goods_detail_info;
+    $.each(goodsDetailList,function () {
+       if(this.goods_detail_kind==kind && this.goods_detail_color==color){
+           goods_detail_info = this;
+       }
+    });
+    return goods_detail_info;
+}
+
 $(document).ready(function(){
     //获取goods_id
     var goods_id = $("#goods-id").text();
+
+    //显示商品版本、颜色
+    $(function () {
+        console.log(goodsDetailList);
+        var AllkindsColor = [];
+        var kinds = [];
+
+        //获取所有版本
+        $.each(goodsDetailList,function () {
+            kinds.push(this.goods_detail_kind);
+        });
+        kinds = kinds.unique();//去除重复
+        //获取每个版本的颜色
+        $.each(kinds,function () {
+            var kind = this;
+            var colors = [];
+            $.each(goodsDetailList, function () {
+                if(kind == this.goods_detail_kind){
+                    colors.push(this.goods_detail_color);
+                }
+            });
+            AllkindsColor.push({kind:kind,colors:colors});
+        });
+        //console.log(kinds);
+        //console.log(AllkindsColor);
+        //拼接版本
+        var kindsHtml = '';
+        for(var i = 0;i<kinds.length;i++){
+            kindsHtml += '<li class="col-md-6"> <a class="';
+            if(i==0){
+                kindsHtml +='active';
+            }
+            kindsHtml += ' goods-kind" >'+kinds[i]+'</a></li>';
+        }
+        $("#goods-kind-list").append(kindsHtml);
+
+
+        //点击商品版本
+        $(document).on('click','.goods-kind',function () {
+            $(this).parent("li").siblings().children("a").removeClass("active");
+            $(this).addClass("active");
+            $("#goods-color-list").empty();//清空颜色列表
+            //var thisKind = $(this).parent("li").attr("data-kind");
+            var thisKind = $(this).text();
+            $.each( AllkindsColor, function () {
+                if(this.kind == thisKind){
+                    var colorsHtml = '';//拼接颜色列表
+                    for(var i = 0; i<this.colors.length;i++){
+                        colorsHtml += '<li class="col-md-6"><a class="';
+                        if(i==0){
+                            colorsHtml += 'active';
+                        }
+                        colorsHtml += ' goods-color" >' +this.colors[i]+ '</a></li>'
+                    }
+                    $("#goods-color-list").append(colorsHtml);
+                    var goods_detail_info = getGoodsByKindAndColor(thisKind,this.colors[0]);
+                    //console.log(goods_detail_info);
+                    $("#goods-detail-id").attr("data-goods_detail_id",goods_detail_info.goods_detail_id);
+                    $("#stock").text(goods_detail_info.goods_detail_stock);
+                    var price = goods_detail_info.goods_detail_price*1;
+                    $("#price").text(price.toFixed(2));
+                    /*//清空图片
+                    var bigPicUl = $("#big-pictures");
+                    bigPicUl.empty();
+                    smallPicUl = $("#small-pictures");
+                    smallPicUl.empty();
+                    var pictureHtml = '';
+                    $.each(goods_detail_info.goods_detail_pic_urls,function () {
+                        pictureHtml += '<li> <img alt="" src="'+ this +'">  </li>';
+                    });
+                    bigPicUl.append(pictureHtml);
+                    smallPicUl.append(pictureHtml);*/
+                }
+            })
+        });
+
+        //点击商品颜色
+        $(document).on('click','.goods-color',function () {
+            $(this).parent("li").siblings().children("a").removeClass("active");
+            $(this).addClass("active");
+            var thisColor = $(this).text();
+            var thisKind = $(".goods-kind.active").text();
+            var goods_detail_info = getGoodsByKindAndColor(thisKind,thisColor);
+            console.log(goods_detail_info);
+            $("#goods-detail-id").attr("data-goods_detail_id",goods_detail_info.goods_detail_id);
+            $("#stock").text(goods_detail_info.goods_detail_stock);
+            var price = goods_detail_info.goods_detail_price*1;
+            $("#price").text(price.toFixed(2));
+            /*//清空图片
+                    var bigPicUl = $("#big-pictures");
+                    bigPicUl.empty();
+                    smallPicUl = $("#small-pictures");
+                    smallPicUl.empty();
+                    var pictureHtml = '';
+                    $.each(goods_detail_info.goods_detail_pic_urls,function () {
+                        pictureHtml += '<li> <img alt="" src="'+ this +'">  </li>';
+                    });
+                    bigPicUl.append(pictureHtml);
+                    smallPicUl.append(pictureHtml);*/
+        });
+
+    });
+
     //加载评论
     $(function () {
         /*初始化*/
@@ -247,22 +374,11 @@ $(document).ready(function(){
     });
 
 
-    /*点击品类*/
-    $(" .filter-center a").click(function(){
-        $(this).parent("li").siblings().children("a").removeClass("active");
-        $(this).addClass("active");
 
-        //更改显示价格
-        var price = $(this).children(".price").text();
-        $("#price").text(price);
-        //更改显示库存
-        var stock = $(this).children(".stock").text();
-        $("#stock").text(stock);
-    });
 
     //进入立即购买
     $("#purchase").click(function () {
-        var goods_detail_id = $(" .filter-center a.active").attr("id");
+        var goods_detail_id = $("#goods-detail-id").attr("data-goods_detail_id");
         //获取库存，判断是否跳转
         $.ajax({
             url: "getStock.action",
@@ -286,7 +402,7 @@ $(document).ready(function(){
 
     //加入购物车
     $("#add-cart").click(function () {
-        var id = $(" .filter-center a.active").attr("id");
+        var goods_detail_id = $("#goods-detail-id").attr("data-goods_detail_id");
         //checkStock(id,"addToCart.action?goods_detail_id="+id);
     });
 

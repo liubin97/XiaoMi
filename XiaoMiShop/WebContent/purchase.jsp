@@ -119,8 +119,7 @@
                                                     <div class="deal-deatails panel">
                                                         <div class="deal-slider">
                                                             <div id="product_slider" class="flexslider">
-                                                                <%--<input type="hidden" value="${goods}" id="goods">--%>
-                                                                <ul class="slides">
+                                                                <ul class="slides" id="big-pictures">
                                                                     <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
                                                                         <c:forEach items="${goodsDetail.goodsPictureList}" var="p">
                                                                             <li>
@@ -128,11 +127,10 @@
                                                                             </li>
                                                                         </c:forEach>
                                                                     </c:forEach>
-
                                                                 </ul>
                                                             </div>
                                                             <div id="product_slider_nav" class="flexslider flexslider-nav">
-                                                                <ul class="slides">
+                                                                <ul class="slides" id="small-pictures">
                                                                     <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
                                                                         <c:forEach items="${goodsDetail.goodsPictureList}" var="p">
                                                                             <li>
@@ -159,75 +157,41 @@
                                                                     ${goods.goods_name}<span id="goods-id" style="display: none">${goods.goods_id}</span>
                                                                 </h2>
                                                                 <ul class="deal-meta list-inline mb-10 color-mid">
-                                                                    <li><i class="ico fa fa-shopping-basket mr-10"></i>剩余<span id="stock">${goods.goodsDetailList[0].stock}</span>件</li>
+                                                                    <li><i class="ico fa fa-shopping-basket mr-10"></i>剩余
+                                                                        <span id="stock">${goods.goodsDetailList[0].stock}</span>件
+                                                                        <span id="goods-detail-id" data-goods_detail_id="${goods.goodsDetailList[0].goods_detail_id}" style="display: none"></span>
+                                                                    </li>
                                                                 </ul>
-                                                                <p class="color-muted">
-                                                                    小米
+                                                                <p class="color-muted" id="choose">
+
                                                                 </p>
                                                                 <div class="price mb-20">
-                                                                    <h2 class="price" id="price">
-                                                                        <fmt:formatNumber value="${goods.goodsDetailList[0].discount_price}" type="currency" pattern="￥.00"/>
+                                                                    <h2 class="price" >
+                                                                        ￥<span id="price"><fmt:formatNumber value="${goods.goodsDetailList[0].discount_price}"  pattern="#0.00"/></span>
                                                                     </h2>
                                                                 </div>
 
                                                                 <h3 class="mb-10 h5">选择版本</h3>
                                                                 <div class="filter-center col-md-12 mb-40">
-                                                                    <ul >
-                                                                        <c:set var="flag" value="1"/>
-                                                                        <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
-                                                                            <c:if test="${flag!=1}">
-                                                                                <li class="col-md-6">
-                                                                                    <a id="${goodsDetail.goods_detail_id}" >
-                                                                                            ${goodsDetail.kind}
-                                                                                                <span class="price" style="float: right">
-                                                                                                    <fmt:formatNumber value="${goodsDetail.discount_price}" type="currency" pattern="￥.00"/>
-                                                                                                </span>
-                                                                                                <span class="stock" style="display: none">${goodsDetail.stock}</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </c:if>
-                                                                            <c:if test="${flag==1}">
-                                                                                <li class="col-md-6">
-                                                                                    <a class="active" id="${goodsDetail.goods_detail_id}">
-                                                                                            ${goodsDetail.kind}
-                                                                                                <span class="price" style="float: right">
-                                                                                                    <fmt:formatNumber value="${goodsDetail.discount_price}" type="currency" pattern="￥.00"/>
-                                                                                                </span>
-                                                                                                <span class="stock" style="display: none">${goodsDetail.stock}</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <c:set var="flag" value="2"/>
-                                                                            </c:if>
-                                                                        </c:forEach>
+                                                                    <ul id="goods-kind-list" class="text-center">
 
                                                                     </ul>
                                                                 </div>
 
                                                                 <h3 class="mb-10 h5">选择颜色</h3>
                                                                 <div class="filter-center col-md-12 mb-40">
-                                                                    <ul >
+                                                                    <ul class="text-center" id="goods-color-list">
                                                                         <c:set var="flag" value="1"/>
+                                                                        <c:set var="firstkind" value="${goods.goodsDetailList[0].kind}"/>
                                                                         <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
-                                                                            <c:if test="${flag!=1}">
+                                                                            <c:if test="${flag!=1 and goodsDetail.kind ==firstkind}">
                                                                                 <li class="col-md-6">
-                                                                                    <a id="${goodsDetail.goods_detail_id}" >
-                                                                                            ${goodsDetail.color}
-                                                                                        <span class="price" style="float: right">
-                                                                                                    <fmt:formatNumber value="${goodsDetail.discount_price}" type="currency" pattern="￥.00"/>
-                                                                                        </span>
-                                                                                        <span class="stock" style="display: none">${goodsDetail.stock}</span>
-                                                                                    </a>
+                                                                                    <a class="goods-color" >${goodsDetail.color}</a>
                                                                                 </li>
                                                                             </c:if>
-                                                                            <c:if test="${flag==1}">
+                                                                            <c:if test="${flag==1 and goodsDetail.kind ==firstkind}">
                                                                                 <li class="col-md-6">
-                                                                                    <a class="active" id="${goodsDetail.goods_detail_id}">
-                                                                                            ${goodsDetail.color}
-                                                                                        <span class="price" style="float: right">
-                                                                                                    <fmt:formatNumber value="${goodsDetail.discount_price}" type="currency" pattern="￥.00"/>
-                                                                                                </span>
-                                                                                        <span class="stock" style="display: none">${goodsDetail.stock}</span>
-                                                                                    </a>
+                                                                                    <a class="goods-color active" >${goodsDetail.color}</a>
                                                                                 </li>
                                                                                 <c:set var="flag" value="2"/>
                                                                             </c:if>
@@ -345,6 +309,7 @@
     <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
         var goods_detail_id = "${goodsDetail.goods_detail_id}";
         var goods_detail_color = "${goodsDetail.color}";
+        var goods_detail_kind = "${goodsDetail.kind}";
         var goods_detail_price = "${goodsDetail.discount_price}";
         var goods_detail_stock = "${goodsDetail.stock}";
         var goods_picture_urls = [];
@@ -354,6 +319,7 @@
         </c:forEach>
         goodsDetailList.push({
             "goods_detail_id":goods_detail_id,
+            "goods_detail_kind":goods_detail_kind,
             "goods_detail_color":goods_detail_color,
             "goods_detail_price":goods_detail_price,
             "goods_detail_stock":goods_detail_stock,
@@ -361,7 +327,7 @@
         });
     </c:forEach>
 
-    console.log(goodsDetailList);
+
 
 </script>
 </body>

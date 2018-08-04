@@ -258,6 +258,19 @@
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
 <script type="text/javascript" src="assets/js/confirm_order.js"></script>
+<script type="text/javascript">
+    $(".J_addressItem").click(function() {
+        clear();
+        $(this).addClass("selected");
+    });
 
+    function clear() {
+        $(".J_addressItem").each(function() {
+            if ($(this).hasClass("selected")) {
+                $(this).removeClass("selected");
+            }
+        });
+    }
+</script>
 </body>
 </html>
