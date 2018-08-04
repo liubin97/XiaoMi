@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ch-ZN">
 <head>
@@ -336,9 +336,33 @@
 <script type="text/javascript" src="assets/js/purchase.js"></script>
 
 <script type="text/javascript">
+    //获取用户信息
     var user_emial = "${sessionScope.user_email}";
     var user_nickname = "${sessionScope.nickname}";
     var user_imgurl = "${sessionScope.user_imgurl}";
+    //获取商品详情数组
+    var goodsDetailList =[];
+    <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
+        var goods_detail_id = "${goodsDetail.goods_detail_id}";
+        var goods_detail_color = "${goodsDetail.color}";
+        var goods_detail_price = "${goodsDetail.discount_price}";
+        var goods_detail_stock = "${goodsDetail.stock}";
+        var goods_picture_urls = [];
+        <c:forEach items="${goodsDetail.goodsPictureList}" var="p">
+            var picture_url  = "${p.picture_set_url}";
+            goods_picture_urls.push(picture_url);
+        </c:forEach>
+        goodsDetailList.push({
+            "goods_detail_id":goods_detail_id,
+            "goods_detail_color":goods_detail_color,
+            "goods_detail_price":goods_detail_price,
+            "goods_detail_stock":goods_detail_stock,
+            "goods_detail_pic_urls":goods_picture_urls
+        });
+    </c:forEach>
+
+    console.log(goodsDetailList);
+
 </script>
 </body>
 </html>

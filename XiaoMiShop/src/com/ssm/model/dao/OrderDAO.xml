@@ -11,10 +11,32 @@
     <select id="getGoodsById" parameterType="int" resultType="Goods">
         select * from goods where goods_id =#{goods_id} and goods_status = 0;
     </select>
-    <!-- 通过用户Email获取用户地址-->
+    <!-- 通过用户Email获取用户地址 -->
     <select id="getUserAddress" parameterType="String" resultType="Address">
         select * from address where user_email = #{user_email} order by isdefault desc
     </select>
+    <!-- 插入订单，并获取订单ID -->
+    <insert id="insertOrder" parameterType="Order">
+        <selectKey resultType="java.lang.Integer"  keyProperty="order_id" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into `order` (user_email, sum_money, address_id, order_date, order_type, goods_num, order_status) VALUES
+        (#{user_email},#{sum_money},#{address_id},#{order_date},#{order_type},#{goods_num},#{order_status})
+    </insert>
+    <!-- 插入订单商品条目 -->
+    <insert id="insertOrderItem" parameterType="Order">
+        insert into order_item (order_id, goods_detail_id, item_price, order_item_num) VALUES
+            <foreach collection="order_items" item="orderItem" separator="," >
+                (
+                #{order_id},
+                #{orderItem.goods_detail_id},
+                #{orderItem.item_price},
+                #{orderItem.order_item_num}
+                )
+
+            </foreach>
+
+    </insert>
 
 
 </mapper>

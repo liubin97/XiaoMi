@@ -1,12 +1,12 @@
 package com.ssm.controller;
 
-import com.ssm.model.bean.Address;
-import com.ssm.model.bean.GoodsDetail;
-import com.ssm.model.bean.Order;
+import com.ssm.model.bean.*;
 import com.ssm.model.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -43,6 +43,28 @@ public class OrderController {
         mav.addObject("goodsItems",goodsItems);
         mav.setViewName("confirm_order");
         return mav;
+    }
+    //qu
+    @RequestMapping("confirmOrder")
+    public @ResponseBody void confirmOrder(@RequestBody OrderInfo orderInfo, HttpSession session){
+        String user_email = (String) session.getAttribute("user_email");
+        Order order = new Order();
+        order.setUser_email(user_email);
+        order.setAddress_id(orderInfo.getAddress_id());
+        order.setGoods_num(orderInfo.getGoods_num());
+        order.setSum_money(orderInfo.getSum_money());
+        order.setOrder_items(orderInfo.getOrderItems());
+        orderService.insertOrder(order);
+        //List<OrderItem> orderItems = orderInfo.getOrderItems();
+        /*for(OrderItem item:orderInfo.getOrderItems()){
+            System.out.println("goods_detail_id:"+item.getGoods_detail_id());
+        }
+        System.out.println("address_id:"+orderInfo.getAddress_id());
+        System.out.println("goods_sum:"+orderInfo.getGoods_num());
+        System.out.println("sum_money:"+orderInfo.getSum_money());*/
+
+
+
     }
 
 }

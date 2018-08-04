@@ -155,11 +155,13 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="items-body">
+                    <c:set var="sum_num" value="0"/>
                     <c:set var="sum_money" value="0"/>
                     <c:forEach items="${goodsItems}" var="item">
+                        <c:set var="sum_num" value="${sum_money+item.goodsNum}"/>
                         <c:set var="sum_money" value="${sum_money+item.sumMoney}"/>
-                        <tr class="panel alert">
+                        <tr class="panel alert" >
                             <td>
                                 <div class="media-left is-hidden-sm-down">
                                     <figure class="product-thumb">
@@ -171,7 +173,7 @@
                                     <div class="type font-12"><span class="t-uppercase">规格 : </span>${item.goodsItem.kind}&nbsp;${item.goodsItem.color}</div>
                                 </div>
                             </td>
-                            <td><fmt:formatNumber value="${item.goodsItem.discount_price}" type="currency" pattern="￥.00"/></td>
+                            <td class="single-price" data-single_price="${item.goodsItem.discount_price}"><fmt:formatNumber value="${item.goodsItem.discount_price}" type="currency" pattern="￥.00"/></td>
                             <td>
                                 <input class="quantity-label" type="number" readonly value="${item.goodsNum}">
                             </td>
@@ -179,6 +181,7 @@
                                 <div class="sub-total"><fmt:formatNumber value="${item.sumMoney}" type="currency" pattern="￥.00"/></div>
                             </td>
                             <td>
+                                <input class="goods-detail-id" type="hidden" value="${item.goodsItem.goods_detail_id}">
                             </td>
                         </tr>
                     </c:forEach>
@@ -193,21 +196,19 @@
                             <div class="item-name">
                                 商品总数
                             </div>
-                            <div class="price">
-                                ${fn:length(goodsItems)}
-                            </div>
+                            <div class="price" id="sum-num">${sum_num}</div>
                         </li>
                         <li>
                             <div class="item-name">
                                 <strong class="t-uppercase">订单总价</strong>
                             </div>
-                            <div class="price">
-                                <span><fmt:formatNumber value="${sum_money}" type="currency" pattern="￥.00"/></span>
+                            <div class="price" >
+                                <span id="sum-price" data-sum="${sum_money}"><fmt:formatNumber value="${sum_money}" type="currency" pattern="￥.00"/></span>
                             </div>
                         </li>
                     </ul>
                     <div class="t-right">
-                        <a href="javascript:void(0);" class="btn btn-rounded btn-lg">确认订单</a>
+                        <a href="javascript:void(0);" id="confirm" class="btn btn-rounded btn-lg">确认订单</a>
                     </div>
                 </div>
             </div>
@@ -257,5 +258,6 @@
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
 <script type="text/javascript" src="assets/js/confirm_order.js"></script>
+
 </body>
 </html>
