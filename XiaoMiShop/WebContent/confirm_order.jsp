@@ -67,8 +67,8 @@
     <link href="assets/vendors/flexslider/flexslider.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="assets/css/mi.base.css" rel="stylesheet">
-    <link href="assets/css/mi.checkout.css" rel="stylesheet">
+    <link href="assets/liubin/css/mi.base.css" rel="stylesheet">
+    <link href="assets/liubin/css/mi.checkout.css" rel="stylesheet">
     <link href="assets/css/base.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
@@ -217,8 +217,67 @@
 
     <c:import url="footer.jsp"/>
 </div>
+<%--
+<div class="mod_acc_tip layereditinfo" id="pop2" style="display: none; width: 600px; height: 450px;">
+    <div class="mod_tip_hd">
+        <h4>新增地址</h4>
+        <a class="btn_mod_close" href="" title=""><span>关闭</span></a>
+    </div>
+    <form action="insertAddress.action" method="post">
+        <div class="mod_tip_bd">
+
+            <div class="wapbox editbasicinfo">
+
+                <div>
+                    姓名:
+                    <label class="labelbox"><input class="nickname" type="text" name="recv_people" maxlength="20" placeholder="收货人"></label>
+                </div>
+
+                <div>
+                    电话:
+                    <label class="labelbox"><input type="text" name="telephone" maxlength="11" placeholder="联系电话"></label>
+                </div>
+
+                <div>选择地址:
+
+                    <label class="labelbox">
+                        <select name="province" id="province">
+                            <option value="请选择">请选择</option>
+                        </select>
+                        <select name="city" id="city">
+                            <option value="请选择">请选择</option>
+                        </select>
+                        <select name="town" id="town" onchange="getpath()">
+                            <option value="请选择">请选择</option>
+                        </select>
+                    </label>
+
+                    <input type="hidden" name="areaPath" id="areaPath">
+                </div>
+
+                <div>
+                    详细地址:
+                    <textarea name="detail_address" placeholder="详细地址" cols="60" rows="5"></textarea>
+                </div>
+
+                <div>
+                    邮政编码:
+                    <label class="labelbox"><input class="nickname" type="text" name="zip_code" maxlength="20" placeholder="邮政编码"></label>
+                </div>
 
 
+            </div>
+
+
+        </div>
+        <div class="tip_btns">
+
+            <input class="btn_tip btn_commom" type="submit" value="保存">
+            <a class="btn_tip btn_back" onclick="show();" title="取消">取消</a>
+        </div>
+    </form>
+</div>
+--%>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <!-- SCRIPTS                                   -->
@@ -257,7 +316,7 @@
 <!-- Custom Template JavaScript                   -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
-<script type="text/javascript" src="assets/js/confirm_order.js"></script>
+<script type="text/javascript" src="assets/liubin/js/confirm_order.js"></script>
 <script type="text/javascript">
     $(".J_addressItem").click(function() {
         clear();
@@ -271,6 +330,10 @@
             }
         });
     }
+
+    $("#J_newAddress").click(function () {
+        $("#pop2").show();
+    }) ;
 </script>
 </body>
 </html>

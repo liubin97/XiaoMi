@@ -116,7 +116,7 @@
 <!-- Custom Template JavaScript                   -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
-<script type="text/javascript" src="assets/js/categroy.js"></script>
+<script type="text/javascript" src="assets/liubin/js/categroy.js"></script>
 </body>
 
 </html>

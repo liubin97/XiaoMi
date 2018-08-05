@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <script src="assets/js/jquery-1.12.3.min.js"></script>
-<script src="assets/js/header.js"></script>
+<script src="assets/liubin/js/header.js"></script>
 <!-- Preloader -->
 <div id="preloader" class="preloader">
     <div class="loader-cube">

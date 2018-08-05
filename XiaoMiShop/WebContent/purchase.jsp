@@ -68,11 +68,11 @@
     <link href="assets/vendors/flexslider/flexslider.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="assets/css/mi.base.css" rel="stylesheet">
-    <link href="assets/css/mi.index.css" rel="stylesheet">
+    <link href="assets/liubin/css/mi.base.css" rel="stylesheet">
+    <link href="assets/liubin/css/mi.index.css" rel="stylesheet">
     <link href="assets/css/base.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/purchase.css" rel="stylesheet">
+    <link href="assets/liubin/css/purchase.css" rel="stylesheet">
 </head>
 <body class="wide-layout">
 
@@ -297,7 +297,7 @@
 <!-- Custom Template JavaScript                   -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
-<script type="text/javascript" src="assets/js/purchase.js"></script>
+<script type="text/javascript" src="assets/liubin/js/purchase.js"></script>
 
 <script type="text/javascript">
     //获取用户信息
