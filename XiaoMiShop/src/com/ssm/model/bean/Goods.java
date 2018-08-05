@@ -10,6 +10,7 @@ public class Goods {
 	private String goods_pic_url;
 	private String goods_desc_pic_url;
 	private String video_set_url;
+	private float lowestprice;
 	private List<GoodsAttribute> goodsAttributeList;
 	private List<GoodsDetail> goodsDetailList;
 	private List<GoodsPreviewPicture> goodsPreviewPictureList;
@@ -75,7 +76,16 @@ public class Goods {
 	public void setGoods_desc_pic_url(String goods_desc_pic_url) {
 		this.goods_desc_pic_url = goods_desc_pic_url;
 	}
+<<<<<<< HEAD
 	
 	
 	
+=======
+	public float getLowestprice() {
+		return lowestprice;
+	}
+	public void setLowestprice(float lowestprice) {
+		this.lowestprice = lowestprice;
+	}
+>>>>>>> dongzhuoran666
 }

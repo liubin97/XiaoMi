@@ -21,7 +21,11 @@
 		<property name="suffix" value=".jsp" />
 		
 	</bean>
+<<<<<<< HEAD
 	 <!-- 配置文件上传解析器 -->
+=======
+	<!-- 配置文件上传解析器 -->
+>>>>>>> dongzhuoran666
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize">
             <value>52428800</value>

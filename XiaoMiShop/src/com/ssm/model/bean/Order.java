@@ -1,6 +1,6 @@
 package com.ssm.model.bean;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class Order {
@@ -13,9 +13,15 @@ public class Order {
 	private int goods_num;
 	private int group_id;
 	private int order_status;
+<<<<<<< HEAD
  	private Address address;
 	private List<OrderItem> order_items;
 
+=======
+	private Address address;
+	private List<OrderItem> order_items;
+	
+>>>>>>> dongzhuoran666
 	public Address getAddress() {
 		return address;
 	}
