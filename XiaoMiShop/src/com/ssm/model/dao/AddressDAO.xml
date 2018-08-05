@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.AddressDAO">
+   <!-- 添加地址 -->
+    <insert id="insertAddress" parameterType="Address">
+  	    insert into address(user_email, recv_people, telephone, areaPath, zip_code, detail_address, isdefault)
+  	    value(#{user_email},#{recv_people},#{telephone},#{areaPath},#{zip_code},#{detail_address},#{isdefault})
+  	</insert>
+   <!-- 删除地址 -->
+   <delete id="deleteAddress" parameterType="Integer">
+  	    delete from address
+  	    where address_id=#{address_id}
+  	</delete>
+   
+   <!-- 更新默认地址 -->
+    <update id="updateDefault" parameterType="Integer" >
+  	    update address
+  	    set isdefault=1
+  	    where address_id=#{address_id}
+  	</update>
+   
+   <!-- 删除默认地址 -->
+    <update id="deleteDefault" parameterType="String">
+  	    update address
+  	    set isdefault=0
+  	    where user_email=#{user_email}
+  	</update>
+   
+   
+   <!-- 获取全部地址 -->
+   <select id="getAllAddress" parameterType="String" resultType="Address">
+  	    select * from address where user_email=#{user_email}
+  	</select>
+    
+</mapper>

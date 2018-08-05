@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.FavoritesDAO">
+   
+    	<!-- 从我喜欢删除 -->
+    <update id="deleteFavorite" parameterType="int">
+  	    update favorites
+  	    set favorites_status=1
+  	    where favorites_id=#{favorites_id}
+  	</update>
+    
+        <!-- 查询我喜欢 -->
+    <select id="searchFavorite" parameterType="map" resultMap="favoritesinfo">
+  	    select * from favoritesinfo
+  	     <where>
+            <if test=" searchkey!= null and searchkey != '' ">
+                and goods_name=#{searchkey}
+            </if> 
+              <if test=" user_email!= null and user_email != '' ">
+                and user_email=#{user_email}
+            </if> 
+          
+         </where> 
+  	</select>
+    
+    <resultMap type="Favorites" id="favoritesinfo">
+    	<result property="favorites_id" column="favorites_id"/>
+    	<result property="user_email" column="user_email"/>
+    	<result property="goods_id" column="goods_id"/>
+    	<result property="favorites_status" column="favorites_status"/>
+		<association property="goods" column="goods_id" javaType="Favorites" resultMap="goodsQuery"/>  
+    </resultMap>
+    
+      <resultMap type="Goods" id="goodsQuery">
+    	<result property="goods_id" column="goods_id"/>
+    	<result property="goods_category_id" column="goods_category_id"/>
+    	<result property="goods_code" column="goods_code"/>
+    	<result property="goods_name" column="goods_name"/>
+    	<result property="goods_pic_url" column="goods_pic_url"/>
+    	<result property="goods_desc_pic_url" column="goods_desc_pic_url"/>
+       	<result property="video_set_url" column="video_set_url"/>
+    </resultMap>
+    
+      
+      <!-- 查询起价 -->
+      <select id="getLowestPrice" parameterType="int" resultType="float">
+  	    select min(prime_price) from goods_detail
+  	     where goods_id=#{goods_id}
+  	  
+  	</select>
+      
+    
+    
+</mapper>
