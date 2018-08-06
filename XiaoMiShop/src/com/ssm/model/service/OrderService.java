@@ -33,7 +33,9 @@ public class OrderService {
         order.setOrder_type(1);
         order.setOrder_status(0);
         orderDAO.insertOrder(order);
-        System.out.println(order.getOrder_id());
+        //System.out.println(order.getOrder_id());
         orderDAO.insertOrderItem(order);
+        //更新库存
+        orderDAO.updateStock(order);
     }
 }

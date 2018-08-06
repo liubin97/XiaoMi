@@ -15,4 +15,6 @@ public interface OrderDAO {
     public void insertOrder(Order order);
     //插入订单商品条目
     public void insertOrderItem(Order order);
+    //更改订单
+    public void updateStock(Order order);
 }

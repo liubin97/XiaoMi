@@ -33,7 +33,7 @@
                         </li>
                         <li><a href="signup.html"><i class="fa fa-edit"></i>注册</a>
                         </li>
-                        <li>
+                        <%--<li>
                             <a href="user.jsp"><i class="fa fa-user"></i>个人中心<i class="fa fa-caret-down"></i></a>
                             <ul>
                                 <li><a href="#">个人中心</a>
@@ -45,7 +45,7 @@
                                 <li><a href="#">退出登陆</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>--%>
                     </ul>
                 </div>
             </div>

@@ -250,8 +250,7 @@ $(document).ready(function(){
             });
             AllkindsColor.push({kind:kind,colors:colors});
         });
-        //console.log(kinds);
-        //console.log(AllkindsColor);
+        
         //拼接版本
         var kindsHtml = '';
         for(var i = 0;i<kinds.length;i++){
@@ -288,17 +287,6 @@ $(document).ready(function(){
                     $("#stock").text(goods_detail_info.goods_detail_stock);
                     var price = goods_detail_info.goods_detail_price*1;
                     $("#price").text(price.toFixed(2));
-                    /*//清空图片
-                    var bigPicUl = $("#big-pictures");
-                    bigPicUl.empty();
-                    smallPicUl = $("#small-pictures");
-                    smallPicUl.empty();
-                    var pictureHtml = '';
-                    $.each(goods_detail_info.goods_detail_pic_urls,function () {
-                        pictureHtml += '<li> <img alt="" src="'+ this +'">  </li>';
-                    });
-                    bigPicUl.append(pictureHtml);
-                    smallPicUl.append(pictureHtml);*/
                 }
             })
         });
@@ -315,17 +303,7 @@ $(document).ready(function(){
             $("#stock").text(goods_detail_info.goods_detail_stock);
             var price = goods_detail_info.goods_detail_price*1;
             $("#price").text(price.toFixed(2));
-            /*//清空图片
-                    var bigPicUl = $("#big-pictures");
-                    bigPicUl.empty();
-                    smallPicUl = $("#small-pictures");
-                    smallPicUl.empty();
-                    var pictureHtml = '';
-                    $.each(goods_detail_info.goods_detail_pic_urls,function () {
-                        pictureHtml += '<li> <img alt="" src="'+ this +'">  </li>';
-                    });
-                    bigPicUl.append(pictureHtml);
-                    smallPicUl.append(pictureHtml);*/
+            
         });
 
     });

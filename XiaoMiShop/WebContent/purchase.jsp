@@ -245,8 +245,8 @@
                             </div>
 
                             </div>
-                        </div>
-                    </div>
+
+
                     <!-- End Store Tabs Area -->
 
                 </div>
@@ -326,9 +326,6 @@
             "goods_detail_pic_urls":goods_picture_urls
         });
     </c:forEach>
-
-
-
 </script>
 </body>
 </html>

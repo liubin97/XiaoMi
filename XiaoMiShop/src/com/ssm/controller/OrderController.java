@@ -44,7 +44,7 @@ public class OrderController {
         mav.setViewName("confirm_order");
         return mav;
     }
-    //qu
+    //确认订单
     @RequestMapping("confirmOrder")
     public @ResponseBody void confirmOrder(@RequestBody OrderInfo orderInfo, HttpSession session){
         String user_email = (String) session.getAttribute("user_email");
@@ -55,16 +55,6 @@ public class OrderController {
         order.setSum_money(orderInfo.getSum_money());
         order.setOrder_items(orderInfo.getOrderItems());
         orderService.insertOrder(order);
-        //List<OrderItem> orderItems = orderInfo.getOrderItems();
-        /*for(OrderItem item:orderInfo.getOrderItems()){
-            System.out.println("goods_detail_id:"+item.getGoods_detail_id());
-        }
-        System.out.println("address_id:"+orderInfo.getAddress_id());
-        System.out.println("goods_sum:"+orderInfo.getGoods_num());
-        System.out.println("sum_money:"+orderInfo.getSum_money());*/
-
-
-
     }
 
 }

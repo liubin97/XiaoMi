@@ -37,6 +37,12 @@
             </foreach>
 
     </insert>
-
-
+    <!-- 更新库存 -->
+    <update id="updateStock" parameterType="Order">
+        <foreach collection="order_items" item="orderItem" separator=";">
+            update goods_detail set stock = stock-#{orderItem.order_item_num}
+              where goods_detail_id = #{orderItem.goods_detail_id}
+        </foreach>
+    </update>
+    
 </mapper>
