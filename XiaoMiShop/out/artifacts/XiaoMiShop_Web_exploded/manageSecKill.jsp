@@ -58,7 +58,7 @@
 
                                 <div class="am-u-sm-12 am-u-lg-3 am-u-md-12 am-u-end">
                                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                        <input type="text" class="am-form-field" placeholder="请输入商品ID"/>
+                                        <input type="text" class="am-form-field" id="goods_detail_id" name="goods_detail_id" placeholder="请输入商品ID"/>
                                         <span class="am-input-group-btn">
                                     <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit"></button>
                                     </span>
@@ -145,7 +145,6 @@
     var start=laydate.render({
         elem: '#starttime'
         ,type: 'datetime'
-        ,min:-0//设置最小时间为当前时间
         ,done:function (value,date,endDate) {
             end.config.min={
                 year:date.year,
@@ -171,7 +170,6 @@
     var end=laydate.render({
         elem: '#endtime'
         ,type: 'datetime'
-        ,min:-0
         ,done:function (value,date,endDate) {
             start.config.max={
                 year:date.year,

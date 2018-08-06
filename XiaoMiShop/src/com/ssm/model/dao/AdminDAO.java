@@ -15,4 +15,8 @@ public interface AdminDAO {
     Float selectNormalChartInterest(String sysdate);
 
     Float selectGroupChartInterest(String sysdate);
+
+    Float selectGoodsSum(String yearMonth);
+
+    int selectYearGoodsSum(Map<String,Object> map);
 }

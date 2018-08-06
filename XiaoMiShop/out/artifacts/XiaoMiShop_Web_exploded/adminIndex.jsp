@@ -38,33 +38,30 @@
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
-                            <div class="widget-title am-fl">月度财务收支计划</div>
+                            <div class="widget-title am-fl">年度销量统计</div>
                             <div class="widget-function am-fr">
                                 <a href="javascript:;" class="am-icon-cog"></a>
                             </div>
                         </div>
                         <div class="widget-body am-fr">
                             <div class="am-fl">
-                                <div class="widget-fluctuation-period-text">
-                                    ￥61746.45
-                                    <button class="widget-fluctuation-tpl-btn">
-                                        <i class="am-icon-calendar"></i>
-                                        更多月份
-                                    </button>
+                                <div>
+                                    现总计
+                                </div>
+                                <div class="widget-fluctuation-description-amount text-success" am-cf>
+                                    +<span id="goodsYearSum"></span>件
                                 </div>
                             </div>
                             <div class="am-fr am-cf">
                                 <div class="widget-fluctuation-description-amount text-success" am-cf>
-                                    +￥30420.56
-
+                                    +<span id="goodsSum"></span>件
                                 </div>
                                 <div class="widget-fluctuation-description-text am-text-right">
-                                    8月份收入
+                                    <span id="month"></span>月份收入
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
                     <div class="widget widget-primary am-cf">
@@ -85,7 +82,7 @@
                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
                     <div class="widget widget-purple am-cf">
                         <div class="widget-statistic-header">
-                            本季度利润
+                            本季度销售额
                         </div>
                         <div class="widget-statistic-body">
                             <div class="widget-statistic-value">
@@ -102,7 +99,7 @@
 
             <div class="widget am-cf">
                 <div class="widget-head am-cf">
-                    <div class="widget-title am-fl">折线图</div>
+                    <div class="widget-title am-fl"></div>
                     <div class="widget-function am-fr">
                         <a href="javascript:;" class="am-icon-cog"></a>
                     </div>
@@ -115,7 +112,6 @@
             </div>
         </div>
     </div>
-</div>
 
 <script src="asset/js/theme.js"></script>
 <script src="asset/js/amazeui.min.js"></script>

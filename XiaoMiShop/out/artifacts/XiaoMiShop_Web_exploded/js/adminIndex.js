@@ -6,6 +6,7 @@ $(document).ready(function(){
     sysmonth = (sysmonth<10?"0"+sysmonth:sysmonth);
     var sysyear = sysDate.getFullYear();
     var sysYearMonth = (sysyear.toString()+sysmonth.toString());
+    var YearStart = sysyear.toString()+"01";
     $.ajax({
         url:"selectMonthInterest.action",
         type:"post",
@@ -26,12 +27,42 @@ $(document).ready(function(){
                 contentType: "application/x-www-form-urlencoded",
                 success:function(data_demo)
                 {
-                    $('#beforeMonth').html(data_demo-data);
+                    $('#beforeMonth').html(data-data_demo);
                 },
                 error:function(data_demo){
                     alert("fail");
                 },
             });
+        },
+        error:function(data){
+            alert("fail");
+        },
+    });
+    $.ajax({
+        url:"selectGoodsSum.action",
+        type:"post",
+        data:{YearMonth : sysYearMonth},
+        dataType:"json",
+        contentType: "application/x-www-form-urlencoded",
+        success:function(data)
+        {
+            $('#goodsSum').html(data);
+        },
+        error:function(data){
+            alert("fail");
+        },
+    });
+    $.ajax({
+        url:"selectYearGoodsSum.action",
+        type:"post",
+        data:{YearMonth : sysYearMonth,
+            YearStart :  YearStart
+        },
+        dataType:"json",
+        contentType: "application/x-www-form-urlencoded",
+        success:function(data)
+        {
+            $('#goodsYearSum').html(data);
         },
         error:function(data){
             alert("fail");
@@ -76,7 +107,8 @@ $(document).ready(function(){
                 contentType: "application/x-www-form-urlencoded",
                 success:function(data_demo)
                 {
-                    $('#beforeterm').html(data_demo-data);
+                    $('#beforeterm').html(data-data_demo);
+                    $('#month').html(sysYearMonth);
                 },
                 error:function(data_demo){
                     alert("fail");
@@ -87,11 +119,9 @@ $(document).ready(function(){
             alert("fail");
         },
     });
-    var sysdate = sysyear.toString()+"-"+sysmonth.toString()+"-"+(sysday-2).toString();
     $.ajax({
         url:"selectChartInterest.action",
         type:"post",
-        data:{sysdate:sysdate},
         dataType:"json",
         contentType: "application/x-www-form-urlencoded",
         success:function(datademo)
@@ -100,16 +130,16 @@ $(document).ready(function(){
                 // 基于准备好的dom，初始化echarts实例
                 var chart3 = echarts.init($('#chart3')[0]);
 
-                //折线图
+                //近七天销售额
                 option3 = {
                     title: {
-                        text: '折线图堆叠'
+                        text: '近七天销售额'
                     },
                     tooltip: {
                         trigger: 'axis'
                     },
                     legend: {
-                        data:['正常','团购']
+                        data:['团购','正常']
                     },
                     grid: {
                         left: '3%',
@@ -132,17 +162,18 @@ $(document).ready(function(){
                     },
                     series: [
                         {
-                            name:'正常',
-                            type:'line',
-                            stack: '总量',
-                            data:datademo.normalValue
-                        },
-                        {
                             name:'团购',
                             type:'line',
                             stack: '总量',
                             data:datademo.groupValue
+                        },
+                        {
+                            name:'正常',
+                            type:'line',
+                            stack: '总量',
+                            data:datademo.normalValue
                         }
+
                     ]
                 };
 

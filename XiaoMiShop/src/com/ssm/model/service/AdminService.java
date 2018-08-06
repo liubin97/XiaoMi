@@ -51,4 +51,17 @@ public class AdminService {
 		Float group = adminDao.selectGroupChartInterest(sysdate);
     	return group;
 	}
+
+    public Float selectGoodsSum(String yearMonth) {
+    	Float sum = adminDao.selectGoodsSum(yearMonth);
+    	return sum;
+	}
+
+	public int selectYearGoodsSum(String yearMonth, String yearStart) {
+    	Map<String,Object> map = new HashMap<>();
+    	map.put("yearMonth",yearMonth);
+    	map.put("yearStart",yearStart);
+    	int sum = adminDao.selectYearGoodsSum(map);
+    	return sum;
+	}
 }

@@ -84,14 +84,28 @@
                                                 </c:forEach>
                                             </tr>
                                             <c:forEach items="${goodsComment.commentReplyList}" var="CommentReply">
-                                                <tr>
-                                                    <td>${CommentReply.user_email}</td>
-                                                    <td><fmt:formatDate value="${CommentReply.reply_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>回复内容：</td>
-                                                    <td>${CommentReply.reply}</td>
-                                                </tr>
+                                                <c:if test="${CommentReply.reply_type==1}">
+                                                    <tr>
+                                                        <td>${CommentReply.user_email}</td>
+                                                        <td><fmt:formatDate value="${CommentReply.reply_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>回复内容：</td>
+                                                        <td>${CommentReply.reply}</td>
+                                                    </tr>
+                                                </c:if>
+                                            </c:forEach>
+                                            <c:forEach items="${goodsComment.commentReplyList}" var="CommentReply">
+                                                <c:if test="${CommentReply.reply_type==0}">
+                                                    <tr>
+                                                        <td>${CommentReply.user_email}</td>
+                                                        <td><fmt:formatDate value="${CommentReply.reply_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>回复内容：</td>
+                                                        <td>${CommentReply.reply}</td>
+                                                    </tr>
+                                                </c:if>
                                             </c:forEach>
                                         </tbody>
 

@@ -27,7 +27,7 @@ public class AdminController {
 		int result = adminService.validateLogin(admin_name,admin_password);
 		if(result == 0){
 			session.setAttribute("admin_name",admin_name);
-			return "forward:manageSecKill.jsp";
+			return "forward:adminIndex.jsp";
 		}else {
 			session.setAttribute("loginmsg","false");
 			return "redirect:adminLogin.jsp";
@@ -50,10 +50,10 @@ public class AdminController {
 	}
 	@RequestMapping("selectChartInterest")
 	@ResponseBody
-	public Map<String,List> selectChartInterest(String sysdate){
-		/*List<Map<String,Object>> normal = adminService.selectNormalChartInterest(sysdate);
-		List<Map<String,Object>> group = adminService.selectGroupChartInterest(sysdate);*/
+	public Map<String,List> selectChartInterest(){
+		Date sys = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String sysdate = sdf.format(sys);
 		Date sysnow = null;
 		try {
 			sysnow = sdf.parse(sysdate);
@@ -84,5 +84,17 @@ public class AdminController {
 		map.put("groupDate",groupDate);
 		map.put("groupValue",groupValue);
 		return map;
+	}
+	@RequestMapping("selectGoodsSum")
+	@ResponseBody
+	public Float selectGoodsSum(String YearMonth){
+		Float sum = adminService.selectGoodsSum(YearMonth);
+		return sum;
+	}
+	@RequestMapping("selectYearGoodsSum")
+	@ResponseBody
+	public int selectYearGoodsSum(String YearMonth,String YearStart){
+		int sum = adminService.selectYearGoodsSum(YearMonth,YearStart);
+		return sum;
 	}
 }

@@ -134,7 +134,6 @@
     var start=laydate.render({
         elem: '#starttime'
         ,type: 'datetime'
-        ,min:-0//设置最小时间为当前时间
         ,done:function (value,date,endDate) {
             end.config.min={
                 year:date.year,
@@ -160,7 +159,6 @@
     var end=laydate.render({
         elem: '#endtime'
         ,type: 'datetime'
-        ,min:-0
         ,done:function (value,date,endDate) {
             start.config.max={
                 year:date.year,
