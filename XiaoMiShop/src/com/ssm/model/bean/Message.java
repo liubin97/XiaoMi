@@ -1,12 +1,14 @@
 package com.ssm.model.bean;
 
+import java.util.Date;
+
 public class Message {
 	private int message_id;
 	private String user_email;
 	private String message_title;
 	private String message_text;
 	private int message_type;
-	private String send_date;
+	private Date send_date;
 	private int read_flag;
 	public int getMessage_id() {
 		return message_id;
@@ -23,9 +25,15 @@ public class Message {
 	public int getMessage_type() {
 		return message_type;
 	}
-	public String getSend_date() {
+
+	public Date getSend_date() {
 		return send_date;
 	}
+
+	public void setSend_date(Date send_date) {
+		this.send_date = send_date;
+	}
+
 	public int getRead_flag() {
 		return read_flag;
 	}
@@ -43,9 +51,6 @@ public class Message {
 	}
 	public void setMessage_type(int message_type) {
 		this.message_type = message_type;
-	}
-	public void setSend_date(String send_date) {
-		this.send_date = send_date;
 	}
 	public void setRead_flag(int read_flag) {
 		this.read_flag = read_flag;

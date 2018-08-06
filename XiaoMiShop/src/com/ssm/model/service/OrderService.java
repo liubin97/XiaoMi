@@ -1,9 +1,6 @@
 package com.ssm.model.service;
 
-import com.ssm.model.bean.Address;
-import com.ssm.model.bean.GoodsDetail;
-import com.ssm.model.bean.Order;
-import com.ssm.model.bean.OrderItem;
+import com.ssm.model.bean.*;
 import com.ssm.model.dao.OrderDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +34,13 @@ public class OrderService {
         orderDAO.insertOrderItem(order);
         //更新库存
         orderDAO.updateStock(order);
+        //插入提醒消息
+        Message msg = new Message();
+        msg.setUser_email(order.getUser_email());
+        msg.setMessage_title("订单提醒");
+        msg.setMessage_text("您的单号为："+ order.getOrder_id() +" 的订单已下单成功，请查收");
+        msg.setMessage_type(0);
+        msg.setSend_date(new Date());
+        orderDAO.insertMessage(msg);
     }
 }

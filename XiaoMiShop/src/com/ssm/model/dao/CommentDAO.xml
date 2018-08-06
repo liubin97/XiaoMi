@@ -3,14 +3,42 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.model.dao.CommentDAO">
+    <!-- 获取商品详情ID -->
+    <select id="getGoodsDetailIdByOrderItemId" parameterType="int" resultType="int">
+        select goods_detail_id from order_item where order_item_id = #{order_item_id}
+    </select>
     <!-- 获取商品信息 -->
+    <select id="getCommentGoods" parameterType="int" resultMap="GoodsDetailMap">
+        select * from goods_detail inner join goods on goods_detail.goods_id=goods.goods_id
+          where goods_detail_id=#{goods_detail_id}
+    </select>
+
+    <resultMap type="GoodsDetail" id="GoodsDetailMap">
+        <result property="goods_detail_id" column="goods_detail_id"/>
+        <result property="goods_id" column="goods_id"/>
+        <result property="kind" column="kind"/>
+        <result property="color" column="color"/>
+        <result property="prime_price" column="prime_price"/>
+        <result property="discount_price" column="discount_price"/>
+        <result property="stock" column="stock"/>
+        <association property="goods"  javaType="Goods">
+            <result property="goods_id" column="goods_id"/>
+            <result property="goods_category_id" column="goods_category_id"/>
+            <result property="goods_code" column="goods_code"/>
+            <result property="goods_name" column="goods_name"/>
+            <result property="video_set_url" column="video_set_url"/>
+            <result property="goods_pic_url" column="goods_pic_url"/>
+        </association>
+    </resultMap>
+
+
 
     <!-- 获取商品评论 -->
-    <select id="getGoodsComment" resultMap="commentMap">
+    <select id="getGoodsComment" parameterType="int" resultMap="commentMap">
         select *,cr.user_email reply_user from goods_comment gc
             left join comment_reply cr on gc.goods_comment_id = cr.goods_comment_id
             left join comment_picture cp on gc.goods_comment_id = cp.goods_comment_id
-        where gc.goods_comment_status=0
+        where gc.goods_id=#{goods_id} and gc.goods_comment_status=0
     </select>
     <resultMap id="commentMap" type="GoodsComment">
         <result column="goods_comment_id" property="goods_comment_id"/>
@@ -63,5 +91,27 @@
         where gc.goods_comment_id=#{goods_comment_id} and gc.goods_comment_status=0
     </select>
 
+    <!-- 插入商品评价 -->
+    <insert id="insertGoodsComment" parameterType="GoodsComment">
+        <selectKey resultType="java.lang.Integer"  keyProperty="goods_comment_id" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into goods_comment (user_email, goods_id, `comment`, comment_date, comment_level)
+        values (#{user_email},#{goods_id},#{comment},#{comment_date},#{comment_level})
+    </insert>
+
+
+    <!-- 插入评价图片 -->
+    <insert id="insertCommentPictrue" parameterType="GoodsComment">
+        insert into comment_picture (goods_comment_id, picture_url)VALUES
+        <foreach collection="commentPictureList" item="commentPicture"  separator=",">
+            (#{goods_comment_id},#{commentPicture.picture_url})
+        </foreach>
+    </insert>
+
+    <!-- 更新评论状态 -->
+    <update id="updateCommentFlag" parameterType="int">
+        update order_item set comment_flag = 1 where order_item_id = #{order_item_id}
+    </update>
 
 </mapper>

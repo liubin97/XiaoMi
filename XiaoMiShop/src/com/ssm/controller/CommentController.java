@@ -1,16 +1,20 @@
 package com.ssm.controller;
 
-import com.ssm.model.bean.CommentReply;
-import com.ssm.model.bean.GoodsComment;
+import com.ssm.model.bean.*;
 import com.ssm.model.service.CommentService;
+import com.ssm.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +56,45 @@ public class CommentController {
         mav.addObject("goodsComment",goodsComment);
         mav.setViewName("comment");
         return mav;
+    }
+
+    @RequestMapping("goToMakeCommentPage")
+    public ModelAndView goToMakeCommentPage(int order_item_id){
+        ModelAndView mav = new ModelAndView();
+        GoodsDetail goodsDetail = commentService.getCommentGoods(order_item_id);
+        mav.addObject("goodsDetail",goodsDetail);
+        mav.addObject("order_item_id",order_item_id);
+        mav.setViewName("make_comment");
+        return mav;
+    }
+
+    //发表评论
+    @RequestMapping("makeComment")
+    public String makeComment(int order_item_id,GoodsComment goodsComment, @RequestParam MultipartFile[] pictures, HttpServletRequest request, HttpSession session){
+        String user_email = (String) session.getAttribute("user_email");
+        //获取服务器根目录
+        String savePath = request.getServletContext().getRealPath("/");
+        String relativePath ="commentPicture/";
+        String name = "";
+        List<CommentPicture> commentPictures = new ArrayList<>();
+        System.out.println(pictures.length);
+
+        for(MultipartFile picFile : pictures){
+            //获取储存文件名
+            name = FileUtil.updateFile(picFile,savePath+relativePath);
+            //记录url
+            if(name!=null&&!"".equals(name)){
+                CommentPicture commentPicture = new CommentPicture();
+                commentPicture.setPicture_url(relativePath+name);
+                commentPictures.add(commentPicture);
+            }
+        }
+        goodsComment.setCommentPictureList(commentPictures);
+        goodsComment.setUser_email(user_email);
+        goodsComment.setComment_date(new Date());
+        commentService.insertGoodsComment(goodsComment,order_item_id);
+
+        return "redirect:test.jsp";
     }
 
 

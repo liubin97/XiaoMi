@@ -107,9 +107,6 @@
                                                     ${address.detail_address}
                                             </dd>
                                         </dl>
-                                        <div class="actions">
-                                            <a href="javascript:void(0);" class="modify J_addressModify"  onclick="javascript:void(0);">修改</a>
-                                        </div>
                                     </div>
 
                                 </c:if>
@@ -129,9 +126,6 @@
                                                     ${address.detail_address}
                                             </dd>
                                         </dl>
-                                        <div class="actions">
-                                            <a href="javascript:void(0);" class="modify J_addressModify" >修改</a>
-                                        </div>
                                     </div>
                                 </c:if>
 
@@ -169,7 +163,7 @@
                                     </figure>
                                 </div>
                                 <div class="media-body valign-middle">
-                                    <h6 class="title mb-15 t-uppercase"><a href="#">${item.goodsItem.goods.goods_name}</a></h6>
+                                    <h6 class="title mb-15 t-uppercase"><a href="displayGoodsPurchaseInfo.action?goods_id=${item.goodsItem.goods.goods_id}">${item.goodsItem.goods.goods_name}</a></h6>
                                     <div class="type font-12"><span class="t-uppercase">规格 : </span>${item.goodsItem.kind}&nbsp;${item.goodsItem.color}</div>
                                 </div>
                             </td>

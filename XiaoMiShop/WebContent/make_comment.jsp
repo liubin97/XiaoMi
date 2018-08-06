@@ -83,18 +83,20 @@
                                 <td>
                                     <div class="media-left is-hidden-sm-down">
                                         <figure class="product-thumb">
-                                            <img src="goods/小米8/1.png" alt="product">
+                                            <img src="${goodsDetail.goods.goods_pic_url}" alt="product">
                                         </figure>
                                     </div>
                                     <div class="media-body valign-middle">
-                                        <h6 class="title mb-15 t-uppercase"><a href="#">小米8</a></h6>
-                                        <div class="type font-12"><span class="t-uppercase">规格 : </span>4+32G&nbsp;红</div>
+                                        <h6 class="title mb-15 t-uppercase"><a href="displayGoodsPurchaseInfo.action?goods_id=${goodsDetail.goods_id}">${goodsDetail.goods.goods_name}</a></h6>
+                                        <div class="type font-12"><span class="t-uppercase">规格 : </span>${goodsDetail.kind}&nbsp;${goodsDetail.color}</div>
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                         <form class="horizontal-form pt-30" action="makeComment.action" method="post" enctype="multipart/form-data">
+                            <input id="goods_id" name="goods_id" type="hidden" value="${goodsDetail.goods.goods_id}"/>
+                            <input id="order_item_id" type="hidden" name="order_item_id" value="${order_item_id}"/>
                             <div class="row row-v-10">
                                 <div class="col-xs-12">
                                     <ul class="select-rate list-inline ptb-20">
@@ -103,13 +105,14 @@
                                         </li>
                                         <li>
                                             <div class="rating">
-                                                <span class="rating-stars rate-allow" data-rating="5">
+                                                <span id="rating-star" class="rating-stars rate-allow" data-rating="5">
                                                     <i class="fa fa-star-o star-active"></i>
                                                     <i class="fa fa-star-o"></i>
                                                     <i class="fa fa-star-o"></i>
                                                     <i class="fa fa-star-o"></i>
                                                     <i class="fa fa-star-o"></i>
                                                 </span>
+                                                <input id="rating" name="comment_level" type="hidden" value="5"/>
                                             </div>
                                         </li>
                                     </ul>
@@ -127,7 +130,7 @@
                                             <div class="z_photo upimg-div clear">
                                                 <section class="z_file fl">
                                                     <img src="assets/liubin/img/a11.png" class="add-img">
-                                                    <input type="file" name="file" id="file" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="">
+                                                    <input type="file" name="pictures" id="file" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="">
                                                 </section>
                                             </div>
                                         </section>
@@ -189,6 +192,17 @@
 
 <!-- Coutdown -->
 <script type="text/javascript" src="assets/vendors/countdown/jquery.countdown.js"></script>
+<script>
+    //获取评价等级
+    $(".fa-star,.fa-star-o").click(function () {
+        //var comment_level = $(this).parent().attr("data-rating");
+        var num_stars = $(this).siblings().length + 1,
+            rating_index = $(this).index(),
+            rate_value = num_stars - rating_index;
+        console.log(rate_value);
+        $("#rating").val(rate_value);
+    });
+</script>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <!-- Custom Template JavaScript                   -->

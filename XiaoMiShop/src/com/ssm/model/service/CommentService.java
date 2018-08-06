@@ -2,6 +2,7 @@ package com.ssm.model.service;
 
 import com.ssm.model.bean.CommentReply;
 import com.ssm.model.bean.GoodsComment;
+import com.ssm.model.bean.GoodsDetail;
 import com.ssm.model.dao.CommentDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,27 @@ public class CommentService {
             commentReply.setUser(commentDAO.getCommentUser(commentReply.getUser_email()));
         }
         return goodsComment;
+    }
+
+
+    //获取要评论的商品信息
+    public GoodsDetail getCommentGoods(int order_item_id){
+        int goods_detail_id = commentDAO.getGoodsDetailIdByOrderItemId(order_item_id);
+        return commentDAO.getCommentGoods(goods_detail_id);
+    }
+
+    //插入商品评论信息,并更新评论状态
+    public void insertGoodsComment(GoodsComment goodsComment,int order_item_id){
+        //插入评论信息
+        commentDAO.insertGoodsComment(goodsComment);
+        System.out.println(goodsComment.getGoods_comment_id());
+        //插入评论图片
+        if(goodsComment.getCommentPictureList().size()>0){
+            commentDAO.insertCommentPictrue(goodsComment);
+        }
+        //更新订单评论信息
+        commentDAO.updateCommentFlag(order_item_id);
+
     }
 
 

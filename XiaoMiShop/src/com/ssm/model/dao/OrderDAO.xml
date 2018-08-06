@@ -44,5 +44,10 @@
               where goods_detail_id = #{orderItem.goods_detail_id}
         </foreach>
     </update>
-    
+    <!-- 插入消息 -->
+    <insert id="insertMessage"  parameterType="Message">
+        insert into message (user_email, message_title, message_text, message_type, send_date) values
+          (#{user_email},#{message_title},#{message_text},#{message_type},#{send_date})
+    </insert>
+
 </mapper>
