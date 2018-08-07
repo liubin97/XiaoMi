@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.GoodsDAO">
+     
+  <!-- 登记新商品信息 -->
+  <insert id="insertGoods" parameterType="Goods">
+       <selectKey keyProperty="goods_id" keyColumn="goods_id" order="AFTER" resultType="int">
+          select LAST_INSERT_ID()
+      </selectKey>
+      insert into Goods(goods_category_id,goods_code,goods_name,goods_pic_url,goods_desc_pic_url,video_set_url,goods_status)
+      value(#{goods_category_id},#{goods_code},#{goods_name},#{goods_pic_url},#{goods_desc_pic_url},#{video_set_url},0)
+  </insert>
+  <!-- 登记商品属性 -->
+  <insert id="insertAttribute" parameterType="GoodsAttribute">
+      insert into goods_attribute(goods_id,attribute_name,attribute_value,attribute_status)
+      value(#{goods_id},#{attribute_name},#{attribute_value},0)
+  </insert>
+  <!-- 登记商品概述图片 -->
+  <insert id="insertGoodsPicture" parameterType="GoodsPreviewPicture">
+      insert into goods_preview_pic(goods_id,goods_url,goods_pre_pic_status)
+      value(#{goods_id},#{goods_url},0)
+  </insert>
+  <!-- 登记商品版本信息 -->
+  <insert id="insertDetail" parameterType="GoodsDetail">
+      insert into goods_detail(goods_id,kind,color,prime_price,discount_price,stock,goods_detail_status)
+      value(#{goods_id},#{kind},#{color},#{prime_price},#{discount_price},0,0)
+  </insert>
+  <!-- 登记商品版本图片 -->
+  <insert id="insertPicture" parameterType="GoodsPicture">
+      insert into picture_set(goods_detail_id,picture_set_url,picture_set_status)
+      value(#{goods_detail_id},#{picture_set_url},0)
+      
+  </insert>
+  <!-- 增加库存量 -->
+  <update id="updateStock" parameterType="GoodsDetail">
+      update goods_detail
+      set stock=stock+#{stock}
+      where goods_detail_id=#{goods_detail_id}
+  </update>
+  <!-- 更改库存量 -->
+  <update id="updateStockChange" parameterType="GoodsDetail">
+       update goods_detail
+      set stock=#{stock}
+      where goods_detail_id=#{goods_detail_id}
+  </update>
+  <!-- 通过商品代码获取商品id -->
+  <select id="getGoodIdByCode" parameterType="int" resultType="int">
+      select goods_id from goods
+      where goods_code=#{code}
+  </select>
+  <!-- 通过商品版本信息获取商品版本id -->
+  <select id="getDetailIdByInfo" parameterType="GoodsDetail" resultType="int">
+      select goods_detail_id from goods_detail
+      where goods_id=#{goods_id} and kind=#{kind} and color=#{color} and goods_detail_status=0
+  </select>
+  <!-- 通过商品id查找所有版本 -->
+  <select id="getAllKindByGoodsId" parameterType="int" resultType="String">
+      select kind from goods_detail
+      where goods_id=#{goods_id} and goods_detail_status=0
+  </select>
+  <!-- 通过商品id和版本名称查找所有颜色 -->
+  <select id="getAllColorBygoodsIdAndcolor" parameterType="GoodsDetail" resultType="GoodsDetail">
+      select goods_detail_id,color,stock from goods_detail
+      where goods_id=#{goods_id} and kind=#{kind} and goods_detail_status=0
+  </select>
+  <!-- 通过商品id得到所有版本库存信息 -->
+  <select id="getAllDetailByGoodsId" parameterType="int" resultType="GoodsDetail">
+      select * from goods_detail
+      where goods_id=#{goods_id} and goods_detail_status=0
+  </select>
+  <!-- 通过商品id得到商品信息 -->
+  <select id="getGoodsByGoodsId" parameterType="int" resultType="Goods">
+      select * from goods
+      where goods_id = #{goodsId}
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

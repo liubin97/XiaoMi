@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 包和类的映射 -->
+<mapper namespace="com.ssm.model.dao.SeckillReminderDao">
+
+    <!--<insert id="addReminderbyhand" parameterType="SeckillReminder">-->
+        <!--<selectKey resultType="java.lang.Integer"  keyProperty="order_id" order="AFTER" >-->
+          <!--SELECT row_count ()-->
+        <!--</selectKey>-->
+        <!--insert ignore-->
+         <!--into sec_reminder(seckill_id,user_email,goods_name,reminder_starttime,reminder_status)-->
+        <!--values(#{seckill_id},#{user_email},#{goods_name},#{reminder_starttime},0)-->
+    <!--</insert>-->
+
+    <!--调用储存过程-->
+    <select id="addReminder" statementType="CALLABLE">
+          CALL addRemind(
+        #{seckill_id,jdbcType=INTEGER,mode=IN},
+        #{email,jdbcType=VARCHAR,mode=IN},
+        #{result,jdbcType=INTEGER,mode=OUT}
+        )
+    </select>
+
+
+    <select id="getReminderByTime" parameterType="Date" resultType="SeckillReminder">
+
+      select *
+      from sec_reminder
+      where TIMESTAMPDIFF(MINUTE,#{nowdate},reminder_starttime)<![CDATA[<=]]>10
+      and TIMESTAMPDIFF(MINUTE,#{nowdate},reminder_starttime)>=0
+    </select>
+
+</mapper>
+
