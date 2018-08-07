@@ -13,6 +13,12 @@ import java.util.List;
 public class OrderService {
     @Autowired
     private OrderDAO orderDAO;
+    //获取购物车信息
+    public List<Cart> getCartInfoByIds(int cartIds[]){
+        return orderDAO.getCartInfoByIds(cartIds);
+    }
+
+
     //通过ID获取商品详情
     public GoodsDetail getGoodsDetailById(int goods_detail_id){
         GoodsDetail goodsDetail  = orderDAO.getGoodsDetailById(goods_detail_id);
@@ -33,7 +39,9 @@ public class OrderService {
         //System.out.println(order.getOrder_id());
         orderDAO.insertOrderItem(order);
         //更新库存
-        orderDAO.updateStock(order);
+        for(OrderItem orderItem:order.getOrder_items()){
+            orderDAO.updateStock(orderItem);
+        }
         //插入提醒消息
         Message msg = new Message();
         msg.setUser_email(order.getUser_email());
@@ -42,5 +50,11 @@ public class OrderService {
         msg.setMessage_type(0);
         msg.setSend_date(new Date());
         orderDAO.insertMessage(msg);
+    }
+
+    //插入购物车结算订单信息
+    public void insertCartOrder(Order order,int[] cart_ids){
+        insertOrder(order);
+        orderDAO.deleteCartByIds(cart_ids);
     }
 }

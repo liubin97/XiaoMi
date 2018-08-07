@@ -15,6 +15,7 @@ $(document).ready(function () {
             console.log("address:"+address_id+" sum_money:"+sum_money+" goods_num:"+goods_num);
             $("#items-body").find("tr").each(function () {
                 var goods_detail_id = $(this).find(".goods-detail-id").val();
+                var goods_name  = $(this).find(".goods-name").text();
                 var item_num = $(this).find(".quantity-label").val();
                 var item_price = $(this).find(".single-price").attr("data-single_price");
                 console.log("goods_detail_id:"+goods_detail_id+" item_num:"+item_num+" item_price:"+item_price);
@@ -32,6 +33,7 @@ $(document).ready(function () {
 
                         }else {
                             count++;
+                            alert(goods_name+"库存不足")
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -39,18 +41,38 @@ $(document).ready(function () {
                     }
                 });
             });
+            var data;
+            var url = "";
+            var stockOutUrl = "";//缺货后跳转路径
+            //判断是立即购买还是结算购物车
+            if(settleFlag=="purchaseImmediately"){//立即购买
+                url = "confirmOrder.action";
+                data = {
+                    orderItems:items,
+                    address_id:address_id,
+                    goods_num:goods_num,
+                    sum_money:sum_money
+                };
+                var goods_id = $("#goods-id").val();
+                stockOutUrl = "displayGoodsPurchaseInfo.action?goods_id="+goods_id;
+            }else if(settleFlag=="settlementCart"){//结算购物车
+                url = "cartConfirmOrder";
+                data = {
+                    orderItems:items,
+                    address_id:address_id,
+                    goods_num:goods_num,
+                    sum_money:sum_money,
+                    cart_ids:cart_ids
+                };
+                stockOutUrl = "cart.jsp";
+            }
             //若库存充足
             if(count == 0){
                 //ajax传入订单数据
                 $.ajax({
                     type:"POST",
-                    url:"confirmOrder.action",
-                    data:JSON.stringify({
-                        orderItems:items,
-                        address_id:address_id,
-                        goods_num:goods_num,
-                        sum_money:sum_money
-                    })
+                    url:url,
+                    data:JSON.stringify(data)
                     ,
                     contentType:"application/json;charsetset=UTF-8",
                     dataType:"text",
@@ -64,8 +86,8 @@ $(document).ready(function () {
                     }
                 });
             }else{//库存不足
-                alert("库存不足");
-                window.location.href = "index.jsp";
+                //alert("库存不足");
+                window.location.href = stockOutUrl;
             }
 
         }

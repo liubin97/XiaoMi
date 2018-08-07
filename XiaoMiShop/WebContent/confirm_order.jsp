@@ -150,11 +150,13 @@
                     </tr>
                     </thead>
                     <tbody id="items-body">
+                    <input type="hidden" id="goods-id" value="${goodsItems[0].goodsItem.goods.goods_id}" />
                     <c:set var="sum_num" value="0"/>
                     <c:set var="sum_money" value="0"/>
                     <c:forEach items="${goodsItems}" var="item">
-                        <c:set var="sum_num" value="${sum_money+item.goodsNum}"/>
+                        <c:set var="sum_num" value="${sum_num+item.goodsNum}"/>
                         <c:set var="sum_money" value="${sum_money+item.sumMoney}"/>
+
                         <tr class="panel alert" >
                             <td>
                                 <div class="media-left is-hidden-sm-down">
@@ -163,13 +165,13 @@
                                     </figure>
                                 </div>
                                 <div class="media-body valign-middle">
-                                    <h6 class="title mb-15 t-uppercase"><a href="displayGoodsPurchaseInfo.action?goods_id=${item.goodsItem.goods.goods_id}">${item.goodsItem.goods.goods_name}</a></h6>
+                                    <h6 class="title mb-15 t-uppercase"><a href="displayGoodsPurchaseInfo.action?goods_id=${item.goodsItem.goods.goods_id}"><span class="goods-name">${item.goodsItem.goods.goods_name}</span></a></h6>
                                     <div class="type font-12"><span class="t-uppercase">规格 : </span>${item.goodsItem.kind}&nbsp;${item.goodsItem.color}</div>
                                 </div>
                             </td>
                             <td class="single-price" data-single_price="${item.goodsItem.discount_price}"><fmt:formatNumber value="${item.goodsItem.discount_price}" type="currency" pattern="￥.00"/></td>
                             <td>
-                                <input class="quantity-label" type="number" readonly value="${item.goodsNum}">
+                                <input class="quantity-label" type="number" readonly value="${item.goodsNum}"/>
                             </td>
                             <td>
                                 <div class="sub-total"><fmt:formatNumber value="${item.sumMoney}" type="currency" pattern="￥.00"/></div>
@@ -312,6 +314,14 @@
 <script type="text/javascript" src="assets/js/main.js"></script>
 <script type="text/javascript" src="assets/liubin/js/confirm_order.js"></script>
 <script type="text/javascript">
+    var settleFlag="${settleFlag}";
+    var cart_ids = [];
+
+    <c:forEach items="${cart_ids}" var="id">
+        console.log(${id});
+        cart_ids.push(${id});
+    </c:forEach>
+    console.log(cart_ids);
     $(".J_addressItem").click(function() {
         clear();
         $(this).addClass("selected");
@@ -325,9 +335,9 @@
         });
     }
 
-    $("#J_newAddress").click(function () {
+   /* $("#J_newAddress").click(function () {
         $("#pop2").show();
-    }) ;
+    }) ;*/
 </script>
 </body>
 </html>

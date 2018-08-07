@@ -21,8 +21,25 @@ public class OrderController {
     private OrderService orderService;
     //结算购物车
     @RequestMapping("settlementCart")
-    public ModelAndView settlementCart(){
+    public ModelAndView settlementCart(int [] items,HttpSession session){
+        String user_email = (String) session.getAttribute("user_email");
+        List<Address> addressList = orderService.getUserAddress(user_email);
+        List<Map<String,Object>> goodsItems = new ArrayList<>();
+        List<Cart> cartList = orderService.getCartInfoByIds(items);
+        for(Cart cart:cartList){
+            GoodsDetail goodsDetail = orderService.getGoodsDetailById(cart.getGoods_detail_id());
+            Map<String,Object> goodsItem = new HashMap<>();
+            goodsItem.put("goodsItem",goodsDetail);
+            goodsItem.put("goodsNum",cart.getGoods_num());
+            goodsItem.put("sumMoney",goodsDetail.getDiscount_price()*cart.getGoods_num());
+            goodsItems.add(goodsItem);
+        }
         ModelAndView mav = new ModelAndView();
+        mav.addObject("settleFlag","settlementCart");
+        mav.addObject("addressList",addressList);
+        mav.addObject("goodsItems",goodsItems);
+        mav.addObject("cart_ids",items);
+        mav.setViewName("confirm_order");
         return mav;
     }
 
@@ -39,6 +56,7 @@ public class OrderController {
         goodsItem.put("sumMoney",goodsDetail.getDiscount_price());
         List<Map<String,Object>> goodsItems = new ArrayList<>();
         goodsItems.add(goodsItem);
+        mav.addObject("settleFlag","purchaseImmediately");
         mav.addObject("addressList",addressList);
         mav.addObject("goodsItems",goodsItems);
         mav.setViewName("confirm_order");
@@ -55,6 +73,18 @@ public class OrderController {
         order.setSum_money(orderInfo.getSum_money());
         order.setOrder_items(orderInfo.getOrderItems());
         orderService.insertOrder(order);
+    }
+    //购物车结算确认订单
+    @RequestMapping("cartConfirmOrder")
+    public @ResponseBody void cartConfirmOrder(@RequestBody OrderInfo orderInfo, HttpSession session){
+        String user_email = (String) session.getAttribute("user_email");
+        Order order = new Order();
+        order.setUser_email(user_email);
+        order.setAddress_id(orderInfo.getAddress_id());
+        order.setGoods_num(orderInfo.getGoods_num());
+        order.setSum_money(orderInfo.getSum_money());
+        order.setOrder_items(orderInfo.getOrderItems());
+        orderService.insertCartOrder(order,orderInfo.getCart_ids());
     }
 
 }

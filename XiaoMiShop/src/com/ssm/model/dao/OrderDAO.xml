@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.model.dao.OrderDAO">
+    <!-- 获取购物车信息 -->
+    <select id="getCartInfoByIds" resultType="Cart">
+        select * from cart where cart_id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <!-- 通过ID获取商品详情 -->
     <select id="getGoodsDetailById" parameterType="int" resultType="GoodsDetail">
         select * from goods_detail where goods_detail_id = #{goods_detail_id} and goods_detail_status=0
@@ -38,16 +46,26 @@
 
     </insert>
     <!-- 更新库存 -->
-    <update id="updateStock" parameterType="Order">
-        <foreach collection="order_items" item="orderItem" separator=";">
-            update goods_detail set stock = stock-#{orderItem.order_item_num}
-              where goods_detail_id = #{orderItem.goods_detail_id}
-        </foreach>
+    <update id="updateStock" parameterType="OrderItem">
+        <!--<foreach collection="list" item="orderItem" separator=";" >
+            update goods_detail set stock = stock - #{orderItem.order_item_num}
+            where goods_detail_id = #{orderItem.goods_detail_id}
+        </foreach>-->
+        update goods_detail set stock = stock - #{order_item_num}
+        where goods_detail_id = #{goods_detail_id}
     </update>
     <!-- 插入消息 -->
     <insert id="insertMessage"  parameterType="Message">
         insert into message (user_email, message_title, message_text, message_type, send_date) values
           (#{user_email},#{message_title},#{message_text},#{message_type},#{send_date})
     </insert>
+
+    <!-- 删除购物车信息 -->
+    <delete id="deleteCartByIds">
+        delete from cart where cart_id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 
 </mapper>

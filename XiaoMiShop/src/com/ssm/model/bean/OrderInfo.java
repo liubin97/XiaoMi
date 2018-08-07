@@ -7,6 +7,7 @@ public class OrderInfo {
     private int address_id;
     private int goods_num;
     private float sum_money;
+    private int [] cart_ids;
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
@@ -38,5 +39,13 @@ public class OrderInfo {
 
     public void setSum_money(float sum_money) {
         this.sum_money = sum_money;
+    }
+
+    public int[] getCart_ids() {
+        return cart_ids;
+    }
+
+    public void setCart_ids(int[] cart_ids) {
+        this.cart_ids = cart_ids;
     }
 }

@@ -30,7 +30,7 @@ public class PurchaseController {
     public ModelAndView disPlayGoods(int goods_id){
         ModelAndView mav = new ModelAndView();
         Goods goods = purchaseService.getGoodsInfo(goods_id);
-
+        System.out.println(goods_id);
         mav.addObject("goods",goods);
         mav.setViewName("purchase");
         return mav;

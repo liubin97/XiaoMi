@@ -227,10 +227,10 @@ function getGoodsByKindAndColor(kind,color){
 $(document).ready(function(){
     //获取goods_id
     var goods_id = $("#goods-id").text();
-
+    console.log(goods_id);
     //显示商品版本、颜色
     $(function () {
-        console.log(goodsDetailList);
+        //console.log(goodsDetailList);
         var AllkindsColor = [];
         var kinds = [];
 
