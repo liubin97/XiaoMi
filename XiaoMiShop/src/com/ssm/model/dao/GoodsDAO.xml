@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.GoodsDAO">
+     
+  <!-- 登记新商品信息 -->
+  <insert id="insertGoods" parameterType="Goods">
+       <selectKey keyProperty="goods_id" keyColumn="goods_id" order="AFTER" resultType="int">
+          select LAST_INSERT_ID()
+      </selectKey>
+      insert into Goods(goods_category_id,goods_code,goods_name,goods_pic_url,goods_desc_pic_url,video_set_url,goods_status)
+      value(#{goods_category_id},#{goods_code},#{goods_name},#{goods_pic_url},#{goods_desc_pic_url},#{video_set_url},0)
+  </insert>
+  <!-- 登记商品属性 -->
+  <insert id="insertAttribute" parameterType="GoodsAttribute">
+      insert into goods_attribute(goods_id,attribute_name,attribute_value,attribute_status)
+      value(#{goods_id},#{attribute_name},#{attribute_value},0)
+  </insert>
+  <!-- 登记商品概述图片 -->
+  <insert id="insertGoodsPicture" parameterType="GoodsPreviewPicture">
+      insert into goods_preview_pic(goods_id,goods_url,goods_pre_pic_status)
+      value(#{goods_id},#{goods_url},0)
+  </insert>
+  <!-- 登记商品版本信息 -->
+  <insert id="insertDetail" parameterType="GoodsDetail">
+       <selectKey keyProperty="goods_detail_id" keyColumn="goods_detail_id" order="AFTER" resultType="int">
+          select LAST_INSERT_ID()
+      </selectKey>
+      insert into goods_detail(goods_id,kind,color,prime_price,discount_price,stock,goods_detail_status)
+      value(#{goods_id},#{kind},#{color},#{prime_price},#{discount_price},0,0)
+  </insert>
+  <!-- 登记商品版本图片 -->
+  <insert id="insertDetailPicture" parameterType="GoodsPicture">
+      insert into picture_set(goods_detail_id,picture_set_url,picture_set_status)
+      value(#{goods_detail_id},#{picture_set_url},0)
+      
+  </insert>
+  
+  <!-- 增加库存量 -->
+  <update id="updateStockAdd" parameterType="GoodsDetail">
+      update goods_detail
+      set stock=stock+#{stock}
+      where goods_detail_id=#{goods_detail_id}
+  </update>
+  <!-- 更改库存量 -->
+  <update id="updateStockChange" parameterType="GoodsDetail">
+       update goods_detail
+      set stock=#{stock}
+      where goods_detail_id=#{goods_detail_id}
+  </update>
+  <!-- 更改商品信息 -->
+  <update id="updateGoods" parameterType="Goods">
+      update goods 
+      <set>
+          <if test="goods_category_id != null and goods_category_id !=''">
+              goods_category_id=#{goods_category_id},
+          </if>
+          <if test="goods_code != null and goods_code !=''">
+              goods_code=#{goods_code},
+          </if>
+          <if test="goods_name != null and goods_name !=''">
+              goods_name=#{goods_name},
+          </if>
+          <if test="goods_pic_url != null and goods_pic_url !=''">
+              goods_pic_url=#{goods_pic_url},
+          </if>
+          <if test="goods_desc_pic_url != null and goods_desc_pic_url !=''">
+              goods_desc_pic_url=#{goods_desc_pic_url},
+          </if>
+          <if test="video_set_url != null and video_set_url !=''">
+              video_set_url=#{video_set_url}
+          </if>
+         
+      </set>
+     where goods_id=#{goods_id}
+  </update>
+  <!-- 更改商品图片 -->
+  <update id="updateGoodsPicture" parameterType="GoodsPreviewPicture">
+      update goods_preview_pic
+      set goods_url=#{goods_url}
+      where goods_preview_pic_id=#{goods_preview_pic_id}
+  </update>
+  <!-- 更改参数 -->
+  <update id="updateAttribute" parameterType="GoodsAttribute">
+      update goods_attribute
+      set attribute_name=#{attribute_name},attribute_value=#{attribute_value}
+      where goods_attribute_id=#{goods_attribute_id}
+  </update>
+  <!-- 更改商品版本信息 -->
+  <update id="updateDetail" parameterType="GoodsDetail">
+      update goods_detail
+      set kind=#{kind},color=#{color},prime_price=#{prime_price},discount_price=#{discount_price}
+      where goods_detail_id=#{goods_detail_id}
+  </update>
+  <!-- 更新商品版本图片 -->
+  <update id="updateDetailPicture" parameterType="GoodsPicture">
+      update picture_set
+      set picture_set_url=#{picture_set_url}
+      where picture_set_id=#{picture_set_id}
+  </update>
+  
+  <!-- 通过商品代码获取商品id -->
+  <select id="getGoodIdByCode" parameterType="int" resultType="int">
+      select goods_id from goods
+      where goods_code=#{code}
+  </select>
+  <!-- 通过商品id查找所有版本 -->
+  <select id="getAllKindByGoodsId" parameterType="int" resultType="String">
+      select distinct kind from goods_detail
+      where goods_id=#{goods_id} and goods_detail_status=0
+  </select>
+  <!-- 通过商品id和版本名称查找所有颜色 -->
+  <select id="getAllColorBygoodsIdAndKind" parameterType="GoodsDetail" resultType="GoodsDetail">
+      select goods_detail_id,color,stock from goods_detail
+      where goods_id=#{goods_id} and kind=#{kind} and goods_detail_status=0
+  </select>
+  <!-- 通过商品id得到所有版本库存信息 -->
+  <select id="getAllDetailByGoodsId" parameterType="int" resultType="GoodsDetail">
+      select * from goods_detail
+      where goods_id=#{goods_id} and goods_detail_status=0
+  </select>
+  <!-- 通过商品id得到商品信息 -->
+  <select id="getGoodsByGoodsId" parameterType="int" resultType="Goods">
+      select * from goods
+      where goods_id=#{goodsId} and goods_status=0
+  </select>
+  <!-- 通过商品id查找商品图片 -->
+  <select id="getGoodsPicByGoodsId" parameterType="int" resultType="GoodsPreviewPicture">
+      select * from goods_preview_pic 
+      where goods_id=#{goodsId} and goods_pre_pic_status=0
+  </select>
+  <!-- 通过商品id查找商品参数 -->
+  <select id="getAttributesByGoodsId" parameterType="int" resultType="GoodsAttribute">
+      select * from goods_attribute
+      where goods_id=#{goods_id} and attribute_status=0
+  </select>
+  <!-- 通过商品版本id查找对应版本图片  -->
+  <select id="getDetailPicByDetailId" parameterType="int" resultType="GoodsPicture">
+      select * from picture_set
+      where goods_detail_id=#{detailId} and picture_set_status=0
+  </select>
+  <!-- 通过版本id查找版本信息 -->
+   <select id="getDetailByDetailId" parameterType="int" resultType="GoodsDetail">
+      select * from goods_detail
+      where goods_detail_id=#{goods_detail_id} and goods_detail_status=0
+  </select>
+   <!-- 通过商品信息查找商品 -->
+   <select id="getGoodsByGoodsInfo" parameterType="String" resultType="Goods">
+       select * from goods
+       <where>
+           goods_status=0
+           <if test="goods_id != 0">
+               
+              and goods_id=#{goods_id} 
+           </if>
+            <if test="goods_category_id != 0">
+               and goods_category_id=#{goods_category_id}
+           </if>
+            <if test="goods_code != 0">
+               and goods_code=#{goods_code}
+           </if>
+            <if test="goods_name != null and goods_name != ''">
+               and goods_name=#{goods_name}
+           </if>
+           
+       </where>
+      
+   </select>
+   <!-- 通过商品版本信息查找商品版本 -->
+   <select id="getDetailByDetailInfo" parameterType="GoodsDetail" resultType="GoodsDetail">
+       select * from goods_detail
+       <where>
+           goods_detail_status=0
+           <if test="goods_detail_id != 0 ">
+               and goods_detail_id=#{goods_detail_id}
+           </if>
+           <if test="goods_id != 0">
+               and goods_id=#{goods_id}
+           </if>
+           <if test="kind != null and kind != ''">
+               and kind=#{kind}
+           </if>
+           <if test="color != null and color != ''">
+               and color=#{color}
+           </if>
+         
+       </where>
+   </select>
+  <!-- 更改商品照片状态为1标记为删除 -->
+  <update id="deleteGoodsPicture" parameterType="int">
+      update goods_preview_pic
+      set goods_pre_pic_status=1
+      where goods_preview_pic_id=#{goods_preview_pic_id}
+  </update>
+  <!-- 更改属性状态为1标记为删除 -->
+  <update id="deleteAttribute" parameterType="int">
+      update goods_attribute
+      set attribute_status=1
+      where goods_attribute_id=#{goods_attribute_id}
+  </update>
+  <!-- 更改版本状态为1标记为删除 -->
+  <update id="deleteDetail" parameterType="int">
+      update goods_detail
+      set goods_detail_status=1
+      where goods_detail_id=#{goods_detail_id}
+  </update>
+  <!-- 更改版本图片状态为1标记为删除 -->
+  <update id="deleteDetailPicture" parameterType="int">
+      update picture_set
+      set picture_set_status=1
+      where picture_set_id=#{picture_set_id}
+  </update>
+  <!-- 更改商品状态为1标记为删除 -->
+  <update id="deleteGoodsByGoodsId" parameterType="int">
+      update goods
+      set goods_status=1
+      where goods_id=#{goodsId}
+  </update>
+  <!-- 更改版本状态为1，删除该商品下所有版本 -->
+  <update id="deleteAllDetailByGoodsId" parameterType="int">
+      update goods_detail
+      set goods_detail_status=1
+      where goods_id=#{goodsId}
+  </update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
