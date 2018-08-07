@@ -11,10 +11,10 @@ public class GroupBuyInfo {
 	private Date group_starttime;
 	private Date group_endtime;
 	private int group_buy_info_status;
-	
+
 	private GoodsDetail goodsdetail;
 	private List<GroupBuyList> groupList;
-	
+
 	public GoodsDetail getGoodsdetail() {
 		return goodsdetail;
 	}
@@ -69,5 +69,5 @@ public class GroupBuyInfo {
 	public void setGroup_buy_info_status(int group_buy_info_status) {
 		this.group_buy_info_status = group_buy_info_status;
 	}
-	
+
 }

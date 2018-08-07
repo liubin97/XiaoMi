@@ -46,5 +46,5 @@ public class GroupBuyList {
 	public void setGroup_buy_list_status(int group_buy_list_status) {
 		this.group_buy_list_status = group_buy_list_status;
 	}
-	
+
 }

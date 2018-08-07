@@ -5,7 +5,7 @@ public class GoodsPicture {
 	private int goods_detail_id;
 	private String picture_set_url;
 	private int picture_set_status;
-	
+
 	public int getPicture_set_id() {
 		return picture_set_id;
 	}

@@ -15,7 +15,7 @@ public class Order {
 	private int order_status;
 	private Address address;
 	private List<OrderItem> order_items;
-	
+
 	public Address getAddress() {
 		return address;
 	}
@@ -82,5 +82,5 @@ public class Order {
 	public void setOrder_status(int order_status) {
 		this.order_status = order_status;
 	}
-	
+
 }

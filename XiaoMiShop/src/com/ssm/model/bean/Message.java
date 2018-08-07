@@ -62,5 +62,5 @@ public class Message {
 	public void setSend_date(Date send_date) {
 		this.send_date = send_date;
 	}
-	
+
 }
