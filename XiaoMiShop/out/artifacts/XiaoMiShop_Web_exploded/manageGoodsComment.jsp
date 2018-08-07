@@ -57,7 +57,7 @@
 
                                     <div class="am-u-sm-12 am-u-lg-3 am-u-md-12 am-u-end">
                                         <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                            <input type="text" class="am-form-field" placeholder="请输入商品ID"/>
+                                            <input type="text" class="am-form-field" id="goods_id" name="goods_id" placeholder="请输入商品ID"/>
                                             <span class="am-input-group-btn">
                                         <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit"></button>
                                         </span>
@@ -102,26 +102,27 @@
                                 </c:forEach>
                                 </tbody>
                             </table>
-                            <c:if test="${maxPageNum!=null}">
-                                <div class="am-u-lg-12 am-cf">
-                                    <!-- 动态页码 -->
-                                    <div class="am-fr">
-                                        <ul class="am-pagination tpl-pagination">
-                                            <li class="am-disabled"><a href="#">«</a></li>
-                                            <c:forEach begin="1" end="${maxPageNum}" var="p"  >
-                                                <c:if test="${p==MG_PageNum}">
-                                                    <li class="am-active"><a href="#">${p}</a></li>
-                                                </c:if>
-                                                <c:if test="${p!=MG_PageNum}">
-                                                    <li><a href="selectGroupBuyInfo?pageNum=${p}"  >${p}</a></li>
-                                                </c:if>
-                                            </c:forEach>
-                                            <li><a href="#">»</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </c:if>
+
                     </div>
+                        <c:if test="${maxPageNum!=null}">
+                            <div class="am-u-lg-12 am-cf">
+                                <!-- 动态页码 -->
+                                <div class="am-fr">
+                                    <ul class="am-pagination tpl-pagination">
+                                        <li class="am-disabled"><a href="#">«</a></li>
+                                        <c:forEach begin="1" end="${maxPageNum}" var="p"  >
+                                            <c:if test="${p==MG_PageNum}">
+                                                <li class="am-active"><a href="#">${p}</a></li>
+                                            </c:if>
+                                            <c:if test="${p!=MG_PageNum}">
+                                                <li><a href="selectGroupBuyInfo?pageNum=${p}"  >${p}</a></li>
+                                            </c:if>
+                                        </c:forEach>
+                                        <li><a href="#">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </c:if>
 
                 </div>
 

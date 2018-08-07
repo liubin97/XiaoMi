@@ -5,14 +5,14 @@
 <mapper namespace="com.ssm.model.dao.MGoodsCommentDAO">
     <select id="selectMGoodsComment" parameterType="map" resultType="GoodsComment">
         select * from goods_comment where goods_comment_status=0
-        <if test="goods_id != 0 and goods_detail_id != null ">
-            and goods_id = #{goods_id}
+        <if test="goodsId != 0 and goodsId != null ">
+            and goods_id = #{goodsId}
         </if>
         <if test="start_time!=null and start_time !='' ">
             and comment_date >= #{start_time}
         </if>
-        <if test="endtime!=null and end_time != '' ">
-            and  #{endtime} >= comment_date
+        <if test="end_time!=null and end_time != '' ">
+            and  #{end_time} >= comment_date
         </if>
     </select>
     <select id="selectMGoodsCommentDetail" parameterType="int" resultMap="GoodsCommentResult">

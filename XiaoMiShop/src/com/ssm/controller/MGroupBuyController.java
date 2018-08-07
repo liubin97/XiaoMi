@@ -164,12 +164,12 @@ public class MGroupBuyController {
     @RequestMapping("deleteGroupBuyingTwo")
 	public String deleteGroupBuyingTwo(int group_buy_info_id){//删除正在进行的团购
 		mGroupBuyService.deleteGroupBuyingTwo(group_buy_info_id);
-		return null;
+		return "manageGroupBuying";
 	}
 	@RequestMapping("deleteGroupBuyingOne")
 	public String deleteGroupBuyingOne(int group_buy_info_id){//删除还未开始的团购
 		mGroupBuyService.deleteGroupBuyingOne(group_buy_info_id);
-		return null;
+		return "manageGroupBuying";
 	}
 	@RequestMapping("validate_group_buy_price")
 	@ResponseBody

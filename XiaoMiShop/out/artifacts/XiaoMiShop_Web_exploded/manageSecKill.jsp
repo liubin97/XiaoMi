@@ -112,7 +112,9 @@
                                 </tbody>
 
                             </table>
-                            <c:if test="${maxPageNum!=null}">
+
+                        </div>
+                        <c:if test="${maxPageNum!=null}">
                             <div class="am-u-lg-12 am-cf">
                                 <!-- 动态页码 -->
                                 <div class="am-fr">
@@ -130,8 +132,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            </c:if>
-                        </div>
+                        </c:if>
                     </div>
 
                 </div>

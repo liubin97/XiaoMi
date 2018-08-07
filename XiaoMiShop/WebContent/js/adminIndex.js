@@ -129,7 +129,10 @@ $(document).ready(function(){
             $(function(){
                 // 基于准备好的dom，初始化echarts实例
                 var chart3 = echarts.init($('#chart3')[0]);
-
+                var sumValue =[];
+                for(var i = 0;i<datademo.groupValue.length;i++){
+                    sumValue.push(datademo.groupValue[i]+datademo.normalValue[i]);
+                }
                 //近七天销售额
                 option3 = {
                     title: {
@@ -139,7 +142,7 @@ $(document).ready(function(){
                         trigger: 'axis'
                     },
                     legend: {
-                        data:['团购','正常']
+                        data:['团购','正常','总和']
                     },
                     grid: {
                         left: '3%',
@@ -164,14 +167,19 @@ $(document).ready(function(){
                         {
                             name:'团购',
                             type:'line',
-                            stack: '总量',
+
                             data:datademo.groupValue
                         },
                         {
                             name:'正常',
                             type:'line',
-                            stack: '总量',
+
                             data:datademo.normalValue
+                        },
+                        {
+                            name:'总和',
+                            type:'line',
+                            data:sumValue
                         }
 
                     ]

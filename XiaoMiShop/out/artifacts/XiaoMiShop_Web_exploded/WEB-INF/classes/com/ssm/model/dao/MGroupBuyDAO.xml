@@ -51,8 +51,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select o.user_email from group_buy_info g,group_buy_list h,`order` o
  			where h.group_id=o.group_id
  				and g.group_buy_info_id=h.group_buy_info_id
- 				and h.group_buy_list_status=1
- 				and g.group_buy_info_status=1
+ 				and h.group_buy_list_status=3
+ 				and g.group_buy_info_status=2
  				and g.group_buy_info_id=#{group_buy_info_id}
 	</select>
 	<update id="deleteGroupBuying" parameterType="int">
