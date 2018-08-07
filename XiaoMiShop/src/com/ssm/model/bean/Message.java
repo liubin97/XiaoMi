@@ -52,8 +52,15 @@ public class Message {
 	public void setMessage_type(int message_type) {
 		this.message_type = message_type;
 	}
+
 	public void setRead_flag(int read_flag) {
 		this.read_flag = read_flag;
+	}
+	public Date getSend_date() {
+		return send_date;
+	}
+	public void setSend_date(Date send_date) {
+		this.send_date = send_date;
 	}
 	
 }
