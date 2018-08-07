@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
-<configuration> 	 
+<configuration>
 	 <!-- typeAliasese:用来配置类别名 
 	 		内置类别名
 	 		int long string map list
@@ -19,7 +19,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 		<property name="dialect" value="mysql"/>
 	 	</plugin>
 	 </plugins>
-	 
 </configuration>  
 
 

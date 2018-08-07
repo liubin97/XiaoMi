@@ -3,21 +3,10 @@ package com.ssm.utils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ssm.model.bean.Cart;
-import com.ssm.model.service.CartService;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class LoginInterceptor implements HandlerInterceptor {
@@ -29,27 +18,40 @@ public class LoginInterceptor implements HandlerInterceptor {
              * 要携带参数：redirectURL。（上一个页面的url，也就是发出当前Request请求的url，
              * 用于登录完成后返回之前的页面继续操作。）
              */
-        	String requesturl=httpServletRequest.getRequestURI();
-        	String desturl=requesturl.substring(11);
+            String requesturl=httpServletRequest.getRequestURI();
+            String desturl=requesturl.substring(11);
             String redirectUrl = "login.jsp" + "?redirectURL=" + desturl;
             System.out.println(redirectUrl);
-           
+
             //获取url参数
             redirectUrl += "?" + httpServletRequest.getQueryString();
-            if(requesturl.indexOf("settlementCart.action")!=-1){
-            	redirectUrl="login.jsp?redirectURL=mergeCart.action";
+            if(requesturl.indexOf("test.action")!=-1){
+                redirectUrl="login.jsp?redirectURL=mergeCart.action";
             }
-            httpServletResponse.sendRedirect(redirectUrl);
-            return false;// 拦截用户，不可执行该Handler
+            //判断是否为ajax请求
+            if (httpServletRequest.getHeader("x-requested-with") != null && httpServletRequest.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")){
+                /*httpServletResponse.setHeader("SESSIONSTATUS", "TIMEOUT");
+                httpServletResponse.setHeader("CONTEXTPATH", redirectUrl);*/
+                httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);//403禁止
+                PrintWriter out = httpServletResponse.getWriter();
+                out.print("loseSession");//session失效
+                out.flush();
+                return false;
+            }else{//正常请求
+
+                httpServletResponse.sendRedirect(redirectUrl);
+                return false;// 拦截用户，不可执行该Handler
+            }
+
+
         }
         // 用户已经登录，放行。
         return true;
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
-    	
-    	
+    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
+
     }
 
     @Override

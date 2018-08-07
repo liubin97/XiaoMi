@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 包和类的映射 -->
+<mapper namespace="com.ssm.model.dao.SeckillDao">
+
+    <update id="reduceNumber">
+        UPDATE
+        seckill
+        SET seckill_num=seckill_num-1
+        WHERE seckill_id=#{seckillId}
+        <!--todo <![CDATA[]]> 避免 =为xml不兼容-->
+        AND seckill_starttime <![CDATA[<=]]>#{killTime}
+        and seckill_endtime>=#{killTime}
+        AND seckill_num > 0
+    </update>
+
+    <select id="getById" resultType="SeckillDetail" parameterType="int">
+          select *
+          from seckill_detail
+          where seckill_id=#{seckillId}
+    </select>
+
+    <select id="queryById" parameterType="int" resultMap="seckillResult">
+            select *
+            from seckill_detail sd, picture_set ps
+            where sd.goods_detail_id = ps.goods_detail_id and sd.seckill_status=0 and sd.seckill_id =#{seckillId}
+    </select>
+    <resultMap id="seckillResult" type="SeckillDetail">
+        <result property="seckill_id" column="seckill_id"/>
+        <result property="seckill_name" column="seckill_name"/>
+        <result property="seckill_num" column="seckill_num"/>
+        <result property="seckill_starttime" column="seckill_starttime"/>
+        <result property="seckill_endtime" column="seckill_endtime"/>
+        <result property="create_time" column="create_time"/>
+        <result property="seckill_money" column="seckill_money"/>
+        <result property="seckill_status" column="seckill_status"/>
+        <result property="goods_detail_id" column="goods_detail_id"/>
+        <result property="kind" column="kind"/>
+        <result property="color" column="color"/>
+        <result property="prime_price" column="prime_price"/>
+        <result property="goods_name" column="goods_name"/>
+        <result property="goods_pic_url" column="goods_pic_url"/>
+
+        <collection property="goodsPictureList" ofType="GoodsPicture">
+            <result property="picture_set_id" column="picture_set_id"/>
+            <result property="picture_set_url" column="picture_set_url"/>
+            <result property="picture_set_status" column="picture_set_status"/>
+        </collection>
+    </resultMap>
+
+    <select id="getStartTimeList" resultType="Date">
+        select seckill_starttime
+        from seckill
+        where seckill_status = 0
+        group by seckill_starttime
+    </select>
+
+    <select id="getEndTimeList" resultType="Date">
+        select seckill_endtime
+        from seckill
+        where seckill_status = 0
+        group by seckill_endtime
+    </select>
+
+    <select id="selectAll" resultType="SeckillDetail">
+        select *
+        from seckill_detail
+        where seckill_status = 0
+        ORDER BY create_time
+
+    </select>
+
+
+    <select id="getAddress" parameterType="String" resultType="Address">
+        select *
+        from address
+        where user_email = #{email}
+    </select>
+
+    <!--调用储存过程-->
+    <select id="killByProcedure" statementType="CALLABLE">
+          CALL execute_seckill(
+        #{seckillId,jdbcType=INTEGER,mode=IN},
+        #{email,jdbcType=VARCHAR,mode=IN},
+        #{addressId,jdbcType=INTEGER,mode=IN},
+        #{killTime,jdbcType=TIMESTAMP,mode=IN},
+        #{result,jdbcType=INTEGER,mode=OUT}
+        )
+    </select>
+
+
+    <!--调用储存过程-->
+    <select id="closeSeckill" statementType="CALLABLE">
+          CALL close_seckill(
+        #{nowtime,jdbcType=TIMESTAMP,mode=IN},
+        #{result,jdbcType=INTEGER,mode=OUT}
+        )
+    </select>
+</mapper>
+

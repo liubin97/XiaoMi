@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="assets/js/jquery-1.12.3.min.js"></script>
-<script src="assets/js/header.js"></script>
+
 <style>
 .redpoint{
   display:inline-block;
@@ -18,6 +17,10 @@
     right: 8px;
 }
 </style>
+
+<script src="${pageContext.request.contextPath}/assets/js/jquery-1.12.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+
 <!-- Preloader -->
 <div id="preloader" class="preloader">
     <div class="loader-cube">

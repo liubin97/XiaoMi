@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd  
+            http://www.springframework.org/schema/context   
+            http://www.springframework.org/schema/context/spring-context-3.2.xsd  
+            http://www.springframework.org/schema/mvc  
+            http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+            http://www.springframework.org/schema/util  
+            http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<mvc:default-servlet-handler/>
+	<!-- 响应的配置 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"  />
+		<property name="prefix" value="/"/>
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 组建扫描方式管理所有控制器 -->
+	<context:component-scan base-package="com.ssm.controller"></context:component-scan>
+
+
+
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/purchaseImmediately.action"/>
+			<bean class="com.ssm.utils.LoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/addFavorites.action"/>
+			<bean class="com.ssm.utils.LoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/makeCommentReply.action"/>
+			<bean class="com.ssm.utils.LoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/seckill/*/detail"/>
+			<bean class="com.ssm.utils.RestfulLoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/seckill/*/reminder"/>
+			<bean class="com.ssm.utils.RestfulLoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+	<!--配置Quartz实现JobDetail-->
+	<bean id="Quartz" class="com.ssm.utils.SendMailScheduler"></bean>
+	<bean id="JobDetail2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="Quartz"></property>
+		<property name="targetMethod" value="work"></property>
+	</bean>
+
+	<!-- 配置触发器  by RON表达式 -->
+	<bean id="trigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="JobDetail2"></property>
+		<!-- 一下配置是每180秒发送执行一次任务 -->
+		<property name="cronExpression" value="0 0/1 12-23 * * ? *"></property>
+	</bean>
+
+	<!-- 把触发器加入到任务列表中 -->
+	<bean id="testScheduler"
+		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="trigger2" />
+			</list>
+		</property>
+	</bean>
+
+</beans>   
+
+
+
+
+
+
+       
