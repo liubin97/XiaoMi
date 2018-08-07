@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.PurchaseDAO">
+    <!-- 获取商品信息 -->
+    <select id="getGoodsInfo" parameterType="int" resultMap="GoodsMap">
+        select * from goods,goods_detail,goods_attribute,picture_set where goods.goods_id = #{goods_id} and
+            goods_detail.goods_id = goods.goods_id and
+            goods_attribute.goods_id = goods.goods_id and
+            picture_set.goods_detail_id = goods_detail.goods_detail_id and
+            goods.goods_status = 0 and
+            goods_detail.goods_detail_status = 0 and
+            goods_attribute.attribute_status = 0 and
+            picture_set.picture_set_status = 0
+    </select>
+    <resultMap id="GoodsMap" type="Goods">
+        <result column="goods_id" property="goods_id" />
+        <result column="goods_name" property="goods_name" />
+        <result column="goods_code" property="goods_code" />
+        <collection property="goodsAttributeList" ofType="GoodsAttribute">
+            <result column="goods_attribute_id" property="goods_attribute_id"/>
+            <result column="attribute_name" property="attribute_name"/>
+            <result column="attribute_value" property="attribute_value"/>
+        </collection>
+        <collection property="goodsDetailList" ofType="GoodsDetail">
+            <result column="goods_detail_id" property="goods_detail_id"/>
+            <result column="kind" property="kind"/>
+            <result column="color" property="color"/>
+            <result column="prime_price" property="prime_price"/>
+            <result column="discount_price" property="discount_price"/>
+            <result column="stock" property="stock"/>
+            <collection property="goodsPictureList" ofType="GoodsPicture">
+                <result column="picture_set_id" property="picture_set_id"/>
+                <result column="picture_set_url" property="picture_set_url"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <!-- 获取商品评论 -->
+    <select id="getGoodsComment" resultMap="commentMap">
+        select *,cr.user_email reply_user from goods_comment gc left join comment_reply cr on gc.goods_comment_id = cr.goods_comment_id
+            left join comment_picture cp on gc.goods_comment_id = cp.goods_comment_id
+        where gc.goods_comment_status=0
+    </select>
+    <resultMap id="commentMap" type="GoodsComment">
+        <result column="goods_comment_id" property="goods_comment_id"/>
+        <result column="user_email" property="user_email"/>
+        <result column="goods_id" property="goods_id"/>
+        <result column="comment" property="comment"/>
+        <result column="comment_date" property="comment_date"/>
+        <result column="comment_level" property="comment_level"/>
+        <result column="like_num" property="like_num"/>
+        <collection property="commentReplyList" ofType="CommentReply">
+            <result column="comment_reply_id" property="comment_reply_id"/>
+            <result column="reply_user" property="user_email"/>
+            <result column="reply" property="reply"/>
+            <result column="reply_date" property="reply_date"/>
+            <result column="reply_type" property="reply_type"/>
+        </collection>
+        <collection property="commentPictureList" ofType="CommentPicture">
+            <result column="comment_picture_id" property="comment_picture_id"/>
+            <result column="picture_url" property="picture_url"/>
+        </collection>
+    </resultMap>
+    <!-- 添加我喜欢 -->
+    <insert id="insertFavorites" parameterType="int">
+        insert into favorites (user_email, goods_id) values(#{user_email},#{goods_id})
+    </insert>
+
+    <!-- 获取商品库存 -->
+    <select id="getStock" parameterType="int" resultType="int">
+        select stock from goods_detail where goods_detail_id = #{goods_detail_id}
+    </select>
+
+</mapper>

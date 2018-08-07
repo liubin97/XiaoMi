@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.ScheduledTaskDAO">
+	<select id="selectTimeOutInfo" parameterType="java.util.Date" resultMap="selectGroupBuyInfo">
+		select * from select_group_info
+		where group_buy_info_status = 1
+		and group_buy_list_status = 1
+		and group_endtime &lt; #{nowDateTime}
+	</select>
+	
+	<resultMap type="GroupBuyInfo" id="selectGroupBuyInfo">
+		<result property="group_buy_info_id" column="group_buy_info_id"/>
+		<result property="goods_detail_id" column="goods_detail_id"/>
+		<result property="group_num" column="group_num"/>
+		<result property="group_buy_price" column="group_buy_price"/>
+		<result property="group_starttime" column="group_starttime"/>
+		<result property="group_endtime" column="group_endtime"/>
+		<result property="group_buy_info_status" column="group_buy_info_status"/>
+		<collection property="groupList" ofType="GroupBuyList">
+			<result property="group_id" column="group_id"/>
+			<result property="group_buy_info_id" column="group_buy_info_id"/>
+			<result property="current_num" column="current_num"/>
+			<result property="group_begin_time" column="group_begin_time"/>
+			<result property="group_buy_list_status" column="group_buy_list_status"/>
+		</collection>
+	</resultMap>
+	
+	<select id="selectOrderByGroupId" parameterType="int" resultType="Order">
+		select * from `order`
+		where group_id = #{groupId}
+		and order_status = 2
+	</select>
+	
+	<update id="settleGroup" parameterType="int">
+		update group_buy_list set group_buy_list_status = 2
+		where group_id = #{groupId}
+	</update>
+	
+	<update id="settleGroupBuyInfo" parameterType="int">
+		update group_buy_info set group_buy_info_status = 2
+		where group_buy_info_id = #{groupBuyInfoId}
+	</update>
+	
+	<update id="settleOrder" parameterType="int">
+		update `order` set order_status = 4
+		where order_id = #{orderId}
+	</update>
+	
+	<update id="increaseStock" parameterType="map">
+    	update goods_detail set stock = stock + #{num}
+    	where goods_detail_id = #{goodsDetailId}
+    </update>
+    
+</mapper>
