@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.AccountDAO">
+     <!-- 注册客户  -->
+  	<insert id="insertAccount" parameterType="User">
+  	    insert into user(user_email, password, nickname)
+  	    value(#{user_email},#{password},#{nickname})
+  	</insert>
+  	
+  	<!-- 查找email -->
+  	<select id="findEmail" parameterType="String" resultType="String">
+  	    select user_email from user 
+  	    where user_email=#{user_email}
+  	</select>
+  	
+ 	<!-- 查找用户 -->
+ 	<select id="findUser" parameterType="User" resultType="User">
+  	    select * from user 
+  	    where user_email=#{user_email} and password=#{password}
+  	</select>
+  	
+ 	<!-- 修改头像 -->
+ 	<update id="editUserPic" parameterType="map" >
+  	    update user 
+  	    set imgurl=#{imgurl}
+  	    where user_email=#{user_email}
+  	</update>
+ 		
+ 	<!-- 修改信息 -->
+ 	<update id="updateUser" parameterType="User" >
+  	    update user 
+  	    set nickname=#{nickname},realname=#{realname},telephone=#{telephone}
+  	    where user_email=#{user_email}
+  	</update>
+ 	
+ 	<!-- 修改密码 -->
+    <update id="editPsw" parameterType="map" >
+  	    update user 
+  	    set password=#{newpassword}
+  	    where user_email=#{user_email}
+  	</update>
+    
+    
+    
+</mapper>
