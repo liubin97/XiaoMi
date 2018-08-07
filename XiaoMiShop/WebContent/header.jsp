@@ -53,7 +53,7 @@
                         <li><a href="signup.html"><i class="fa fa-edit"></i>注册</a>
                         </li>
                            <li><a href="selectByTypeFlag.action?read_flag=0"><i class="fa fa-comments"></i>消息中心</a>
-                          
+
                         </li>
                          <span class="redpoint" id="redpoint">0</span>
                         <li>
@@ -68,7 +68,7 @@
                                 <li><a href="#">退出登陆</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>--%>
                     </ul>
                 </div>
             </div>
@@ -521,4 +521,3 @@
 
 </header>
 <!-- –––––––––––––––[ HEADER ]––––––––––––––– -->
-

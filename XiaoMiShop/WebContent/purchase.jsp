@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ch-ZN">
 <head>
@@ -63,9 +64,11 @@
     <link href="assets/vendors/flexslider/flexslider.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
+    <link href="assets/liubin/css/mi.base.css" rel="stylesheet">
+    <link href="assets/liubin/css/mi.index.css" rel="stylesheet">
     <link href="assets/css/base.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/purchase.css" rel="stylesheet">
+    <link href="assets/liubin/css/purchase.css" rel="stylesheet">
 </head>
 <body class="wide-layout">
 
@@ -112,7 +115,7 @@
                                                     <div class="deal-deatails panel">
                                                         <div class="deal-slider">
                                                             <div id="product_slider" class="flexslider">
-                                                                <ul class="slides">
+                                                                <ul class="slides" id="big-pictures">
                                                                     <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
                                                                         <c:forEach items="${goodsDetail.goodsPictureList}" var="p">
                                                                             <li>
@@ -120,11 +123,10 @@
                                                                             </li>
                                                                         </c:forEach>
                                                                     </c:forEach>
-
                                                                 </ul>
                                                             </div>
                                                             <div id="product_slider_nav" class="flexslider flexslider-nav">
-                                                                <ul class="slides">
+                                                                <ul class="slides" id="small-pictures">
                                                                     <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
                                                                         <c:forEach items="${goodsDetail.goodsPictureList}" var="p">
                                                                             <li>
@@ -151,42 +153,41 @@
                                                                     ${goods.goods_name}<span id="goods-id" style="display: none">${goods.goods_id}</span>
                                                                 </h2>
                                                                 <ul class="deal-meta list-inline mb-10 color-mid">
-                                                                    <li><i class="ico fa fa-shopping-basket mr-10"></i>剩余<span id="stock">${goods.goodsDetailList[0].stock}</span>件</li>
+                                                                    <li><i class="ico fa fa-shopping-basket mr-10"></i>剩余
+                                                                        <span id="stock">${goods.goodsDetailList[0].stock}</span>件
+                                                                        <span id="goods-detail-id" data-goods_detail_id="${goods.goodsDetailList[0].goods_detail_id}" style="display: none"></span>
+                                                                    </li>
                                                                 </ul>
-                                                                <p class="color-muted">
-                                                                    小米
+                                                                <p class="color-muted" id="choose">
+
                                                                 </p>
                                                                 <div class="price mb-20">
-                                                                    <h2 class="price" id="price">
-                                                                        <fmt:formatNumber value="${goods.goodsDetailList[0].discount_price}" type="currency" pattern="￥.00"/>
+                                                                    <h2 class="price" >
+                                                                        ￥<span id="price"><fmt:formatNumber value="${goods.goodsDetailList[0].discount_price}"  pattern="#0.00"/></span>
                                                                     </h2>
                                                                 </div>
 
                                                                 <h3 class="mb-10 h5">选择版本</h3>
                                                                 <div class="filter-center col-md-12 mb-40">
-                                                                    <ul >
+                                                                    <ul id="goods-kind-list" class="text-center">
+
+                                                                    </ul>
+                                                                </div>
+
+                                                                <h3 class="mb-10 h5">选择颜色</h3>
+                                                                <div class="filter-center col-md-12 mb-40">
+                                                                    <ul class="text-center" id="goods-color-list">
                                                                         <c:set var="flag" value="1"/>
+                                                                        <c:set var="firstkind" value="${goods.goodsDetailList[0].kind}"/>
                                                                         <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
-                                                                            <c:if test="${flag!=1}">
+                                                                            <c:if test="${flag!=1 and goodsDetail.kind ==firstkind}">
                                                                                 <li class="col-md-6">
-                                                                                    <a id="${goodsDetail.goods_detail_id}" >
-                                                                                            ${goodsDetail.kind}&nbsp;${goodsDetail.color}
-                                                                                                <span class="price" style="float: right">
-                                                                                                    <fmt:formatNumber value="${goodsDetail.discount_price}" type="currency" pattern="￥.00"/>
-                                                                                                </span>
-                                                                                                <span class="stock" style="display: none">${goodsDetail.stock}</span>
-                                                                                    </a>
+                                                                                    <a class="goods-color" >${goodsDetail.color}</a>
                                                                                 </li>
                                                                             </c:if>
-                                                                            <c:if test="${flag==1}">
+                                                                            <c:if test="${flag==1 and goodsDetail.kind ==firstkind}">
                                                                                 <li class="col-md-6">
-                                                                                    <a class="active" id="${goodsDetail.goods_detail_id}">
-                                                                                            ${goodsDetail.kind}&nbsp;${goodsDetail.color}
-                                                                                                <span class="price" style="float: right">
-                                                                                                    <fmt:formatNumber value="${goodsDetail.discount_price}" type="currency" pattern="￥.00"/>
-                                                                                                </span>
-                                                                                                <span class="stock" style="display: none">${goodsDetail.stock}</span>
-                                                                                    </a>
+                                                                                    <a class="goods-color active" >${goodsDetail.color}</a>
                                                                                 </li>
                                                                                 <c:set var="flag" value="2"/>
                                                                             </c:if>
@@ -203,12 +204,12 @@
                                                                             </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a id="add-cart" href="javascript:void(0);" class="btn">
+                                                                             <a id="add-cart" href="javascript:void(0);" class="btn">
                                                                                 <i class="fa fa-shopping-cart font-16 mr-10"></i> 加入购物车
                                                                             </a>
                                                                         </li>
                                                                         <li style="float: right; margin-right: 30px;">
-                                                                            <a id="favorites" href="javascript:void(0)" class="btn" style="color:red;background: #f5f5f5;border-color: #f5f5f5;">
+                                                                            <a id="favorites" href="javascript:void(0);" class="btn" style="color:red;background: #f5f5f5;border-color: #f5f5f5;">
                                                                                 <span class="fa fa-heart-o font-22"></span>
                                                                             </a>
                                                                         </li>
@@ -217,7 +218,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </aside>
                                             <!-- End Blog Sidebar -->
@@ -225,159 +225,23 @@
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane ptb-20" id="reviews">
-                                    <div class="posted-review panel p-30">
-                                        <h3 class="h-title">16 Review</h3>
-                                        <div class="review-single pt-30">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img class="media-object mr-10 radius-4" src="assets/images/avatars/avatar_01.jpg" width="90" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="review-wrapper clearfix">
-                                                        <ul class="list-inline">
-                                                            <li>
-                                                                <span class="review-holder-name h5">John Doe</span>
-                                                            </li>
-                                                            <li>
-                                                                <div class="rating">
-                                                                            <span class="rating-stars" data-rating="5">
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </span>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="review-date mb-5">September 9, 2016</p>
-                                                        <p class="copy">Ut velit mauris, egestas sed, gravida nec, ornare ut, mi. Aenean ut orci vel massa suscipit pulvinar. Nulla sollicitudin. Fusce varius, ligula non tempus aliquam.</p>
-                                                        <p><a><span class="fa fa-thumbs-o-up"></span></a> 12</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="review-single pt-30">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img class="media-object mr-10 radius-4" src="assets/images/avatars/avatar_02.jpg" width="90" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="review-wrapper clearfix">
-                                                        <ul class="list-inline">
-                                                            <li>
-                                                                <span class="review-holder-name h5">John Doe</span>
-                                                            </li>
-                                                            <li>
-                                                                <div class="rating">
-                                                                            <span class="rating-stars" data-rating="2">
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </span>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="review-date mb-5">September 9, 2016</p>
-                                                        <p class="copy">Ut velit mauris, egestas sed, gravida nec, ornare ut, mi. Aenean ut orci vel massa suscipit pulvinar. Nulla sollicitudin. Fusce varius, ligula non tempus aliquam.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="review-single pt-30">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img class="media-object mr-10 radius-4" src="assets/images/avatars/avatar_03.jpg" width="90" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="review-wrapper clearfix">
-                                                        <ul class="list-inline">
-                                                            <li>
-                                                                <span class="review-holder-name h5">John Doe</span>
-                                                            </li>
-                                                            <li>
-                                                                <div class="rating">
-                                                                            <span class="rating-stars" data-rating="3">
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </span>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="review-date mb-5">September 9, 2016</p>
-                                                        <p class="copy">Ut velit mauris, egestas sed, gravida nec, ornare ut, mi. Aenean ut orci vel massa suscipit pulvinar. Nulla sollicitudin. Fusce varius, ligula non tempus aliquam.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="review-single pt-30">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img class="media-object mr-10 radius-4" src="assets/images/avatars/avatar_04.jpg" width="90" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="review-wrapper clearfix">
-                                                        <ul class="list-inline">
-                                                            <li>
-                                                                <span class="review-holder-name h5">John Doe</span>
-                                                            </li>
-                                                            <li>
-                                                                <div class="rating">
-                                                                            <span class="rating-stars" data-rating="4">
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </span>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="review-date mb-5">September 9, 2016</p>
-                                                        <p class="copy">Ut velit mauris, egestas sed, gravida nec, ornare ut, mi. Aenean ut orci vel massa suscipit pulvinar. Nulla sollicitudin. Fusce varius, ligula non tempus aliquam.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="review-single pt-30">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img class="media-object mr-10 radius-4" src="assets/images/avatars/avatar_05.jpg" width="90" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="review-wrapper clearfix">
-                                                        <ul class="list-inline">
-                                                            <li>
-                                                                <span class="review-holder-name h5">John Doe</span>
-                                                            </li>
-                                                            <li>
-                                                                <div class="rating">
-                                                                            <span class="rating-stars" data-rating="5">
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </span>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="review-date mb-5">September 9, 2016</p>
-                                                        <p class="copy">Ut velit mauris, egestas sed, gravida nec, ornare ut, mi. Aenean ut orci vel massa suscipit pulvinar. Nulla sollicitudin. Fusce varius, ligula non tempus aliquam.</p>
-                                                    </div>
-                                                </div>
+                                    <div class="m-comment-box J_commentList">
+                                            <ul class="m-comment-list J_listBody" id="comment-list">
+
+                                            </ul>
+                                            <div class="comment-more">
+                                                <a id="load-more" class="load-more J_loadMore" href="javascript:void(0);" style="display: block;">加载更多</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+
+                            </div>
+
+                            </div>
+
+
                     <!-- End Store Tabs Area -->
 
                 </div>
@@ -428,6 +292,35 @@
 <!-- Custom Template JavaScript                   -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
-<script type="text/javascript" src="assets/js/purchase.js"></script>
+<script type="text/javascript" src="assets/liubin/js/purchase.js"></script>
+
+<script type="text/javascript">
+    //获取用户信息
+    var user_emial = "${sessionScope.user_email}";
+    var user_nickname = "${sessionScope.nickname}";
+    var user_imgurl = "${sessionScope.user_imgurl}";
+    //获取商品详情数组
+    var goodsDetailList =[];
+    <c:forEach items="${goods.goodsDetailList}" var="goodsDetail">
+        var goods_detail_id = "${goodsDetail.goods_detail_id}";
+        var goods_detail_color = "${goodsDetail.color}";
+        var goods_detail_kind = "${goodsDetail.kind}";
+        var goods_detail_price = "${goodsDetail.discount_price}";
+        var goods_detail_stock = "${goodsDetail.stock}";
+        var goods_picture_urls = [];
+        <c:forEach items="${goodsDetail.goodsPictureList}" var="p">
+            var picture_url  = "${p.picture_set_url}";
+            goods_picture_urls.push(picture_url);
+        </c:forEach>
+        goodsDetailList.push({
+            "goods_detail_id":goods_detail_id,
+            "goods_detail_kind":goods_detail_kind,
+            "goods_detail_color":goods_detail_color,
+            "goods_detail_price":goods_detail_price,
+            "goods_detail_stock":goods_detail_stock,
+            "goods_detail_pic_urls":goods_picture_urls
+        });
+    </c:forEach>
+</script>
 </body>
 </html>

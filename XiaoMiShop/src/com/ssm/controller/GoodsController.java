@@ -35,7 +35,7 @@ public class GoodsController {
 	@RequestMapping("insertGoods")
 	public String insertGoods(Goods goods,HttpServletRequest request, @RequestParam MultipartFile goodsVideo,@RequestParam MultipartFile profilePic,@RequestParam MultipartFile goodsIntroductionPic,@RequestParam MultipartFile[] goodsPic) throws IOException{
 		//服务器文件根路径
-		String savePath = request.getServletContext().getRealPath("/"); 
+		String savePath = request.getServletContext().getRealPath("/");
 		//文件相对路径
 		String picPath = "goods/"+goods.getGoods_code()+"/picture/";
 		String videoPath = "goods/"+goods.getGoods_code()+"/video/";
@@ -49,8 +49,8 @@ public class GoodsController {
 			if(!"".equals(name)){
 				goods.setVideo_set_url(videoPath+name);
 			}
-			
-			
+
+
 			//记录profile picture
 			//获取储存文件名
 			name = FileUtil.updateFile(profilePic, savePath+picPath);
@@ -58,8 +58,8 @@ public class GoodsController {
 			if(!"".equals(name)){
 				goods.setGoods_pic_url(picPath+name);
 			}
-			
-			
+
+
 			//记录商品介绍图片
 			//获取储存文件名
 			name = FileUtil.updateFile(goodsIntroductionPic, savePath+picPath);
@@ -67,8 +67,8 @@ public class GoodsController {
 			if(!"".equals(name)){
 				goods.setGoods_desc_pic_url(picPath+name);
 			}
-			
-			
+
+
 			//记录picture
 			List<GoodsPreviewPicture> previewPictureList = new ArrayList<GoodsPreviewPicture>();
 			goods.setGoodsPreviewPictureList(previewPictureList);
@@ -78,13 +78,13 @@ public class GoodsController {
 				//记录url
 				if(!"".equals(name)){
 					GoodsPreviewPicture picture = new GoodsPreviewPicture();
-					picture.setGoods_url(picPath+name);				
+					picture.setGoods_url(picPath+name);
 					goods.getGoodsPreviewPictureList().add(picture);
 				}
-				
+
 			}
 			goodsService.insertGoods(goods);
-			
+
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,10 +95,10 @@ public class GoodsController {
 	public String insertDetail(GoodsDetail goodsDetail,Integer goods_id,HttpServletRequest request,@RequestParam MultipartFile[] goodsPic) throws IOException{
 		Goods newGoods = goodsService.getGoodsByGoodsId(goods_id);
 		//服务器文件根路径
-		String savePath = request.getServletContext().getRealPath("/"); 
+		String savePath = request.getServletContext().getRealPath("/");
 		//文件相对路径
 		String picPath = "goods/"+newGoods.getGoods_code()+"/picture/";
-		
+
 		try {
 			//记录储存文件名
 			String name = "";
@@ -107,14 +107,14 @@ public class GoodsController {
 			for(MultipartFile picFile : goodsPic){
 				//获取储存文件名
 				name = FileUtil.updateFile(picFile, savePath+picPath);
-				
+
 				//记录url
 				GoodsPicture picture = new GoodsPicture();
 				picture.setPicture_set_url(picPath+name);
 				goodsDetail.getGoodsPictureList().add(picture);
 			}
 			goodsService.insertDetail(goodsDetail);
-			
+
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -129,7 +129,7 @@ public class GoodsController {
 	@RequestMapping("getAllColorBygoodsIdAndKind")
 	public @ResponseBody List<GoodsDetail> getAllColorBygoodsIdAndKind(GoodsDetail goodsDetail){
 		List<GoodsDetail> datailList = goodsService.getAllColorBygoodsIdAndKind(goodsDetail);
-		return datailList;		
+		return datailList;
 	}
 	@RequestMapping("getGoodsByGoodsId")
 	public @ResponseBody Goods getGoodsByGoodsId(Integer goodsId){
@@ -145,13 +145,13 @@ public class GoodsController {
 	public @ResponseBody Map<String,Object> getAllStockByGoodsId(Integer goodsId,Integer pageNum){
 
 		return goodsService.getAllStockByGoodsId(goodsId,pageNum);
-		
+
 	}
 	@RequestMapping("getAllDetailByGoodsId")
 	public @ResponseBody Map<String,Object> getAllDetailByGoodsId(Integer goodsId,Integer pageNum){
-		
+
 		return goodsService.getAllDetailByGoodsId(goodsId,pageNum);
-		
+
 	}
 	@RequestMapping("getAttributesByGoodsId")
 	public @ResponseBody List<GoodsAttribute> getAttributesByGoodsId(Integer goodsId){
@@ -163,7 +163,7 @@ public class GoodsController {
 		List<GoodsPicture> detailPicList = goodsService.getDetailPicByDetailId(detailId);
 		return detailPicList;
 	}
-	
+
 	@RequestMapping("updateStockAdd")
 	public String updateStockAdd(GoodsDetail goodsDetail){
 		goodsService.updateStockAdd(goodsDetail);
@@ -177,7 +177,7 @@ public class GoodsController {
 	@RequestMapping("updateGoods")
 	public void updateGoods(Goods goods,HttpServletRequest request,@RequestParam MultipartFile goodsVideo,@RequestParam MultipartFile profilePic,@RequestParam MultipartFile goodsIntroductionPic){
 		//服务器文件根路径
-		String savePath = request.getServletContext().getRealPath("/"); 
+		String savePath = request.getServletContext().getRealPath("/");
 		//文件相对路径
 		String picPath = "goods/"+goods.getGoods_code()+"/picture/";
 		String videoPath = "goods/"+goods.getGoods_code()+"/video/";
@@ -191,7 +191,7 @@ public class GoodsController {
 			if(!name.equals("")){
 				goods.setVideo_set_url(videoPath+name);
 			}
-				
+
 			//记录profile picture
 			//获取储存文件名
 			name = FileUtil.updateFile(profilePic, savePath+picPath);
@@ -209,18 +209,18 @@ public class GoodsController {
 			}
 
 			goodsService.updateGoods(goods);
-			
+
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
+
 	}
 	@RequestMapping("updateGoodsPic")
 	public void updateGoodsPic(Goods goods,HttpServletRequest request,@RequestParam MultipartFile[] goodsPic){
 		Goods newGoods = goodsService.getGoodsByGoodsId(goods.getGoods_id());
 		//服务器文件根路径
-		String savePath = request.getServletContext().getRealPath("/"); 
+		String savePath = request.getServletContext().getRealPath("/");
 		//文件相对路径
 		String picPath = "goods/"+newGoods.getGoods_code()+"/picture/";
 		String name="";
@@ -232,13 +232,13 @@ public class GoodsController {
 			for(int j=i;j<goods.getGoodsPreviewPictureList().size();j++){
 				i++;
 				if(goods.getGoodsPreviewPictureList().get(j).getGoods_pre_pic_status()==1){
-					goods.getGoodsPreviewPictureList().get(j).setGoods_url(picPath+name);	
-					
+					goods.getGoodsPreviewPictureList().get(j).setGoods_url(picPath+name);
+
 					break;
 				}
-				
+
 			}
-			
+
 		}
 		goodsService.updateGoodsPic(goods);
 	}
@@ -256,10 +256,10 @@ public class GoodsController {
 	public @ResponseBody String updateDetail(@RequestBody GoodsDetail goodsDetail){
 		goodsService.updateDetail(goodsDetail);
 		return "true";
-	}	
+	}
 	@RequestMapping("updateDetailPic")
 	public @ResponseBody String updateDetailPic(GoodsDetail goodsDetail,HttpServletRequest request,@RequestParam MultipartFile[] detailPic){
-		
+
 		GoodsDetail newGoodsDetail = goodsService.getDetailByDetailId(goodsDetail.getGoods_detail_id());
 		Goods newGoods = goodsService.getGoodsByGoodsId(newGoodsDetail.getGoods_id());
 		//服务器文件根路径
@@ -275,18 +275,18 @@ public class GoodsController {
 			for(int j=i;j<goodsDetail.getGoodsPictureList().size();j++){
 				i++;
 				if(goodsDetail.getGoodsPictureList().get(j).getPicture_set_status()==1){
-					goodsDetail.getGoodsPictureList().get(j).setPicture_set_url(picPath+name);	
-					
+					goodsDetail.getGoodsPictureList().get(j).setPicture_set_url(picPath+name);
+
 					break;
 				}
-				
+
 			}
-			
+
 		}
 		goodsService.updateDetailPic(goodsDetail);
 		return "true";
-	} 
-	
+	}
+
 	@RequestMapping("deleteDetail")
 	public @ResponseBody String deleteDetail(Integer goods_detail_id){
 		goodsService.deleteDetail(goods_detail_id);
@@ -315,7 +315,7 @@ public class GoodsController {
 		}
 		return flag;
 	}
-	
+
 	@RequestMapping("validateGoodsDetailColor")
 	public @ResponseBody String validateGoodsDetail(@RequestBody GoodsDetail goodsDetail){
 		String flag = "void";
@@ -332,6 +332,6 @@ public class GoodsController {
 			flag = CheckUtil.TestPrice(price)?"true":"false";
 		}
 		return flag;
-		
+
 	}
 }

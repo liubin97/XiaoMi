@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: liubin
+  Date: 2018.7.25
+  Time: 19:44
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -143,28 +150,38 @@
                     </tr>
                     </thead>
                     <tbody id="items-body">
+                    <input type="hidden" id="goods-id" value="${goodsItems[0].goodsItem.goods.goods_id}" />
+                    <c:set var="sum_num" value="0"/>
+                    <c:set var="sum_money" value="0"/>
+                    <c:forEach items="${goodsItems}" var="item">
+                        <c:set var="sum_num" value="${sum_num+item.goodsNum}"/>
+                        <c:set var="sum_money" value="${sum_money+item.sumMoney}"/>
 
                         <tr class="panel alert" >
                             <td>
                                 <div class="media-left is-hidden-sm-down">
                                     <figure class="product-thumb">
-                                        <img src="${groupBuyInfo.goodsdetail.goods.goods_pic_url}" alt="product">
+                                        <img src="${item.goodsItem.goods.goods_pic_url}" alt="product">
                                     </figure>
                                 </div>
                                 <div class="media-body valign-middle">
-                                    <h6 class="title mb-15 t-uppercase"><a href="#">${groupBuyInfo.goodsdetail.goods.goods_name}</a></h6>
-                                    <div class="type font-12"><span class="t-uppercase">规格 : </span>${groupBuyInfo.goodsdetail.kind}&nbsp;${groupBuyInfo.goodsdetail.color}</div>
+                                    <h6 class="title mb-15 t-uppercase"><a href="displayGoodsPurchaseInfo.action?goods_id=${item.goodsItem.goods.goods_id}"><span class="goods-name">${item.goodsItem.goods.goods_name}</span></a></h6>
+                                    <div class="type font-12"><span class="t-uppercase">规格 : </span>${item.goodsItem.kind}&nbsp;${item.goodsItem.color}</div>
                                 </div>
                             </td>
-                            <td class="single-price" data-single_price="${groupBuyInfo.group_buy_price}"><fmt:formatNumber value="${groupBuyInfo.group_buy_price}" type="currency" pattern="￥.00"/></td>
+                            <td class="single-price" data-single_price="${item.goodsItem.discount_price}"><fmt:formatNumber value="${item.goodsItem.discount_price}" type="currency" pattern="￥.00"/></td>
                             <td>
-                                <input class="quantity-label" type="number" readonly value="1">
+                                <input class="quantity-label" type="number" readonly value="${item.goodsNum}"/>
                             </td>
                             <td>
-                                <div class="sub-total"><fmt:formatNumber value="${groupBuyInfo.group_buy_price}" type="currency" pattern="￥.00"/></div>
+                                <div class="sub-total"><fmt:formatNumber value="${item.sumMoney}" type="currency" pattern="￥.00"/></div>
                             </td>
-
+                            <td>
+                                <input class="goods-detail-id" type="hidden" value="${item.goodsItem.goods_detail_id}">
+                            </td>
                         </tr>
+                    </c:forEach>
+
 
                     </tbody>
                 </table>
@@ -175,19 +192,19 @@
                             <div class="item-name">
                                 商品总数
                             </div>
-                            <div class="price" id="sum-num">1</div>
+                            <div class="price" id="sum-num">${sum_num}</div>
                         </li>
                         <li>
                             <div class="item-name">
                                 <strong class="t-uppercase">订单总价</strong>
                             </div>
                             <div class="price" >
-                                <span id="sum-price" data-sum="${groupBuyInfo.group_buy_price}"><fmt:formatNumber value="${groupBuyInfo.group_buy_price}" type="currency" pattern="￥.00"/></span>
+                                <span id="sum-price" data-sum="${sum_money}"><fmt:formatNumber value="${sum_money}" type="currency" pattern="￥.00"/></span>
                             </div>
                         </li>
                     </ul>
                     <div class="t-right">
-                        <a href="generateOrder.action?groupId=${groupId}&addressId=${addressList[0].address_id}&groupBuyInfoId=${groupBuyInfo.group_buy_info_id}"  class="btn btn-rounded btn-lg">确认订单</a>
+                        <a href="javascript:void(0);" id="confirm" class="btn btn-rounded btn-lg">确认订单</a>
                     </div>
                 </div>
             </div>
@@ -297,6 +314,14 @@
 <script type="text/javascript" src="assets/js/main.js"></script>
 <script type="text/javascript" src="assets/liubin/js/confirm_order.js"></script>
 <script type="text/javascript">
+    var settleFlag="${settleFlag}";
+    var cart_ids = [];
+
+    <c:forEach items="${cart_ids}" var="id">
+        console.log(${id});
+        cart_ids.push(${id});
+    </c:forEach>
+    console.log(cart_ids);
     $(".J_addressItem").click(function() {
         clear();
         $(this).addClass("selected");
@@ -310,9 +335,9 @@
         });
     }
 
-    $("#J_newAddress").click(function () {
+   /* $("#J_newAddress").click(function () {
         $("#pop2").show();
-    }) ;
+    }) ;*/
 </script>
 </body>
 </html>

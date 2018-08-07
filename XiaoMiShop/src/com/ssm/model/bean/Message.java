@@ -52,7 +52,6 @@ public class Message {
 	public void setMessage_type(int message_type) {
 		this.message_type = message_type;
 	}
-
 	public void setRead_flag(int read_flag) {
 		this.read_flag = read_flag;
 	}

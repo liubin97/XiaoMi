@@ -11,6 +11,7 @@ public class GoodsComment {
     private Date comment_date;
     private int comment_level;
     private int like_num;
+    private User user;
     private List<CommentPicture> commentPictureList;
     private List<CommentReply> commentReplyList;
 
@@ -68,6 +69,14 @@ public class GoodsComment {
 
     public void setLike_num(int like_num) {
         this.like_num = like_num;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<CommentPicture> getCommentPictureList() {

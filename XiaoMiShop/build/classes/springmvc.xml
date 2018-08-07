@@ -17,7 +17,8 @@
 
 	<!-- 响应的配置 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
-		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"  /> 
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"  />
+		<property name="prefix" value="/"/>
 		<property name="suffix" value=".jsp" />
 		
 	</bean>
@@ -29,7 +30,44 @@
     </bean>
 	<!-- 组建扫描方式管理所有控制器 -->
 	<context:component-scan base-package="com.ssm.controller"></context:component-scan>
+<<<<<<< HEAD
 	
+=======
+
+	<!-- 配置文件上传 -->
+	<!-- 上传文件 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"/>
+		<!-- 最大内存大小 -->
+		<property name="maxInMemorySize" value="10240"/>
+		<!-- 最大文件大小，-1为不限制大小 -->
+		<property name="maxUploadSize" value="-1"/>
+	</bean>
+
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/purchaseImmediately.action"/>
+            <bean class="com.ssm.utils.LoginInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/addFavorites.action"/>
+            <bean class="com.ssm.utils.LoginInterceptor"/>
+        </mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/makeCommentReply.action"/>
+			<bean class="com.ssm.utils.LoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/commentLike.action"/>
+			<bean class="com.ssm.utils.LoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/replyLike.action"/>
+			<bean class="com.ssm.utils.LoginInterceptor"/>
+		</mvc:interceptor>
+    </mvc:interceptors>
+>>>>>>> liubin
 </beans>   
 
 

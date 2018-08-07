@@ -227,10 +227,10 @@ function getGoodsByKindAndColor(kind,color){
 $(document).ready(function(){
     //获取goods_id
     var goods_id = $("#goods-id").text();
-
+    console.log(goods_id);
     //显示商品版本、颜色
     $(function () {
-        console.log(goodsDetailList);
+        //console.log(goodsDetailList);
         var AllkindsColor = [];
         var kinds = [];
 
@@ -250,7 +250,7 @@ $(document).ready(function(){
             });
             AllkindsColor.push({kind:kind,colors:colors});
         });
-        
+
         //拼接版本
         var kindsHtml = '';
         for(var i = 0;i<kinds.length;i++){
@@ -303,7 +303,7 @@ $(document).ready(function(){
             $("#stock").text(goods_detail_info.goods_detail_stock);
             var price = goods_detail_info.goods_detail_price*1;
             $("#price").text(price.toFixed(2));
-            
+
         });
 
     });

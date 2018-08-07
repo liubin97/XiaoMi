@@ -7,8 +7,10 @@ public class CommentReply {
     private int goods_comment_id;
     private  String user_email;
     private String reply;
+    private User user;
     private Date reply_date;
     private int reply_type;
+    private int reply_like_num;
 
     public int getComment_reply_id() {
         return comment_reply_id;
@@ -42,6 +44,14 @@ public class CommentReply {
         this.reply = reply;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Date getReply_date() {
         return reply_date;
     }
@@ -56,5 +66,13 @@ public class CommentReply {
 
     public void setReply_type(int reply_type) {
         this.reply_type = reply_type;
+    }
+
+    public int getReply_like_num() {
+        return reply_like_num;
+    }
+
+    public void setReply_like_num(int reply_like_num) {
+        this.reply_like_num = reply_like_num;
     }
 }
