@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.GoodsCategoryDAO">
+     
+   <!-- 登记新类别  -->
+  	<insert id="insertCategory" parameterType="GoodsCategory">
+  	    insert into goods_category(category_name,description,category_status)
+  	    value(#{category_name},#{description},0)
+  	</insert>
+  	<!-- 查看所有类别 -->
+  	<select id="getAllCategory" resultType="GoodsCategory">
+  	    select * from goods_category 
+  	    where category_status=0
+  	</select>
+  
+  	<!-- 更新商品类别 -->
+  	<update id="updateCategory" parameterType="GoodsCategory">
+  	    update goods_category
+  	    set category_name=#{category_name},description=#{description}
+  	    where goods_category_id=#{goods_category_id}
+  	</update>
+  	<!-- 删除商品类别 -->
+  	<delete id="deleteCategory" parameterType="Integer">
+  	    delete from goods_category
+  	    where goods_category_id=#{goods_category_id}
+  	</delete>
+  	<!-- 查看下属商品 -->
+  	<select id="getAllGoodsByCategoryId" resultType="Goods" >
+  	    select * from goods
+  	    where goods_category_id=#{goods_category_id} and goods_status=0
+  	</select>
+  	<!-- 通过类别名查找类别 -->
+  	<select id="getCategoryByName" parameterType="string" resultType="GoodsCategory">
+  	    select * from goods_category
+  	    where category_name=#{category_name} and category_status=0
+  	</select>
+  	<!-- 将被删除的商品移入trash分类  -->
+  	<update id="deleteGoodsInCategory" parameterType="map" >
+  	    update goods 
+  	    set goods_category_id=#{trashCategory.goods_category_id}
+  	    where goods_id=#{goodsId}
+  	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
