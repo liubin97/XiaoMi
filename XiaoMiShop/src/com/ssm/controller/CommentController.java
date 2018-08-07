@@ -94,7 +94,7 @@ public class CommentController {
         goodsComment.setComment_date(new Date());
         commentService.insertGoodsComment(goodsComment,order_item_id);
 
-        return "redirect:test.jsp";
+        return "redirect:selectXiuComment.action?comment_flag=0";
     }
 
 

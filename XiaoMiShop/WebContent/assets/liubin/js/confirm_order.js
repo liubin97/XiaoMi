@@ -79,7 +79,7 @@ $(document).ready(function () {
                     async: false,
                     success:function(data){
                         alert("购买成功！");
-                        window.location.href = "category.jsp";
+                        window.location.href = "selectOrdersByStatus.action?order_status=0";//跳转到订单确认页面
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alert("ajax error!");
@@ -92,6 +92,4 @@ $(document).ready(function () {
 
         }
     });
-
-
 });
