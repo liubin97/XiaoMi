@@ -395,6 +395,10 @@
             </section>
 
 
+<<<<<<< HEAD
+=======
+            </div>
+>>>>>>> 3ede2b0cb70081aeca84ff43fa10f967c7faf6e5
         </div>
     </div>
     <c:import url="footer.jsp"/>
@@ -453,4 +457,3 @@
 
 </body>
 </html>
-

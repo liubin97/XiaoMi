@@ -19,7 +19,7 @@ import com.ssm.model.service.UserGroupBuyService;
 public class UserGroupBuyController {
 	@Autowired
 	private UserGroupBuyService userGroupBuyService;
-	
+
 	@RequestMapping("selectUserGroupBuyOrder")
 	public ModelAndView selectUserGroupBuyOrder(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -34,7 +34,7 @@ public class UserGroupBuyController {
 		mav.setViewName("myGroupOrder");
 		return mav;
 	}
-	
+
 	@RequestMapping("selectGroupBuyOrderDetail")
 	public ModelAndView selectGroupOrderDetail(int orderId) {
 		ModelAndView mav = new ModelAndView();
@@ -44,18 +44,18 @@ public class UserGroupBuyController {
 		mav.setViewName("myGroupBuyOrderDetail");
 		return mav;
 	}
-	
+
 	@RequestMapping("deleteUserGroup")
 	public String deleteUserGroup(int orderId,HttpSession session) {
-		
+
 		String user_email = (String)session.getAttribute("user_email");
-		
+
 		System.out.println(orderId);
 		userGroupBuyService.deleteUserGroup(user_email, orderId);
-		
+
 		return "redirect:selectUserGroupBuyOrder.action";
 	}
-	
+
 	@RequestMapping("selectSearchGroupOrder")
 	public ModelAndView searchGroupBuyOrder(HttpSession session,String searchKey) {
 		ModelAndView mav = new ModelAndView();
