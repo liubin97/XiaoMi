@@ -7,6 +7,14 @@ public class OrderItem {
 	private float item_price;
 	private int order_item_num;
 	private int comment_flag;
+	private GoodsDetail goodsDetail;
+	
+	public GoodsDetail getGoodsDetail() {
+		return goodsDetail;
+	}
+	public void setGoodsDetail(GoodsDetail goodsDetail) {
+		this.goodsDetail = goodsDetail;
+	}
 	public int getOrder_item_id() {
 		return order_item_id;
 	}

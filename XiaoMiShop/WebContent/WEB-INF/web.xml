@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
     <display-name>xiaomi</display-name>
     <welcome-file-list>
-        <welcome-file>adminLogin.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
 
     </welcome-file-list>
 
@@ -34,7 +34,7 @@
     <!-- 加载spring容器-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/classes/applicationContext-*.xml</param-value>
+        <param-value>classpath:applicationContext-*.xml</param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

@@ -18,7 +18,7 @@
 }
 </style>
 
-<script src="${pageContext.request.contextPath}/assets/js/jquery-1.12.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery-2.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
 
 <!-- Preloader -->
@@ -68,7 +68,7 @@
                                 <li><a href="#">退出登陆</a>
                                 </li>
                             </ul>
-                        </li>--%>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -3,8 +3,35 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.model.dao.AdminDAO">
-    <select id="selectAdmin" resultType="Admin">
-    	select * from admin
+    <select id="selectAdmin" parameterType="Admin" resultType="Admin">
+    	select * from admin where admin_name=#{admin_name} and admin_password=#{admin_password}
+    </select>
+    <select id="selectMonthInterest" parameterType="String" resultType="float">
+        select IFNULL(sum(sum_money),0) from `order` where date_format(order_date,'%Y%m')=#{YearMonth} and order_type in (1,3)
+    </select>
+    <select id="selectTermInterest" parameterType="map" resultType="float">
+        select IFNULL(sum(sum_money),0) from `order` where date_format(order_date,'%Y%m') between #{starttime} and #{yearMonth}  and order_type in (1,3)
+    </select>
+    <select id="selectNormalChartInterest" parameterType="String" resultType="Float">
+        select IFNULL(sum(sum_money),0) from `order`
+        where date_format(order_date,'%Y-%m-%d') = #{sysdate}
+        and order_type = 1
+
+    </select>
+    <select id="selectGroupChartInterest" parameterType="String" resultType="Float">
+        select IFNULL(sum(sum_money),0) from `order`
+        where date_format(order_date,'%Y-%m-%d') = #{sysdate}
+              and order_type = 3
+    </select>
+    <select id="selectGoodsSum" parameterType="String" resultType="Float">
+        select IFNULL(sum(order_item_num),0) from `order`,order_item
+        where order_item.order_id=`order`.order_id and `order`.order_type in (1,3)
+              and date_format(order_date,'%Y%m')=#{yearMonth}
+    </select>
+    <select id="selectYearGoodsSum" parameterType="map" resultType="int">
+        select IFNULL(sum(order_item_num),0) from `order`,order_item
+        where order_item.order_id=`order`.order_id and `order`.order_type in (1,3)
+              and date_format(order_date,'%Y%m') between #{yearStart} and #{yearMonth}
     </select>
 </mapper>
 

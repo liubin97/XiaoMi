@@ -31,7 +31,7 @@ $("#stockEnough").click(function(){
 	var id = $(this).children("#goods_detail_id").text();
 	var groupBuyInfoId = $(this).children("#groupBuyInfoId").text();
 $.ajax({
-    url: "getStock.action",
+    url: "getGroupStock.action",
     data: "goodsDetailId="+id,
     async: false,
     datatype: "json",

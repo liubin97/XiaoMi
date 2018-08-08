@@ -124,7 +124,7 @@ public class GroupBuyController {
 		return isInGroup;
 	}
 	
-	@RequestMapping("getStock")
+	@RequestMapping("getGroupStock")
 	public @ResponseBody int getStock(int goodsDetailId) {
 		System.out.println(goodsDetailId);
 		return groupBuyService.getStock(goodsDetailId);

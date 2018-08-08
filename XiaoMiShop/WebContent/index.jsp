@@ -1125,7 +1125,7 @@
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <!-- Initialize jQuery library                 -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-<script src="assets/js/jquery-1.12.3.min.js"></script>
+<script src="assets/js/jquery-2.0.0.js"></script>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <!-- Latest compiled and minified Bootstrap    -->
@@ -1153,7 +1153,6 @@
 <!-- Custom Template JavaScript                   -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
-<script type="text/javascript" src="assets/liubin/js/purchase.js"></script>
 
 </body>
 </html>

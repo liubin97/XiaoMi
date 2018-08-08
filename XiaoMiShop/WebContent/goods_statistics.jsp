@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,8 +27,8 @@
 	<script src="js/goods_statistics.js"></script>
 </head>
 
-<body data-type="widgets">
-    <%@include file="manager_leftandtop.html"%>
+<body data-type="widgets" class="theme-white">
+    <c:import url="xm_topleft.jsp"></c:import>
   <!-- 内容区域 -->
          <div class="tpl-content-wrapper">
 
@@ -80,7 +82,7 @@
 				</div>
 				<div class="widget am-cf">
                     <div class="widget-head am-cf">
-                        <div class="widget-title am-fl">最近一周各个类别的销售量</div>
+                        <div class="widget-title am-fl">柱状图</div>
                         
                     </div>
                     <div class="widget-body am-fr">
@@ -91,7 +93,7 @@
 				
                 <div class="widget am-cf">
                     <div class="widget-head am-cf">
-                        <div class="widget-title am-fl">最近一周各个类别的销售量</div>
+                        <div class="widget-title am-fl">饼状图</div>
                         
                     </div>
                     <div class="widget-body am-fr">

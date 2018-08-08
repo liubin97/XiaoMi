@@ -381,6 +381,7 @@ $(document).ready(function(){
     //加入购物车
     $("#add-cart").click(function () {
         var goods_detail_id = $("#goods-detail-id").attr("data-goods_detail_id");
+        window.location.href = "insertCart?goods_detail_id="+goods_detail_id;
         //checkStock(id,"addToCart.action?goods_detail_id="+id);
     });
 

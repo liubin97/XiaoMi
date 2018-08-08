@@ -173,7 +173,17 @@ $(document).ready(function(){
 	
 	$("#confirm").click(function(){
 		//var number = $("attribute").rows.length-1;
-		if(!goodsNameFlag||!goodsCodeFlag||!attributeFlag||!repeatFlag){
+		$("#attribute").find(".attributeName").each(function(){
+			$(this).blur();
+			if(!attributeFlag||!repeatFlag){
+				alert("请输入正确参数");
+				return false;
+			}
+		})
+		if(!attributeFlag||!repeatFlag){
+			return;
+		}
+		if(!goodsNameFlag||!goodsCodeFlag||!repeatFlag){
 			alert("请填写正确数据");
 			$("input").blur();
 			return;

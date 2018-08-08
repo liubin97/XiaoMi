@@ -1,26 +1,35 @@
 package com.ssm.model.bean;
 
 public class GoodsPreviewPicture {
-	private int previewPictureId;
-	private int goodsId;
-	private String url;
-	public int getPreviewPictureId() {
-		return previewPictureId;
+	private int goods_preview_pic_id;
+	private int goods_id;
+	private String goods_url;
+	private int goods_pre_pic_status;
+	
+	public int getGoods_preview_pic_id() {
+		return goods_preview_pic_id;
 	}
-	public void setPreviewPictureId(int previewPictureId) {
-		this.previewPictureId = previewPictureId;
+	public void setGoods_preview_pic_id(int goods_preview_pic_id) {
+		this.goods_preview_pic_id = goods_preview_pic_id;
 	}
-	public int getGoodsId() {
-		return goodsId;
+	public int getGoods_id() {
+		return goods_id;
 	}
-	public void setGoodsId(int goodsId) {
-		this.goodsId = goodsId;
+	public void setGoods_id(int goods_id) {
+		this.goods_id = goods_id;
 	}
-	public String getUrl() {
-		return url;
+	public String getGoods_url() {
+		return goods_url;
 	}
-	public void setUrl(String url) {
-		this.url = url;
+	public void setGoods_url(String goods_url) {
+		this.goods_url = goods_url;
 	}
+	public int getGoods_pre_pic_status() {
+		return goods_pre_pic_status;
+	}
+	public void setGoods_pre_pic_status(int goods_pre_pic_status) {
+		this.goods_pre_pic_status = goods_pre_pic_status;
+	}
+	
 	
 }

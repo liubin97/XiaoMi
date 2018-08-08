@@ -59,9 +59,6 @@ public class MGroupBuyService {
 
 	public void updateGroupBuyInfo(GroupBuyInfo groupBuyInfo) {
 		mGroupBuyDAO.updateGroupBuyInfo(groupBuyInfo);
-		Date date = new Date();
-		SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String time = format0.format(date);
 		List<String> list = mGroupBuyDAO.selectEditMessgeUser(groupBuyInfo.getGroup_buy_info_id());//获取被修改的团购信息的用户
 		for(String u : list){
 			Message m = new Message();
@@ -70,7 +67,7 @@ public class MGroupBuyService {
 			m.setMessage_type(0);
 			m.setRead_flag(0);
 			m.setUser_email(u);
-			m.setSend_date(time);
+			m.setSend_date(new Date());
 			mGroupBuyDAO.insertEditMessage(m);
 		}
 
@@ -107,9 +104,7 @@ public class MGroupBuyService {
 		mGroupBuyDAO.updateGroupBuyingOrder(group_buy_info_id);
 
 		//给用户发送消息
-		Date date = new Date();
-		SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String time = format0.format(date);
+
 		List<String> list = mGroupBuyDAO.selectEditMessgeUser(group_buy_info_id);
 		for(String u : list){
 			Message m = new Message();
@@ -118,7 +113,7 @@ public class MGroupBuyService {
 			m.setMessage_type(0);
 			m.setRead_flag(0);
 			m.setUser_email(u);
-			m.setSend_date(time);
+			m.setSend_date(new Date());
 			mGroupBuyDAO.insertEditMessage(m);
 		}
 

@@ -43,10 +43,6 @@
 	<!-- 配置拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-				<mvc:mapping path="/displayGoodsPurchaseInfo.action"/>
-				<bean class="com.ssm.utils.LoginInterceptor"/>
-		</mvc:interceptor>
-		<mvc:interceptor>
 				<mvc:mapping path="/settlementCart.action"/><!-- 需要修改 -->
 				<bean class="com.ssm.utils.LoginInterceptor"/>
 		</mvc:interceptor>
@@ -58,6 +54,7 @@
 				<mvc:mapping path="/makeCommentReply.action"/>
 				<bean class="com.ssm.utils.LoginInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
 				<mvc:mapping path="/seckill/*/detail"/>
 				<bean class="com.ssm.utils.RestfulLoginInterceptor"/>
 		</mvc:interceptor>
@@ -77,7 +74,7 @@
 				<mvc:mapping path="/replyLike.action"/>
 				<bean class="com.ssm.utils.LoginInterceptor"/>
 		</mvc:interceptor>
-	<mvc:interceptors>
+	</mvc:interceptors>
 
 
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd				
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 加载db.properties文件内容 location指定要加载文件的位置 -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${dbdriver}"/>
+		<property name="url" value="${dburl}"/>
+		<property name="username" value="${dbuser}"/>
+		<property name="password" value="${dbpassword}"/>
+		<property name="maxActive" value="20"/>
+		<property name="maxIdle" value="5"/>
+ 	</bean>
+	<!-- 配置数据库连接池  -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+		<!-- 注入数据源 -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 注入mybatis核心配置文件，完成该文件的加载 -->
+		<property name="configLocation" value="classpath:SqlMapConfig.xml"/>
+	</bean>
+
+	<!-- 管理所有的sql映射文件 mapper扫描 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+		<!-- 组建扫描所有mapper -->
+		<property name="basePackage" value="com.ssm.model.dao"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+
+	<!--注入redisDao-->
+	<bean id="redisDao" class="com.ssm.model.dao.cache.RedisDao">
+		<!--构造方法注入值-->
+		<constructor-arg index="0" value="127.0.0.1"/>
+		<constructor-arg index="1" value="6379"/>
+	</bean>
+
+
+</beans>

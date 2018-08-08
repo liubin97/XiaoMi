@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.model.dao.GroupBuyOrderDAO">
+    <insert id="insertNewOrder" parameterType="Order">
+    	<selectKey resultType="int" keyProperty="order_id" order="AFTER">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+    	insert into `order` (user_email,sum_money,address_id,order_date,order_type,goods_num,group_id,order_status)
+    	values (#{user_email},#{sum_money},#{address_id},#{order_date},#{order_type},#{goods_num},#{group_id},#{order_status})
+   	</insert>
+   	
+   	<insert id="insertNewOrderItem" parameterType="OrderItem">
+   		insert into order_item (order_id,goods_detail_id,item_price,order_item_num,comment_flag)
+   		values (#{order_id},#{goods_detail_id},#{item_price},#{order_item_num},#{comment_flag})
+   	</insert>
+   	
+    <!--  
+    <insert id="insert" parameterType="UserInfo">
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+       SELECT LAST_INSERT_ID()  
+     </selectKey>
+    	INSERT INTO `userinfo` (`username`, `password`, `age`, `telephone`, `email`, `photourl`) 
+    	VALUES (#{username}, #{password}, #{age}, #{telephone}, #{email}, #{photourl});
+    </insert>
+    -->
+    
+    <update id="settleGroupBuyOrder" parameterType="int">
+    	update `order` set order_status = 3
+    	where group_id = groupId
+    </update>
+    
+    
+    <update id="decreaseStock" parameterType="map">
+    	update goods_detail set stock = stock - #{num}
+    	where  goods_detail_id = #{goodsDetailId}
+    </update>
+</mapper>

@@ -16,6 +16,8 @@
     <link rel="apple-touch-icon" href="assets/images/favicon/apple-touch-icon.png">
     <link rel="icon" href="assets/images/logo.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600" rel="stylesheet">
+    <link href="assets/dzrcss/base.min.css" rel="stylesheet">
+    <link href="assets/dzrcss/main.min.css" rel="stylesheet">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/vendors/linearicons/css/linearicons.css" rel="stylesheet">
@@ -27,8 +29,7 @@
     <link href="assets/dzrcss/layout.css" rel="stylesheet">
 	<link href="assets/dzrcss/reset.css" rel="stylesheet">
 	<link href="assets/dzrcss/modacctip.css" rel="stylesheet">
-    <link href="assets/dzrcss/base.min.css" rel="stylesheet">
-    <link href="assets/dzrcss/main.min.css" rel="stylesheet">
+
 
 </head>
 

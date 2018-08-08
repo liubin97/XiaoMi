@@ -1,33 +1,42 @@
 package com.ssm.model.bean;
 
 public class GoodsAttribute {
-	private int attributeId;
-	private int goodsId;
-	private String attributeName;
-	private String attributeValue;
-	public int getAttributeId() {
-		return attributeId;
+	private int goods_attribute_id;
+	private int goods_id;
+	private String attribute_name;
+	private String attribute_value;
+	private int attribute_status;
+	
+	public int getGoods_attribute_id() {
+		return goods_attribute_id;
 	}
-	public void setAttributeId(int attributeId) {
-		this.attributeId = attributeId;
+	public void setGoods_attribute_id(int goods_attribute_id) {
+		this.goods_attribute_id = goods_attribute_id;
 	}
-	public int getGoodsId() {
-		return goodsId;
+	public int getGoods_id() {
+		return goods_id;
 	}
-	public void setGoodsId(int goodsId) {
-		this.goodsId = goodsId;
+	public void setGoods_id(int goods_id) {
+		this.goods_id = goods_id;
 	}
-	public String getAttributeName() {
-		return attributeName;
+	public String getAttribute_name() {
+		return attribute_name;
 	}
-	public void setAttributeName(String attributeName) {
-		this.attributeName = attributeName;
+	public void setAttribute_name(String attribute_name) {
+		this.attribute_name = attribute_name;
 	}
-	public String getAttributeValue() {
-		return attributeValue;
+	public String getAttribute_value() {
+		return attribute_value;
 	}
-	public void setAttributeValue(String attributeValue) {
-		this.attributeValue = attributeValue;
+	public void setAttribute_value(String attribute_value) {
+		this.attribute_value = attribute_value;
 	}
+	public int getAttribute_status() {
+		return attribute_status;
+	}
+	public void setAttribute_status(int attribute_status) {
+		this.attribute_status = attribute_status;
+	}
+	
 	
 }
