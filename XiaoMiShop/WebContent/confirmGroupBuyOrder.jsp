@@ -163,6 +163,7 @@
                             <td>
                                 <div class="sub-total"><fmt:formatNumber value="${groupBuyInfo.group_buy_price}" type="currency" pattern="￥.00"/></div>
                             </td>
+                            <td></td>
 
                         </tr>
 

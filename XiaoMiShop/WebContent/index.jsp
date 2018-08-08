@@ -95,7 +95,7 @@
                             <aside>
                                 <ul class="nav-coupon-category panel">
                                     <c:forEach items="categoryList" var="category">
-                                        <li><a href="#">Food &amp; Drink</a>
+                                        <li><a href="#">${category.category}</a>
                                         </li>
                                     </c:forEach>
                                     <li class="all-cat">
@@ -1092,21 +1092,6 @@
                 </section>
 
 
-                <section class="section subscribe-area ptb-40 t-center">
-                    <div class="newsletter-form">
-                        <h4 class="mb-20"><i class="fa fa-envelope-o color-green mr-10"></i>Sign up for our weekly email newsletter</h4>
-                        <p class="mb-20 color-mid">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi animi magni accusantium architecto possimus.</p>
-                        <form method="post" action="#">
-                            <div class="input-group mb-10">
-                                <input type="email" class="form-control bg-white" placeholder="Email Address" required="required">
-                                <span class="input-group-btn">
-                                        <button class="btn" type="submit">Subscribe</button>
-                                    </span>
-                            </div>
-                        </form>
-                        <p class="color-muted"><small>We’ll never share your email address with a third-party.</small> </p>
-                    </div>
-                </section>
             </div>
         </div>
 
@@ -1153,6 +1138,18 @@
 <!-- Custom Template JavaScript                   -->
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/js/index-count.js"></script>
+<script>
+
+    $(function () {
+        index_count.init({
+            start_time:${seckillList[0].seckill_starttime.time},
+            end_time:${seckillList[0].seckill_endtime.time}
+        });
+    });
+
+
+</script>
 
 </body>
 </html>

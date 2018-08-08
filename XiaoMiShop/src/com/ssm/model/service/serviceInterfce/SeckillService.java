@@ -75,14 +75,14 @@ public interface SeckillService {
      * 由exportSeckillUrl得到的md5值和内部的md5生成规则做对比，
      * 如果md5值变了说明以后url被篡改了，此时拒绝执行秒杀
      */
-    public SeckillExecution executeSeckillProcedure(int seckillId, String email, int addressId,String md5);
+    public SeckillExecution executeSeckillProcedure(int seckillId, String email, int addressId, String md5);
 
     /**
      * 在下单前判断md5是否正确为
      * @param seckillId
      * @return
      */
-    public Boolean IsMd5Rignt(int seckillId,String md5);
+    public Boolean IsMd5Rignt(int seckillId, String md5);
 
     /**
      * 关闭为完成的秒杀
@@ -94,7 +94,7 @@ public interface SeckillService {
      * 增加提醒
      * @return
      */
-    public Remind addRemind(int seckillId,String email);
+    public Remind addRemind(int seckillId, String email);
 
     /**
      * 获取最近的秒杀

@@ -13,7 +13,7 @@
 	<!-- 获取订单信息 -->
 	 <select id="selectOrdersByStatus" parameterType="map" resultMap="ordermsg">
     	select * from ordermsg
-    	where user_email=#{user_email} and order_status=#{order_status} and order_type=0
+    	where user_email=#{user_email} and order_status=#{order_status} and order_type=1
     </select>
     
 	 <!-- 获取订单是否评论 -->

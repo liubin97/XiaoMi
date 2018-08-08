@@ -51,13 +51,13 @@ public interface SeckillDao {
      * 使用存储过程
      * @param paramMap
      */
-    public void killByProcedure(Map<String,Object> paramMap);
+    public void killByProcedure(Map<String, Object> paramMap);
 
     /**
      * 关闭秒杀
      * @param paramMap
      */
-    public void closeSeckill(Map<String,Object> paramMap);
+    public void closeSeckill(Map<String, Object> paramMap);
 
     /**
      * 查询所有的有效的秒杀列表

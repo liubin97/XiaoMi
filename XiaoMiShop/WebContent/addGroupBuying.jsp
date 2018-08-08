@@ -150,7 +150,7 @@
     var start=laydate.render({
         elem: '#starttime'
         ,type: 'datetime'
-        ,min:+1//设置最小时间为当前时间
+        ,min:0//设置最小时间为当前时间
         ,value:new Date()
         ,isInitValue:true
         ,btns: ['now', 'confirm']
@@ -177,7 +177,7 @@
     var end=laydate.render({
         elem: '#endtime'
         ,type: 'datetime'
-        ,min:+1
+        ,min:0
         ,value:new Date()
         ,isInitValue:true
         ,btns: ['now', 'confirm']

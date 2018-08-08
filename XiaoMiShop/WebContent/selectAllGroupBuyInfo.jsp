@@ -66,7 +66,6 @@
 <link href="assets/vendors/flexslider/flexslider.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="assets/css/purchase.css" rel="stylesheet">
 <link
 	href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600"
 	rel="stylesheet">
@@ -109,47 +108,12 @@
 
 		<div class="container">
 
-			<div class="seckill">
-				<div class="seckill-head"></div>
+			<div class="seckill ptb-40">
+
 
 				<div id="myTabContent" class="tab-content">
 					<div class="tab-pane fade in active " id="ios">
 						<div class="row row-masnory row-tb-20">
-
-							<div class="col-sm-6 col-lg-4">
-								<div class="deal-single panel">
-									<figure
-										class="deal-thumbnail embed-responsive embed-responsive-16by9"
-										data-bg-img="assets/images/1532667656863.jpg"
-										style="background-image: url(assets/images/1532667656863.jpg);">
-										<!-- 计时 -->
-										<div class="time-left bottom-15 right-20 font-md-14">
-											<span> <i class="ico fa fa-clock-o mr-10"></i> 
-											<span data-countdown="2018/08/10 01:30:00"></span>
-											</span>
-										</div>
-									</figure>
-									<div class="bg-white pt-20 pl-20 pr-15">
-										<div class="pr-md-6 text-center">
-
-											<h1 class="deal-title mb-10 text-center">小米手机</h1>
-											<p>能放打电话的手机</p>
-											<div class="deal-price pos-r mb-15 text-center">
-												<h1 class="ptb-5 text-center">
-													<span class="now-price">￥150.00</span> <span
-														class="org-price">￥300.00</span>
-												</h1>
-												<form method="post" action="selectGroupBuyInfoById.action">
-                    								<input name="groupBuyInfoId" type="hidden" value="${u.group_buy_info_id}">
-                    								<button class="btn btn-green text-center" type="submit">查看详情</button>
-                    							</form>
-											</div>
-
-										</div>
-
-									</div>
-								</div>
-							</div>
 							
 							<c:forEach items="${allGroupBuyInfo}" var="u"> 
 							

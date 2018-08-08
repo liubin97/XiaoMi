@@ -48,24 +48,20 @@
                 </div>
                 <div class="col-sm-12 col-md-8">
                     <ul class="nav-top nav-top-right list-inline t-xs-center t-md-right">
-                        <li><a href="signin.html"><i class="fa fa-user"></i>登陆</a>
-                        </li>
-                        <li><a href="signup.html"><i class="fa fa-edit"></i>注册</a>
-                        </li>
-                           <li><a href="selectByTypeFlag.action?read_flag=0"><i class="fa fa-comments"></i>消息中心</a>
-
-                        </li>
+                        <li><a href="login.jsp"><i class="fa fa-user"></i>登陆</a></li>
+                        <li><a href="register.jsp"><i class="fa fa-edit"></i>注册</a></li>
+                        <li><a href="selectByTypeFlag.action?read_flag=0"><i class="fa fa-comments"></i>消息中心</a></li>
                          <span class="redpoint" id="redpoint">0</span>
                         <li>
-                            <a href="user.jsp"><i class="fa fa-user"></i>个人中心<i class="fa fa-caret-down"></i></a>
+                            <a href="modifyuser.jsp"><i class="fa fa-user"></i>个人中心<i class="fa fa-caret-down"></i></a>
                             <ul>
-                                <li><a href="#">个人中心</a>
+                                <li><a href="modifyuser.jsp">个人中心</a>
                                 </li>
-                                <li><a href="#">评价晒单</a>
+                                <li><a href="selectXiuComment.action?comment_flag=0">评价晒单</a>
                                 </li>
-                                <li><a href="#">我的喜欢</a>
+                                <li><a href="searchFavorite.action?">我的喜欢</a>
                                 </li>
-                                <li><a href="#">退出登陆</a>
+                                <li><a href="login.jsp">退出登陆</a>
                                 </li>
                             </ul>
                         </li>

@@ -96,7 +96,7 @@
                                 <a href="javascript:void(0);">${goodsComment.comment}</a>
                             </div>
                             <div class="m-img-list clearfix h-img-list">
-                                <c:forEach items="${commentPictureList}" var="pictureList">
+                                <c:forEach items="${goodsComment.commentPictureList}" var="pictureList">
                                     <div class="img-item showimg">
                                         <img class="J_resetImgItem J_canZoom" src="${pictureList.picture_url}">
                                     </div>

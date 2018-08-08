@@ -65,11 +65,11 @@ public class GroupBuyController {
 	@RequestMapping("selectUserAddress")
 	public ModelAndView selectUserAddress(Integer groupId,int groupBuyInfoId,HttpSession session){
 		ModelAndView mav = new ModelAndView();
-		//String user_email = (String)session.getAttribute("user_email");
+		String user_email = (String)session.getAttribute("user_email");
 		System.out.println(groupId);
 		if(groupId!=null) {
 			System.out.println("该用户加入了团");
-			String user_email = "222@222.com";
+
 			List<Address> list = groupBuyService.selectUserAddress(user_email);
 		
 			GroupBuyInfo gbi = groupBuyService.selectGroupBuyInfoById(groupBuyInfoId);
@@ -80,7 +80,6 @@ public class GroupBuyController {
 			mav.setViewName("confirmGroupBuyOrder");
 		}else {
 			System.out.println("该用户发起了团");
-			String user_email = "333@333.com";
 			List<Address> list = groupBuyService.selectUserAddress(user_email);
 		
 			GroupBuyInfo gbi = groupBuyService.selectGroupBuyInfoById(groupBuyInfoId);
@@ -96,8 +95,8 @@ public class GroupBuyController {
 	@RequestMapping("generateOrder")
 	public String generateOrder(Integer groupId,HttpSession session,int addressId,int groupBuyInfoId) {
 //		ModelAndView mav = new ModelAndView();
-		//String user_email = (String)session.getAttribute("user_email");
-		String user_email = "222@222.com";
+		String user_email = (String)session.getAttribute("user_email");
+
 		System.out.println("groupId:"+groupId);
 		System.out.println("addressId:"+addressId);
 		System.out.println("groupBuyInfoId:"+groupBuyInfoId);
@@ -116,10 +115,10 @@ public class GroupBuyController {
 	
 	@RequestMapping("getIsInGroup")
 	public @ResponseBody int getIsInGroup(int groupId,HttpSession session){
-		//String user_email = (String)session.getAttribute("user_email");
+		String user_email = (String)session.getAttribute("user_email");
 		System.out.println("ajax groupId:"+groupId);
 		
-		int isInGroup = groupBuyService.getIsInGroup(groupId, "222@222.com");
+		int isInGroup = groupBuyService.getIsInGroup(groupId, user_email);
 		System.out.println(isInGroup);
 		return isInGroup;
 	}

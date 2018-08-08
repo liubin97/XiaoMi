@@ -25,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
             //获取url参数
             redirectUrl += "?" + httpServletRequest.getQueryString();
-            if(requesturl.indexOf("test.action")!=-1){
+            if(requesturl.indexOf("settlementCart.action")!=-1){
                 redirectUrl="login.jsp?redirectURL=mergeCart.action";
             }
             //判断是否为ajax请求
