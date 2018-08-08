@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <update id="settleGroupBuyOrder" parameterType="int">
     	update `order` set order_status = 3
-    	where group_id = groupId
+    	where group_id = #{groupId}
     </update>
     
     

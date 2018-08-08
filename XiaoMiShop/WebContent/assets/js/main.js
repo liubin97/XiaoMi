@@ -21,11 +21,11 @@
 
     "use strict";
 
-    $.fn.hasAttr = function(attr) {  
-       if (typeof attr !== typeof undefined && attr !== false && attr !== undefined) {
+    $.fn.hasAttr = function(attr) {
+        if (typeof attr !== typeof undefined && attr !== false && attr !== undefined) {
             return true;
-       }
-       return false;
+        }
+        return false;
     };
 
     /*-------------------------------------
@@ -37,7 +37,7 @@
             if (typeof attr !== typeof undefined && attr !== false && attr !== "") {
                 $(this).css('background-image', 'url('+attr+')');
             }
-        });  
+        });
     };
 
     /*-------------------------------------
@@ -49,7 +49,7 @@
             if (typeof attr !== typeof undefined && attr !== false && attr !== "") {
                 $(this).css('background-color', attr);
             }
-        });  
+        });
     };
 
     var link_void = function() {
@@ -84,20 +84,20 @@
             html_tag.attr("dir", directions[0]).addClass(directions[0]);
         }
     };
-    
+
 
     /*-------------------------------------
      CSS fix for IE Mobile
     -------------------------------------*/
     var bugfix = function() {
         if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
-          var msViewportStyle = document.createElement('style');
-          msViewportStyle.appendChild(
-            document.createTextNode(
-              '@-ms-viewport{width:auto!important}'
-            )
-          );
-          document.querySelector('head').appendChild(msViewportStyle);
+            var msViewportStyle = document.createElement('style');
+            msViewportStyle.appendChild(
+                document.createTextNode(
+                    '@-ms-viewport{width:auto!important}'
+                )
+            );
+            document.querySelector('head').appendChild(msViewportStyle);
         }
     };
 
@@ -173,7 +173,7 @@
         $(".dropdown-mega-menu > a, .nav-menu li:has( > ul) > a").on('click', function (e) {
             if ($(window).width() <= 943) {
                 $(this).parent().addClass("active-mobile").children("ul, .mega-menu").slideToggle(150, function() {
-                    
+
                 });
                 $(this).parent().siblings().removeClass("active-mobile").children("ul, .mega-menu").slideUp(150);
                 e.preventDefault();
@@ -374,31 +374,6 @@
         console.log("countdown_select:",countdown_select);
         countdown_select.each(function(){
             $(this).countdown($(this).data('countdown'))
-            .on('update.countdown', function(e){
-                var format = '%H:%M:%S';
-                if (e.offset.totalDays > 0) {
-                    format = '%d天%!d '+format;
-                }
-                if (e.offset.weeks > 0) {
-                    format = '%w周%!w '+format;
-                }
-                $(this).html(e.strftime(format));
-            });
-        }).on('finish.countdown', function(e){
-            // $(this).html('活动结束!').addClass('disabled');
-            $(this).html('活动结束!');
-
-        });
-    };
-
-    /*-------------------------------------
-       活动结束倒计时function
-       -------------------------------------*/
-    var endCountdown = function(){
-        var countdown_select = $("[data-endcountdown]");
-        console.log("countdown_select:",countdown_select);
-        countdown_select.each(function(){
-            $(this).countdown($(this).data('countdown'))
                 .on('update.countdown', function(e){
                     var format = '%H:%M:%S';
                     if (e.offset.totalDays > 0) {
@@ -410,10 +385,11 @@
                     $(this).html(e.strftime(format));
                 });
         }).on('finish.countdown', function(e){
-            $(this).html('活动结束666!').addClass('disabled');
+            $("#KillOver").empty();
+            $("#KillOver").html('活动已经结束');
+
         });
     };
-
     /*-------------------------------------
      Delete Item From Cart
     -------------------------------------*/
@@ -429,57 +405,55 @@
     /* ================================
        When document is ready, do
     ================================= */
-       
-        $(document).on('ready', function() {
-            preloader();
-            $('[data-toggle="tooltip"]').tooltip();
-            html_direction();
-            background_color();
-            background_image();
-            link_void();
-            click_back();
-            bugfix();
-            navbar_js();
-            share_social();
-            add_favorite();
-            owl_carousel();
-            toogle_class();
 
-            countdown();
-            endCountdown();
-            data_rating();
-            do_rating();
+    $(document).on('ready', function() {
+        preloader();
+        $('[data-toggle="tooltip"]').tooltip();
+        html_direction();
+        background_color();
+        background_image();
+        link_void();
+        click_back();
+        bugfix();
+        navbar_js();
+        share_social();
+        add_favorite();
+        owl_carousel();
+        toogle_class();
 
-            countdown();
-            endCountdown();
-            cart_delete_item();
-        });
-        
+        countdown();
+        data_rating();
+        do_rating();
+
+        countdown();
+        cart_delete_item();
+    });
+
     /* ================================
        When document is loading, do
     ================================= */
-        
-        $(window).on('load', function() {
-            preloader();
-            navbar_resize_load();
-            product_slider();
-        }); 
+
+    $(window).on('load', function() {
+        preloader();
+        navbar_resize_load();
+        product_slider();
+    });
 
     /* ================================
        When Window is resizing, do
     ================================= */
-        
-        $(window).on('resize', function() {
-            navbar_resize_load();
-        });
+
+    $(window).on('resize', function() {
+        navbar_resize_load();
+    });
 
     /* ================================
        When document is Scrollig, do
     ================================= */
-        
-        $(window).on('scroll', function() {
-            back_to_top();
-        });
 
-    
+    $(window).on('scroll', function() {
+        back_to_top();
+    });
+
+
 })(jQuery);

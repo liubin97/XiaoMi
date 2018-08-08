@@ -6,14 +6,14 @@ $(document).ready(function() {
 	setInterval("noRead()",5000);
 
     $.ajax({
-        url: "getAllCategory.action",
+        url: headerPath+"getAllCategoryInfo.action",
         data: {},
         async: false,
         datatype: "json",
         type: "POST",
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
-                $("#allCategoryList").append("<li><a class='font-14' href='getCategoryGoods.action?category_id=" +
+                $("#allCategoryList").append("<li><a class='font-14' href='"+headerPath+"getCategoryGoods.action?category_id=" +
                     data[i].goods_category_id + "' >"+ data[i].category_name + "</a></li>");
             }
 
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 function noRead(){
 	$.ajax({
-        url: "getNoReadNum.action",
+        url: headerPath+"getNoReadNum.action",
         data: {},
         async: false,
         datatype: "json",
@@ -56,7 +56,7 @@ function noRead(){
 
 	function noRead1(){
 		$.ajax({
-	        url: "getNoReadNum.action",
+	        url: headerPath+"getNoReadNum.action",
 	        data: {},
 	        async: false,
 	        datatype: "json",
@@ -75,7 +75,7 @@ function noRead(){
 	
 	function cartnum(){
 		$.ajax({
-	        url: "getCartNum.action",
+	        url: headerPath+"getCartNum.action",
 	        data: {},
 	        async: false,
 	        datatype: "json",

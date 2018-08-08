@@ -74,11 +74,11 @@ function getGoodsInfo(goodsId,pageNum){
    	   var checkDiscountPrice = "<img class='img_discount_price' src=''><span class='res_discount_price' style='color:#ff5b5b;font-size: 14px;'></span>";
    	   for(var i=0;i<data.detailInfo.length; i++){
 	             $("#goodsDetail").append("<tr> " +
-	             		"<td><input type='text' class='kind' value="+data.detailInfo[i].kind+">"+checkKind+"</td>" +
-	             		"<td><input type='text' class='color' value="+data.detailInfo[i].color+">"+checkColor+"</td>" +
-	             		"<td><input type='text' class='prime_price' value="+data.detailInfo[i].prime_price+">"+checkPrimePrice+"</td>" +
-	             		"<td><input type='text' class='discount_price' value="+data.detailInfo[i].discount_price+">"+checkDiscountPrice+"</td>"+
-	             		picture+button+"<input type='hidden' class='detailId' value="+data.detailInfo[i].goods_detail_id+">" +
+	             		"<td><input type='text' class='kind' value='"+data.detailInfo[i].kind+"'>"+checkKind+"</td>" +
+	             		"<td><input type='text' class='color' value='"+data.detailInfo[i].color+"'>"+checkColor+"</td>" +
+	             		"<td><input type='text' class='prime_price' value='"+data.detailInfo[i].prime_price+"'>"+checkPrimePrice+"</td>" +
+	             		"<td><input type='text' class='discount_price' value='"+data.detailInfo[i].discount_price+"'>"+checkDiscountPrice+"</td>"+
+	             		picture+button+"<input type='hidden' class='detailId' value='"+data.detailInfo[i].goods_detail_id+"'>" +
 	             				"</tr>");  
    	   }
 	   	$("#page").find("li").remove();
@@ -217,7 +217,7 @@ $(document).ready(function(){
 	       cache: false,   
 	       success:function(data){ 
 	    	   if(data=="true"){
-	    		   alert("保存成功")
+	    		   alert("保存成功");
 	    	   }
 	    	   
 	       }
@@ -475,36 +475,31 @@ $(document).ready(function(){
 				//alert("输入有误!");
 				return;
 			}
-			//alert($("#goodsAttribute .goods_id").val());
+			var goods_id = $("#goodsAttribute .goods_id").val();
 		  //删除空行
 			$("#attribute").find("tr").each(function(){
 				if($.trim($(this).find(".attributeValue").val())==""&&$(this).find(".goods_attribute_id").val()==0){
 					$(this).remove();
 				}
 			});
-		  $("#changeAttribute").attr("target","rfFrame");
-		  var i = 0;
-			$("#goodsAttribute .attributeName").each(function(){
-				$(this).attr("name","goodsAttributeList["+i+"].attribute_name");
-				i++;
-			});
-			i = 0;
-			$("#goodsAttribute .attributeValue").each(function(){
-				$(this).attr("name","goodsAttributeList["+i+"].attribute_value");
-				i++;
-			});
-			i=0;
-			$("#goodsAttribute .goods_attribute_id").each(function(){
-				$(this).attr("name","goodsAttributeList["+i+"].goods_attribute_id");
-				i++;
-			})
-			i=0;
-			$("#goodsAttribute .attribute_status").each(function(){
-				$(this).attr("name","goodsAttributeList["+i+"].attribute_status");
-				i++;
-			})
+			var attributeData = [];
+		  $("#attribute").find("tr").each(function(){
+			  var data = {"goods_id" : goods_id,"attribute_name" : $(this).find(".attributeName").val(),"attribute_value" : $(this).find(".attributeValue").val()
+					  ,"goods_attribute_id" : $(this).find(".goods_attribute_id").val(),"attribute_status" : $(this).find(".attribute_status").val()};
+			  attributeData.push(data);
+		  })
+		  alert(JSON.stringify(attributeData));
+		  $.ajax({
+				 type:"POST", //请求方式  
+		       url:"updateAttribute.action",
+		       data : JSON.stringify(attributeData),
+		     contentType:'application/json;charset=UTF-8',
+		       async : false,
+		       dataType: 'json', 
+		       cache: false   
+		       
+		   }); 
 			
-			$("#changeAttribute").submit();
 	  },
 	  onCancel: function(e) {
 		
@@ -513,9 +508,8 @@ $(document).ready(function(){
   });
    $('#goodsDetail').on('click','a.picture', function() {	 
 	   	$("#detailPicture tbody").find("tr").remove();
-		$("#detailPicture tbody").append(detailPicHtml);
 		var datailId = $(this).parents("tr").find("input.detailId").val();
-		
+		$("#detailPicture .goods_detail_id").val(datailId);
 		$.ajax({
 			 type:"POST", //请求方式  
 	       url:"getDetailPicByDetailId.action",
@@ -525,11 +519,12 @@ $(document).ready(function(){
 	       
 	       dataType: 'json',   
 	       success:function(data){ 
-	    	   $("#detailPicture tbody").find("img").attr("src",data[0].picture_set_url);
-	    	   $("#detailPicture .goods_detail_id").val(data[0].goods_detail_id);
-	    	   $("#detailPicture tbody").find(".picture_set_id").val(data[0].picture_set_id);
-	    	   $("#detailPicture tbody").find(".picture_set_status").val(0);
-	    	   for(var i=1;i<data.length;i++){
+	    	   if(JSON.stringify(data)=="[]"){
+	    		   $("#detailPicture tbody").append(detailPicHtml);
+	    		   return;
+	    	   }
+	    	  
+	    	   for(var i=0;i<data.length;i++){
 	    		   $("#detailPicture tbody").append(detailPicHtml);
 	    		   $("#detailPicture tbody").find("tr").eq(i).find("img").attr("src",data[i].picture_set_url);
 		    	   $("#detailPicture tbody").find("tr").eq(i).find(".picture_set_id").val(data[i].picture_set_id);
@@ -540,7 +535,7 @@ $(document).ready(function(){
 		$('#detailPicture').modal({
 		  relatedTarget: this,
 		  onConfirm: function(e) {
-			 
+			 //alert($("#detailPicture").find(".goods_detail_id").val());
 			  $("#changeDetailPic").attr("target","rfFrame");
 			  var i = 0;
 			  $("#detailPicture .picture_set_id").each(function(){
@@ -721,8 +716,8 @@ $(document).ready(function(){
 						
     		$(this).siblings(".img_attributeValue").attr("src","asset/img/tick.png");
     		$(this).siblings(".res_attributeValue").html("");
-    		if(!attributeValueFlag){
-    			attributeValueFlag = true;
+    		if(!attributeFlag){
+    			attributeFlag = true;
     			$(this).parents("tr").find(".attributeName").blur();
     		}
     	

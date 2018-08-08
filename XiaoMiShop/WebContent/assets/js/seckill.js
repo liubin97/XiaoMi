@@ -159,19 +159,19 @@ var  seckill = {
     //封装秒杀相关ajax的url
     URL: {
         now: function () {
-            return '/seckill/time/now';
+            return path+'seckill/time/now';
         },
 
         exposer: function (seckillId) {
-            return '/seckill/' + seckillId + '/exposer';
+            return path+'seckill/' + seckillId + '/exposer';
         },
 
         execution: function (seckillId, md5) {
-            return '/seckill/' + seckillId + '/' + md5 + '/execution';
+            return path+'seckill/' + seckillId + '/' + md5 + '/execution';
         },
         order:function (seckillId, md5) {
-            return '/seckill/' + seckillId + '/' + md5 + '/handerorder';
-        },
+            return path+'seckill/' + seckillId + '/' + md5 + '/handerorder';
+        }
     },
     //验证email合法性
     validateEmail: function (email) {
@@ -233,6 +233,7 @@ var  seckill = {
             var start_time = params['start_time'];
             var end_time = params['end_time'];
             var seckill_id = params['seckill_id'];
+            /*var serverPate = params['serverPate'];*/
             $.get(seckill.URL.now(), {}, function (result) {
                 if (result && result['success']) {
                     var nowTime = result['data'];

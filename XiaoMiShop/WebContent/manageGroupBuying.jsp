@@ -47,7 +47,7 @@
                                 <div class="am-u-sm-12 am-u-lg-3 am-u-md-6 ">
 
                                     <div class="am-form-group">
-                                        <input type="text" class="am-form-field " name="endtime" id="endtime" placeholder="请选择团购开始日期"  readonly >
+                                        <input type="text" class="am-form-field " name="endtime" id="endtime" placeholder="请选择团购结束日期"  readonly >
                                     </div>
                                 </div>
 

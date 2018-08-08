@@ -20,7 +20,9 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/jquery-2.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-
+<script>
+    var headerPath = '${pageContext.request.contextPath}'+'/';
+</script>
 <!-- Preloader -->
 <div id="preloader" class="preloader">
     <div class="loader-cube">
@@ -41,31 +43,29 @@
             <div class="row">
                 <div class="col-sm-12 col-md-4 is-hidden-sm-down">
                     <ul class="nav-top nav-top-left list-inline t-left">
-                        <li><a href="index.html"><i class="fa fa-home"></i>小米商城</a>
+                        <li><a href="${pageContext.request.contextPath}/index"><i class="fa fa-home"></i>小米商城</a>
                         </li>
 
                     </ul>
                 </div>
                 <div class="col-sm-12 col-md-8">
                     <ul class="nav-top nav-top-right list-inline t-xs-center t-md-right">
-                        <li><a href="signin.html"><i class="fa fa-user"></i>登陆</a>
-                        </li>
-                        <li><a href="signup.html"><i class="fa fa-edit"></i>注册</a>
-                        </li>
-                           <li><a href="selectByTypeFlag.action?read_flag=0"><i class="fa fa-comments"></i>消息中心</a>
+                        <li><a href="${pageContext.request.contextPath}/login.jsp"><i class="fa fa-user"></i>登陆</a></li>
+                        <li><a href="${pageContext.request.contextPath}/register.jsp"><i class="fa fa-edit"></i>注册</a></li>
+                        <li><a href="${pageContext.request.contextPath}/client.jsp"><i class="fa fa-comments"></i>联系客服</a></li>
 
-                        </li>
+                        <li><a href="${pageContext.request.contextPath}/selectByTypeFlag.action?read_flag=0"><i class="fa fa-comments"></i>消息中心</a></li>
                          <span class="redpoint" id="redpoint">0</span>
                         <li>
-                            <a href="user.jsp"><i class="fa fa-user"></i>个人中心<i class="fa fa-caret-down"></i></a>
+                            <a href="${pageContext.request.contextPath}/modifyuser.jsp"><i class="fa fa-user"></i>个人中心<i class="fa fa-caret-down"></i></a>
                             <ul>
-                                <li><a href="#">个人中心</a>
+                                <li><a href="${pageContext.request.contextPath}/modifyuser.jsp">个人中心</a>
                                 </li>
-                                <li><a href="#">评价晒单</a>
+                                <li><a href="${pageContext.request.contextPath}/selectXiuComment.action?comment_flag=0">评价晒单</a>
                                 </li>
-                                <li><a href="#">我的喜欢</a>
+                                <li><a href="${pageContext.request.contextPath}/searchFavorite.action?">我的喜欢</a>
                                 </li>
-                                <li><a href="#">退出登陆</a>
+                                <li><a href="${pageContext.request.contextPath}/logout.action">退出登陆</a>
                                 </li>
                             </ul>
                         </li>
@@ -81,8 +81,8 @@
         <div class="container">
             <div class="row row-rl-0 row-tb-20 row-md-cell">
                 <div class="brand col-md-3 t-xs-center t-md-left valign-middle">
-                    <a href="index.html" class="logo">
-                        <img src="assets/images/logo.png" alt="" width="50">
+                    <a href="${pageContext.request.contextPath}/index" class="logo">
+                        <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="" width="50">
                     </a>
                 </div>
                 <div class="header-search col-md-9">
@@ -106,7 +106,7 @@
                         </div>
                         <div class="col-sm-4 t-xs-center t-md-right">
                             <div class="header-cart">
-                                <a href="searchCart.action">
+                                <a href="${pageContext.request.contextPath}/searchCart.action">
                                     <span class="icon lnr lnr-cart"></span>
                                     <div><span class="cart-number" id="cartnum">0</span>
                                     </div>
@@ -141,7 +141,7 @@
                 <div id="header-navbar" class="nav-collapse">
                     <ul class="nav-menu">
                         <li>
-                            <a href="category.jsp">全部商品分类</a>
+                            <a href="${pageContext.request.contextPath}/category.jsp">全部商品分类</a>
                             <ul id="allCategoryList">
 
                             </ul>

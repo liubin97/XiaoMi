@@ -62,4 +62,20 @@ public class UserGroupBuyService {
 			userGroupBuyDAO.increaseStock(map);
 		}
 	}
+	
+	//查询窗口
+	public List<Order> selectSearchGroupOrder(String user_email, String searchKey){
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("user_email", user_email);
+		map.put("searchKey", searchKey);
+		List<Order> orders = userGroupBuyDAO.selectSearchGroupOrder(map);
+		
+		for(Order o : orders) {
+			for(OrderItem or : o.getOrder_items()) {
+				or.setGoodsDetail(userGroupBuyDAO.selectGoodsDetail(or.getGoods_detail_id()));
+			}
+		}
+		
+		return orders;
+	}
 }

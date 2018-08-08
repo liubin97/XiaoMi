@@ -1,7 +1,11 @@
 /bin/
+/.DS_Store
+/.classpath
+/.gitignore
+/.idea/
+/.project
+/.settings/
 /WebContent/
 /XiaoMiShop.iml
 /XiaoMiShop.xml
-/build/
 /src/
-/test/

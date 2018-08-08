@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         group by kind 
     </select>
     <!-- 得到某个商品下某个版本的所有颜色的销售量 -->
-    <select id="getColorDataByKind" parameterType="map" resultType="Statistics">
+    <select id="getColorDataByKind" parameterType="DataStatement" resultType="Statistics">
          select color,sum(number) as number from order_data
         <where>
             goods_id=#{goods_id}

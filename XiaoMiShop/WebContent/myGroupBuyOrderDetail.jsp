@@ -124,15 +124,15 @@
 										<div class="order-summary">
 											<div class="order-status">
 												<c:if test="${orderDetail.order_status==2}">
-                       		 					  已下单
+                       		 					  未成团
                           						</c:if>
 
 												<c:if test="${orderDetail.order_status==3}">
-                       		   					交易成功
+                       		   					已完成
                           						</c:if>
 												
 												<c:if test="${orderDetail.order_status==4}">
-                       		   					交易失败
+                       		   					已作废
                           						</c:if>
 											</div>
 
@@ -254,7 +254,7 @@
 	</div>
 
 
-
+</div>
 	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/vendors/modernizr/modernizr-2.6.2.min.js"></script>
 	<script type="text/javascript"

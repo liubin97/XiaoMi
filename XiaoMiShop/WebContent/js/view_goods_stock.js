@@ -30,7 +30,7 @@ function getGoodsInfo(goodsId,pageNum){
 	             		"<td>"+data.detailList[i].kind+"</td>" +
 	             		"<td>"+data.detailList[i].color+"</td>" +
 	             		"<td><input type='text' class='stock' value="+data.detailList[i].stock+">"+checkStock+"</td>"+
-	             		button+"<input type='hidden' value="+data.detailList[i].goods_detail_id+">" +
+	             		button+"<input type='hidden' class='detail_id' value="+data.detailList[i].goods_detail_id+">" +
 	             		"</tr>");  
     	 }
    	   
@@ -107,6 +107,42 @@ $(document).ready(function(){
 		var goodsId = $("#goods option:selected").val();
 		getGoodsInfo(goodsId,1);
 	});
+	$("#saveAll").click(function(){
+		$("#goodsDetail").find(".stock").each(function(){
+			$(this).blur();
+			if(!stockFlag){
+				alert("请输入正确数据");
+				return false;
+			}
+		});
+		var stockData = [];
+		var i = 0;
+		$("#goodsDetail").find("tr").each(function(){
+			var goods_detail_id = $(this).find(".detail_id").val();
+			var stock = $(this).find(".stock").val();
+			var data = {"goods_detail_id" : goods_detail_id,"stock" : stock};
+			stockData.push(data);
+		});
+		//alert(JSON.stringify(stockData));
+		//保存库存修改信息
+		$.ajax({
+			 type:"POST", //请求方式  
+	       url:"updateAllStockChange.action",
+	       /*data : JSON.stringify(vale),*/
+	       data: JSON.stringify(stockData),//请求路径  
+	     contentType:'application/json;charset=UTF-8',
+	       traditional:true,
+	       dataType: 'text', 
+	       cache: false,   
+	       success:function(data){ 
+
+	    	   if(data=="true"){
+	    		   alert("保存成功");
+	    	   }
+	    	 
+	       }  
+	   }); 
+	});
 	//验证输入的商品库存量
 	$("#goodsDetail").off('blur').on('blur',".stock",function(){
 		
@@ -124,6 +160,7 @@ $(document).ready(function(){
 		}
 	});
 	$("#goodsDetail").off('click').on('click','a',function(){
+		$(this).parents("tr").find(".stock").blur();
 		if(!stockFlag){
 			alert("请输入正确的商品库存量");
 			return;
@@ -138,10 +175,12 @@ $(document).ready(function(){
 	       data:"stock="+stock+"&goods_detail_id="+goods_detail_id,//请求路径  
 	     /* contentType:'application/json;charset=UTF-8',*/
 	    /*  async : false,*/
-	       dataType: 'json', 
+	       dataType: 'text', 
 	       cache: false,   
 	       success:function(data){ 
-	    	  alert(data);
+	    	  if(data=="true"){
+	    		  alert("保存成功");
+	    	  }
 	    	 
 	       }  
 	   }); 

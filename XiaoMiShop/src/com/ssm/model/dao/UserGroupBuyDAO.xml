@@ -14,7 +14,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where order_id = #{orderId}
 	</select>
 	
-	
+	<select id="selectSearchGroupOrder" parameterType="map" resultMap="queryUserOrder">
+		select * from select_user_groupbuy_order
+		where user_email = #{user_email}
+		and select_user_groupbuy_order.order_type = 2
+		and (order_id like '%'||#{searchKey}||'%')
+	</select>
 	
 	<resultMap type="Order" id="queryUserOrder">
 		<result property="order_id" column="order_id"/>

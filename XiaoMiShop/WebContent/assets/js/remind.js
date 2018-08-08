@@ -31,7 +31,7 @@ var sec_reminder={
     //封装Ajax
     URL:{
         remindme:function (seckillId) {
-                return '/seckill/'+seckillId+'/reminder';
+                return path+'/seckill/'+seckillId+'/reminder';
         }
     },
     canRemind:function(remindtime){

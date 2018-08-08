@@ -17,7 +17,7 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-    @RequestMapping("getAllCategory")
+    @RequestMapping("getAllCategoryInfo")
     public @ResponseBody List<GoodsCategory> getAllCategroy(){
         return categoryService.getAllCategory();
     }

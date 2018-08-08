@@ -28,15 +28,6 @@
     <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/images/logo.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon/favicon.ico">
 
-    <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-    <!-- GOOGLE FONTS                              -->
-    <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600" rel="stylesheet">
-
-    <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-    <!-- Include CSS Filess                        -->
-    <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet">
 
@@ -103,9 +94,10 @@
                             <a href="#seckill${index}" data-toggle="tab">
                                     <em><fmt:formatDate value="${tl.start_time}" pattern="HH:mm" /></em>
                                         <c:choose>
+
                                             <%--已经开始--%>
                                             <c:when test="${currentTime.time >= tl.start_time.time}">
-                                               <span>抢购中<br>离结束<em class="t-uppercase" data-countdown="${endDate}"></em></span>
+                                               <span id="KillOver">抢购中<br>离结束<em class="t-uppercase" data-countdown="${endDate}"></em></span>
                                                 <%--<span>抢购中<br>离结束<em>01 Day 03 : 22 : 51</em></span>--%>
                                             </c:when>
 
@@ -118,6 +110,7 @@
                                             <c:when test="${currentTime.time > tl.end_time.time}">
                                                 <span > 已结束</span>
                                             </c:when>
+
                                         </c:choose>
 
                                 </a>
@@ -171,19 +164,27 @@
                                                                         <button class="btn btn-green text-center"  onclick="sec_reminder.remind(${l.seckill_id},'<fmt:formatDate value="${l.seckill_starttime}" pattern="yyyy/MM/dd HH:mm:ss" />')"  >
                                                                             提醒我
                                                                         </button>
+
+                                                                        <a href="${pageContext.request.contextPath}/seckill/${l.seckill_id}/detail">
+                                                                            <button class="btn btn-blue text-center">
+                                                                                详情
+                                                                            </button>
+                                                                        </a>
                                                                     </c:if>
                                                                         <%--已经开始了--%>
                                                                     <c:if test="${currentTime.time  >= l.seckill_starttime.time}">
-                                                                        <button class="btn btn-green text-center disabled"  >
-                                                                            提醒我
+                                                                        <button class="btn btn-red text-center disabled"  >
+                                                                            已开始
                                                                         </button>
+
+                                                                        <a href="${pageContext.request.contextPath}/seckill/${l.seckill_id}/detail">
+                                                                            <button class="btn btn-org text-center">
+                                                                                马上抢购
+                                                                            </button>
+                                                                        </a>
                                                                     </c:if>
 
-                                                                    <a href="/seckill/${l.seckill_id}/detail">
-                                                                        <button class="btn btn-blue text-center">
-                                                                            详情
-                                                                        </button>
-                                                                    </a>
+
 
                                                                 </div>
 
@@ -269,7 +270,12 @@
         <script type="text/javascript " src="${pageContext.request.contextPath}/Myfont/iconfont.js"  ></script>
 
         <!-- 提醒的js -->
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/remind.js"></script>
+       <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/remind.js"></script>
+
+
+                <script>
+                    var path = '${pageContext.request.contextPath}'+'/';
+                </script>
 
 
 

@@ -17,7 +17,7 @@
     </select>
     <select id="selectMGoodsCommentDetail" parameterType="int" resultMap="GoodsCommentResult">
         select *,c.user_email cuser_email from (goods_comment g left join comment_reply c on c.goods_comment_id=g.goods_comment_id)
-            left join comment_picture p on g.goods_comment_id=p.comment_id
+            left join comment_picture p on g.goods_comment_id=p.goods_comment_id
           where g.goods_comment_id=#{goods_comment_id}
 
     </select>

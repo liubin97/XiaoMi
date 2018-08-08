@@ -13,12 +13,12 @@ $(".addGroup a").click(function(){
             if(data==1){
                 alert("不能重复加入团!");
             }else if(data==0){
-                alert("跳转");
+                //alert("跳转");
                 window.location.href = "selectUserAddress.action?groupId="+groupId+"&groupBuyInfoId="+groupBuyInfoId;
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("ajax error!");
+            //alert("ajax error!");
         }
     });
 });
@@ -26,7 +26,7 @@ $(".addGroup a").click(function(){
 
 
 $("#stockEnough").click(function(){
-	alert("correct!");
+	//alert("correct!");
 	var num = $(this).children("#group_num").text();
 	var id = $(this).children("#goods_detail_id").text();
 	var groupBuyInfoId = $(this).children("#groupBuyInfoId").text();
@@ -45,7 +45,7 @@ $.ajax({
         }
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
-        alert("ajax error!");
+        //alert("ajax error!");
     }
 });
 

@@ -195,7 +195,8 @@ function getComments(offset,size,goods_id){
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("ajax error!");
+            //alert("ajax error!");
+            $("#load-more").hide();
         }
     });
 }

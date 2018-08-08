@@ -27,7 +27,7 @@
             s.color "seckillDetail.color",
             s.prime_price "seckillDetail.prime_price",
             s.goods_name "seckillDetail.goods_name",
-            s.goods_pic_url "seckillDetail.goods_pic_url"
+            s.goods_desc_pic_url "seckillDetail.goods_desc_pic_url"
 
         from success_killed sk inner join seckill_detail s on sk.seckill_id = s.seckill_id
         where sk.seckill_id=#{seckillId} and sk.email=#{email}

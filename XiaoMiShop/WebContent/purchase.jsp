@@ -293,6 +293,7 @@
 <!-- ––––––––––––––––––––––––––––––––––––––––– -->
 <script type="text/javascript" src="assets/js/main.js"></script>
 <script type="text/javascript" src="assets/liubin/js/purchase.js"></script>
+<script type="text/javascript" src="assets/js/displayGoodsAttr.js"></script>
 
 <script type="text/javascript">
     //获取用户信息

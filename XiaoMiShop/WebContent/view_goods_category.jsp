@@ -47,7 +47,7 @@
 									
 									<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 										<div class="am-form-group tpl-table-list-select">
-											<select data-am-selected="{btnSize: 'sm'}" id="category">
+											<select data-am-selected="{searchBox: 1}" style="display: none;" id="category">
 											  <option value="0">请选择类别</option>
 											</select>
 										</div>

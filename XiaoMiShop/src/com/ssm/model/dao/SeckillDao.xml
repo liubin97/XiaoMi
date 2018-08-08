@@ -41,7 +41,7 @@
         <result property="color" column="color"/>
         <result property="prime_price" column="prime_price"/>
         <result property="goods_name" column="goods_name"/>
-        <result property="goods_pic_url" column="goods_pic_url"/>
+        <result property="goods_desc_pic_url" column="goods_desc_pic_url"/>
 
         <collection property="goodsPictureList" ofType="GoodsPicture">
             <result property="picture_set_id" column="picture_set_id"/>

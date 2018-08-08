@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        <selectKey keyProperty="goods_id" keyColumn="goods_id" order="AFTER" resultType="int">
           select LAST_INSERT_ID()
       </selectKey>
-      insert into Goods(goods_category_id,goods_code,goods_name,goods_pic_url,goods_desc_pic_url,video_set_url,goods_status)
+      insert into goods(goods_category_id,goods_code,goods_name,goods_pic_url,goods_desc_pic_url,video_set_url,goods_status)
       value(#{goods_category_id},#{goods_code},#{goods_name},#{goods_pic_url},#{goods_desc_pic_url},#{video_set_url},0)
   </insert>
   <!-- 登记商品属性 -->

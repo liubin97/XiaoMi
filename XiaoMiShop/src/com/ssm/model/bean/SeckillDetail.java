@@ -24,7 +24,7 @@ public class SeckillDetail {
     private String color;
     private float prime_price;//原价
     private String goods_name;
-    private String goods_pic_url;//产品图片url
+    private String goods_desc_pic_url;//产品图片url
     private List<GoodsPicture> goodsPictureList;
 
 
@@ -140,12 +140,13 @@ public class SeckillDetail {
         this.goods_name = goods_name;
     }
 
-    public String getGoods_pic_url() {
-        return goods_pic_url;
+
+    public String getGoods_desc_pic_url() {
+        return goods_desc_pic_url;
     }
 
-    public void setGoods_pic_url(String goods_pic_url) {
-        this.goods_pic_url = goods_pic_url;
+    public void setGoods_desc_pic_url(String goods_desc_pic_url) {
+        this.goods_desc_pic_url = goods_desc_pic_url;
     }
 
     @Override
@@ -159,11 +160,12 @@ public class SeckillDetail {
                 ", create_time=" + create_time +
                 ", seckill_money=" + seckill_money +
                 ", seckill_status=" + seckill_status +
+                ", goods_detail_id=" + goods_detail_id +
                 ", kind='" + kind + '\'' +
                 ", color='" + color + '\'' +
                 ", prime_price=" + prime_price +
                 ", goods_name='" + goods_name + '\'' +
-                ", goods_pic_url='" + goods_pic_url + '\'' +
+                ", goods_desc_pic_url='" + goods_desc_pic_url + '\'' +
                 ", goodsPictureList=" + goodsPictureList +
                 '}';
     }

@@ -38,13 +38,7 @@
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
     <!-- PAGE FAVICON                              -->
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/images/favicon/apple-touch-icon.png">
-    <link rel="icon" href="assets/images/logo.png">
-
-    <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-    <!-- GOOGLE FONTS                              -->
-    <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600" rel="stylesheet">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/images/logo.png">
 
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
     <!-- Include CSS Filess                        -->
@@ -194,7 +188,7 @@
                             </div>
                         </li>
                     </ul>
-                    <form id="oder-form" action="/seckill/${seckillDetail.seckill_id}/${md5}/execution" method="post">
+                    <form id="oder-form" action="${pageContext.request.contextPath}/seckill/${seckillDetail.seckill_id}/${md5}/execution" method="post">
 
                         <input type="hidden" value="${defaultaddrId}" name="addressId" id="addressId">
                         <div class="t-right">

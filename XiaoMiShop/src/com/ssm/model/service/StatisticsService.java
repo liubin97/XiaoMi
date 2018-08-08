@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssm.model.bean.CategoryStatistics;
+import com.ssm.model.bean.DataStatement;
 import com.ssm.model.bean.Statistics;
 import com.ssm.model.dao.StatisticsDAO;
 import com.ssm.utils.DateUtil;
@@ -84,12 +85,10 @@ public class StatisticsService {
 		map.put("date", date);
 		return statisticsDAO.getKindDataByGoodsId(map);
 	}
-	public List<Statistics> getColorDataByKind(Integer goodsId, String date, String kind) {
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("goods_id", goodsId);
-		map.put("date", date);
-		map.put("kind", kind);
-		return statisticsDAO.getColorDataByKind(map);
+	public List<Statistics> getColorDataByKind(DataStatement statement) {
+		
+		return statisticsDAO.getColorDataByKind(statement);
 	}
+	
 	
 }

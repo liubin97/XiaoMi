@@ -321,7 +321,7 @@ $(function(){
 	    	   })
 	    	   $("#kind").append(kindOption); 
 	    	   for(var i=0;i<data.length; i++){
-		           $("#kind").append("<option value="+data[i]+">"+data[i]+"</option>"); 
+		           $("#kind").append("<option value='"+data[i]+"'>"+data[i]+"</option>"); 
 	    	   }
 	    	 
 	       }  
@@ -353,11 +353,13 @@ $("#kind").change(function(){
 		return;
 	}
 	var date = $("#date").val();
+	var data = {"goods_id" : goodsId,"date" : date,"kind" : kind};
 	//获取商品所有版本销售量
 	 $.ajax({
 		 type:"POST", //请求方式  
        url:"getColorDataByKind.action",
-       data : "goodsId="+goodsId+"&date="+date+"&kind="+kind,
+       data : JSON.stringify(data),
+       contentType:'application/json;charset=UTF-8',
        dataType: 'json', 
        async : false,
        cache: false,   

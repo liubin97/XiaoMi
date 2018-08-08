@@ -24,8 +24,8 @@ public class UserGroupBuyController {
 	public ModelAndView selectUserGroupBuyOrder(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("用户查询团购订单");
-		//String user_email = (String)session.getAttribute("user_email");
-		String user_email = "222@222.com";
+		String user_email = (String)session.getAttribute("user_email");
+//		String user_email = "222@222.com";
 		List<Order> list = userGroupBuyService.selectUserGroupBuyOrder(user_email);
 //		for(Order o:list) {
 //			System.out.println("order_id="+o.getOrder_id());
@@ -46,13 +46,23 @@ public class UserGroupBuyController {
 	}
 	
 	@RequestMapping("deleteUserGroup")
-	public String deleteUserGroup(int orderId) {
+	public String deleteUserGroup(int orderId,HttpSession session) {
 		
-		//String user_email = (String)session.getAttribute("user_email");
-		String user_email = "222@222.com";
+		String user_email = (String)session.getAttribute("user_email");
+		
 		System.out.println(orderId);
 		userGroupBuyService.deleteUserGroup(user_email, orderId);
 		
 		return "redirect:selectUserGroupBuyOrder.action";
+	}
+	
+	@RequestMapping("selectSearchGroupOrder")
+	public ModelAndView searchGroupBuyOrder(HttpSession session,String searchKey) {
+		ModelAndView mav = new ModelAndView();
+		String user_email = (String)session.getAttribute("user_email");
+		List<Order> list = userGroupBuyService.selectSearchGroupOrder(user_email, searchKey);
+		mav.addObject("orderList", list);
+		mav.setViewName("myGroupOrder");
+		return mav;
 	}
 }

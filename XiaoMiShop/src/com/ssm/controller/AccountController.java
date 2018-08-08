@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ssm.model.bean.User;
@@ -46,9 +47,10 @@ public class AccountController {
 			session.setAttribute("user_imgurl", user.getImgurl());
 			session.setAttribute("realname", user.getRealname());
 			session.setAttribute("telephone", user.getTelephone());
+			session.setAttribute("user", user.getNickname());
 			System.out.println("jin");
 			if(redirectURL==null || "".equals(redirectURL)){
-				return "redirect:index.jsp";
+				return "redirect:index";
 			}else{
 				System.out.println("hah"+redirectURL);
 				
@@ -111,7 +113,28 @@ public class AccountController {
 		}
 		
 	}
+	@RequestMapping("usefulAdmin")
+	public @ResponseBody int usefulAdmin(){
+		System.out.println(MessageInboundPool.getAdminStatus());
+		int flag=0;
+		if(MessageInboundPool.getAdminStatus().equals("有空闲")){
+			flag=0;
+		}else{
+			flag=1;
+		}
+		return flag;
+	}
 	
+	@RequestMapping("logout")
+	public String logout(HttpSession session){
+		session.removeAttribute("user_email");
+		session.removeAttribute("nickname");
+		session.removeAttribute("user_imgurl");
+		session.removeAttribute("realname");
+		session.removeAttribute("telephone");
+		return "redirect:login.jsp";	
+		
+	}
 	
 	
 }

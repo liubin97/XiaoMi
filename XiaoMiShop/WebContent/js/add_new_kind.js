@@ -75,7 +75,7 @@ $(document).ready(function(){
 	    	   })
 	    	   $("#kind").append(kindOption); 
 	    	   for(var i=0;i<data.length; i++){
-		           $("#kind").append("<option value="+data[i]+">"+data[i]+"</option>"); 
+		           $("#kind").append("<option value='"+data[i]+"'>"+data[i]+"</option>"); 
 	    	   }
 	    	 
 	       }  
@@ -127,7 +127,7 @@ $(document).ready(function(){
 			return;
 		}
 		if(flag){
-			kind = $.trim($("#kind").val());
+			kind = $("#kind").val();
 		}else{
 			kind = $.trim($("#newKind input").val());
 		}
@@ -251,7 +251,7 @@ $(document).ready(function(){
 		//获取当前版本
 		var kind;
 		if(flag){
-			kind = $.trim($("#kind").val());
+			kind = $("#kind").val();
 		}else{
 			kind = $.trim($("#newKind input").val());
 		}

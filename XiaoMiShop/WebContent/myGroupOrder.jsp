@@ -59,30 +59,31 @@
 									<h3 class="title">账户管理</h3>
 								</div>
 
-								 <div class="box-bd">
-                            <ul class="uc-nav-list">
-                                <li><a href="modifyuser.jsp">修改信息</a></li>
-								<li><a href="editpsw.jsp">修改密码</a></li>                                                    
-							</ul>
-                        </div>
-                        
-                    </div>
-  					
-  					<div class="uc-nav-box">
-                        <div class="box-hd">
-                            <h3 class="title">个人中心</h3>
-                        </div>
-                        
-                        <div class="box-bd">
-                            <ul class="uc-nav-list">
-                                <li><a href="searchFavorite.action?searchkey=">我喜欢</a></li>
-								<li><a href="selectOrdersByStatus.action?order_status=0">我的订单</a></li> 
-								<li class="active"><a href="selectUserGroupBuyOrder.action">团购订单</a></li>  
-								<li><a href="selectXiuComment.action?comment_flag=0">评价晒单</a></li>  
-								<li><a href="selectByTypeFlag.action?read_flag=0">消息中心</a></li> 
-								<li><a href="getAllAddress.action">地址管理</a></li>                                                  
-							</ul>
-                        </div>
+								<div class="box-bd">
+									<ul class="uc-nav-list">
+										<li><a href="modifyuser.jsp">修改信息</a></li>
+										<li><a href="editpsw.jsp">修改密码</a></li>
+									</ul>
+								</div>
+
+							</div>
+
+							<div class="uc-nav-box">
+								<div class="box-hd">
+									<h3 class="title">个人中心</h3>
+								</div>
+
+								<div class="box-bd">
+									<ul class="uc-nav-list">
+										<li><a href="searchFavorite.action?searchkey=">我喜欢</a></li>
+										<li><a href="selectOrdersByStatus.action?order_status=0">我的订单</a></li>
+										<li class="active"><a
+											href="selectUserGroupBuyOrder.action">团购订单</a></li>
+										<li><a href="selectXiuComment.action?comment_flag=0">评价晒单</a></li>
+										<li><a href="selectByTypeFlag.action?read_flag=0">消息中心</a></li>
+										<li><a href="getAllAddress.action">地址管理</a></li>
+									</ul>
+								</div>
 
 							</div>
 						</div>
@@ -92,116 +93,337 @@
 
 
 						<div class="uc-box uc-main-box">
-							<div class="uc-content-box order-list-box">
+
+							<div class="uc-content-box order-list-box tabs tabs-v1">
+
 								<div class="box-hd">
 									<h1 class="title">我的订单</h1>
+
 									<div class="more clearfix">
-										<ul class="filter-list J_orderType">
-											<c:if test="${order_status==1}">
-												<li class="first"><a id="J_unpaidTab"
-													href="selectOrdersByStatus.action?order_status=0">已下单</a></li>
-												<li class="active"><a id="J_sendTab"
-													href="selectOrdersByStatus.action?order_status=1">交易成功</a></li>
-											</c:if>
-											<c:if test="${order_status==0}">
-												<li class="first active"><a id="J_unpaidTab"
-													href="selectOrdersByStatus.action?order_status=0">已下单</a></li>
-												<li><a id="J_sendTab"
-													href="selectOrdersByStatus.action?order_status=1">交易成功</a></li>
-											</c:if>
-											<li></li>
-											<li></li>
-											<li></li>
-											<li></li>
-											<li></li>
-											<li></li>
-											<li></li>
+										<ul class="filter-list J_orderType nav nav-tabs panel"
+											role="tablist">
 
+											<li role="presentation" class="active"><a href="#all"
+												aria-controls="all" role="tab" data-toggle="tab"
+												aria-expanded="true">全部团购订单</a></li>
+											<li role="presentation" class=""><a href="#unfinished"
+												aria-controls="unfinished" role="tab" data-toggle="tab"
+												aria-expanded="false">未成团</a></li>
+											<li role="presentation" class=""><a href="#finished"
+												aria-controls="finished" role="tab" data-toggle="tab"
+												aria-expanded="false">已完成</a></li>
+											<li role="presentation" class=""><a href="#invalid"
+												aria-controls="invalid" role="tab" data-toggle="tab"
+												aria-expanded="false">已作废</a></li>
 
-											<form id="J_orderSearchForm" class="search-form clearfix"
-												action="selectOrders.action?order_status=${order_status}"
-												method="post">
-												<label for="search" class="hide">站内搜索</label> <input
-													class="search-text" type="search"
-													id="J_orderSearchKeywords" name="searchkey"
-													autocomplete="off" placeholder="输入商品名称、订单号"> <input
-													type="submit" class="search-btn iconfont" value="">
-											</form>
+										</ul>
+
+										<form id="J_orderSearchForm" class="search-form clearfix"
+											action="selectSearchGroupOrder.action"
+											method="post">
+											<label for="search" class="hide">站内搜索</label> <input
+												class="search-text" type="search" id="J_orderSearchKeywords"
+												name="searchKey" autocomplete="off" placeholder="输入商品名称、订单号">
+											<input type="submit" class="search-btn iconfont" value="">
+										</form>
 									</div>
 								</div>
-								<div class="box-bd">
 
+								<div class="box-bd tab-content">
 
-									<c:forEach items="${orderList}" var="ol">
-										<div id="J_orderList">
-											<ul class="order-list">
-												<c:if test="${order_status==0}">
+									<div role="tabpanel" class="tab-pane ptb-20 active" id="all">
+										<c:forEach items="${orderList}" var="ol">
+											<div id="J_orderList">
+												<ul class="order-list">
+
 													<li class="uc-order-item uc-order-item-pay">
-												</c:if>
-												<c:if test="${order_status==1}">
-													<li class="uc-order-item uc-order-item-finish">
-												</c:if>
-												<div class="order-detail">
-													<div class="order-summary">
-														<div class="order-status">
-															<c:if test="${order_status==0}">已下单</c:if>
-															<c:if test="${order_status==1}">交易成功</c:if>
-														</div>
-													</div>
-													<table class="order-detail-table">
-														<thead>
-															<tr>
-																<th class="col-main">
-																	<p class="caption-info">
-																		<fmt:formatDate value="${ol.order_date}" pattern="yyyy-MM-dd HH:mm:ss" />
-																		<span class="sep">|</span>${ol.address.recv_people} <span
-																			class="sep">|</span>订单号： <a href="" data-stat-id=""
-																			onclick="">${ol.order_id}</a> <span class="sep">|</span>在线支付
-																	</p>
-																</th>
-																<th class="col-sub">
-																	<p class="caption-price" style="width: 200px;">订单金额：${ol.sum_money}元</p>
-																</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td class="order-items">
-																	<ul class="goods-list">
-																		<c:forEach items="${ol.order_items}" var="il">
-																			<li style="height: 80px;">
-																				<div class="figure figure-thumb">
-																					<a
-																						href="displayGoodsPurchaseInfo.action?goods_id=${il.goodsDetail.goods_id}"
-																						target="_blank" data-stat-id="" onclick=""> <img
-																						src="${il.goodsDetail.goods.goods_pic_url}"
-																						width="80" height="80" alt="" /></a>
-																				</div>
-																				<p class="name">
-																					<a target="_blank"
-																						href="displayGoodsPurchaseInfo.action?goods_id=${il.goodsDetail.goods_id}">${il.goodsDetail.goods.goods_name}
-																						${il.goodsDetail.kind} ${il.goodsDetail.color}</a>
-																				</p>
-																				<p class="price">${il.item_price}元&times;
-																					${il.order_item_num}</p>
-																			</li>
-																		</c:forEach>
-																	</ul>
-																</td>
-																<td class="order-actions"><a
-																	class="btn1 btn-small btn-line-gray"
-																	href="selectGroupBuyOrderDetail.action?orderId=${ol.order_id}"
-																	onclick="">订单详情</a>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												</li>
-											</ul>
-										</div>
-									</c:forEach>
 
+														<div class="order-detail">
+															<div class="order-summary">
+																<div class="order-status">
+																	<c:if test="${ol.order_status==2}">未成团</c:if>
+																	<c:if test="${ol.order_status==3}">已完成</c:if>
+																	<c:if test="${ol.order_status==4}">已失效</c:if>
+																</div>
+															</div>
+															<table class="order-detail-table">
+																<thead>
+																	<tr>
+																		<th class="col-main">
+																			<p class="caption-info">
+																				<fmt:formatDate value="${ol.order_date}"
+																					pattern="yyyy-MM-dd HH:mm:ss" />
+																				<span class="sep">|</span>${ol.address.recv_people}
+																				<span class="sep">|</span>订单号： <a href=""
+																					data-stat-id="" onclick="">${ol.order_id}</a> <span
+																					class="sep">|</span>在线支付
+																			</p>
+																		</th>
+																		<th class="col-sub">
+																			<p class="caption-price" style="width: 200px;">订单金额：${ol.sum_money}元</p>
+																		</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td class="order-items">
+																			<ul class="goods-list">
+																				<c:forEach items="${ol.order_items}" var="il">
+																					<li style="height: 80px;">
+																						<div class="figure figure-thumb">
+																							<a
+																								href="displayGoodsPurchaseInfo.action?goods_id=${il.goodsDetail.goods_id}"
+																								target="_blank" data-stat-id="" onclick="">
+																								<img src="${il.goodsDetail.goods.goods_pic_url}"
+																								width="80" height="80" alt="" />
+																							</a>
+																						</div>
+																						<p class="name">
+																							<a target="_blank"
+																								href="displayGoodsPurchaseInfo.action?goods_id=${il.goodsDetail.goods_id}">${il.goodsDetail.goods.goods_name}
+																								${il.goodsDetail.kind} ${il.goodsDetail.color}</a>
+																						</p>
+																						<p class="price">${il.item_price}元&times;
+																							${il.order_item_num}</p>
+																					</li>
+																				</c:forEach>
+																			</ul>
+																		</td>
+																		<td class="order-actions"><a
+																			class="btn1 btn-small btn-line-gray"
+																			href="selectGroupBuyOrderDetail.action?orderId=${ol.order_id}"
+																			onclick="">订单详情</a></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</c:forEach>
+									</div>
+
+									<div role="tabpanel" class="tab-pane ptb-20" id="unfinished">
+										<c:forEach items="${orderList}" var="ol">
+											<c:if test="${ol.order_status==2}">
+											<div id="J_orderList">
+												<ul class="order-list">
+
+													<li class="uc-order-item uc-order-item-pay">
+
+														<div class="order-detail">
+														<div class="order-summary">
+																<div class="order-status">
+																	<c:if test="${ol.order_status==2}">未成团</c:if>
+																	<c:if test="${ol.order_status==3}">已完成</c:if>
+																	<c:if test="${ol.order_status==4}">已失效</c:if>
+																</div>
+															</div>
+															<table class="order-detail-table">
+																<thead>
+																	<tr>
+																		<th class="col-main">
+																			<p class="caption-info">
+																				<fmt:formatDate value="${ol.order_date}"
+																					pattern="yyyy-MM-dd HH:mm:ss" />
+																				<span class="sep">|</span>${ol.address.recv_people}
+																				<span class="sep">|</span>订单号： <a href=""
+																					data-stat-id="" onclick="">${ol.order_id}</a> <span
+																					class="sep">|</span>在线支付
+																			</p>
+																		</th>
+																		<th class="col-sub">
+																			<p class="caption-price" style="width: 200px;">订单金额：${ol.sum_money}元</p>
+																		</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td class="order-items">
+																			<ul class="goods-list">
+																				<c:forEach items="${ol.order_items}" var="il">
+																					<li style="height: 80px;">
+																						<div class="figure figure-thumb">
+																							<a
+																								href="displayGoodsPurchaseInfo.action?goods_id=${il.goodsDetail.goods_id}"
+																								target="_blank" data-stat-id="" onclick="">
+																								<img src="${il.goodsDetail.goods.goods_pic_url}"
+																								width="80" height="80" alt="" />
+																							</a>
+																						</div>
+																						<p class="name">
+																							<a target="_blank"
+																								href="displayGoodsPurchaseInfo.action?goods_id=${il.goodsDetail.goods_id}">${il.goodsDetail.goods.goods_name}
+																								${il.goodsDetail.kind} ${il.goodsDetail.color}</a>
+																						</p>
+																						<p class="price">${il.item_price}元&times;
+																							${il.order_item_num}</p>
+																					</li>
+																				</c:forEach>
+																			</ul>
+																		</td>
+																		<td class="order-actions"><a
+																			class="btn1 btn-small btn-line-gray"
+																			href="selectGroupBuyOrderDetail.action?orderId=${ol.order_id}"
+																			onclick="">订单详情</a></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</li>
+												</ul>
+											</div>
+											</c:if>
+										</c:forEach>
+									</div>
+
+									<div role="tabpanel" class="tab-pane ptb-20" id="finished">
+										<c:forEach items="${orderList}" var="ol">
+										<c:if test="${ol.order_status==3}">
+											<div id="J_orderList">
+												<ul class="order-list">
+
+													<li class="uc-order-item uc-order-item-pay">
+
+														<div class="order-detail">
+															<div class="order-summary">
+																<div class="order-status">
+																	<c:if test="${ol.order_status==2}">未成团</c:if>
+																	<c:if test="${ol.order_status==3}">已完成</c:if>
+																	<c:if test="${ol.order_status==4}">已失效</c:if>
+																</div>
+															</div>
+															<table class="order-detail-table">
+																<thead>
+																	<tr>
+																		<th class="col-main">
+																			<p class="caption-info">
+																				<fmt:formatDate value="${ol.order_date}"
+																					pattern="yyyy-MM-dd HH:mm:ss" />
+																				<span class="sep">|</span>${ol.address.recv_people}
+																				<span class="sep">|</span>订单号： <a href=""
+																					data-stat-id="" onclick="">${ol.order_id}</a> <span
+																					class="sep">|</span>在线支付
+																			</p>
+																		</th>
+																		<th class="col-sub">
+																			<p class="caption-price" style="width: 200px;">订单金额：${ol.sum_money}元</p>
+																		</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td class="order-items">
+																			<ul class="goods-list">
+																				<c:forEach items="${ol.order_items}" var="il">
+																					<li style="height: 80px;">
+																						<div class="figure figure-thumb">
+																							<a
+																								href="displayGoodsPurchaseInfo.action?goods_id=${il.goodsDetail.goods_id}"
+																								target="_blank" data-stat-id="" onclick="">
+																								<img src="${il.goodsDetail.goods.goods_pic_url}"
+																								width="80" height="80" alt="" />
+																							</a>
+																						</div>
+																						<p class="name">
+																							<a target="_blank"
+																								href="displayGoodsPurchaseInfo.action?goods_id=${il.goodsDetail.goods_id}">${il.goodsDetail.goods.goods_name}
+																								${il.goodsDetail.kind} ${il.goodsDetail.color}</a>
+																						</p>
+																						<p class="price">${il.item_price}元&times;
+																							${il.order_item_num}</p>
+																					</li>
+																				</c:forEach>
+																			</ul>
+																		</td>
+																		<td class="order-actions"><a
+																			class="btn1 btn-small btn-line-gray"
+																			href="selectGroupBuyOrderDetail.action?orderId=${ol.order_id}"
+																			onclick="">订单详情</a></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</li>
+												</ul>
+											</div>
+											</c:if>
+										</c:forEach>
+									</div>
+
+									<div role="tabpanel" class="tab-pane ptb-20" id="invalid">
+										<c:forEach items="${orderList}" var="ol">
+										<c:if test="${ol.order_status==4}">
+											<div id="J_orderList">
+												<ul class="order-list">
+
+													<li class="uc-order-item uc-order-item-pay">
+
+														<div class="order-detail">
+															<div class="order-summary">
+																<div class="order-status">
+																	<c:if test="${ol.order_status==2}">未成团</c:if>
+																	<c:if test="${ol.order_status==3}">已完成</c:if>
+																	<c:if test="${ol.order_status==4}">已失效</c:if>
+																</div>
+															</div>
+															<table class="order-detail-table">
+																<thead>
+																	<tr>
+																		<th class="col-main">
+																			<p class="caption-info">
+																				<fmt:formatDate value="${ol.order_date}"
+																					pattern="yyyy-MM-dd HH:mm:ss" />
+																				<span class="sep">|</span>${ol.address.recv_people}
+																				<span class="sep">|</span>订单号： <a href=""
+																					data-stat-id="" onclick="">${ol.order_id}</a> <span
+																					class="sep">|</span>在线支付
+																			</p>
+																		</th>
+																		<th class="col-sub">
+																			<p class="caption-price" style="width: 200px;">订单金额：${ol.sum_money}元</p>
+																		</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td class="order-items">
+																			<ul class="goods-list">
+																				<c:forEach items="${ol.order_items}" var="il">
+																					<li style="height: 80px;">
+																						<div class="figure figure-thumb">
+																							<a
+																								href="displayGoodsPurchaseInfo.action?goods_id=${il.goodsDetail.goods_id}"
+																								target="_blank" data-stat-id="" onclick="">
+																								<img src="${il.goodsDetail.goods.goods_pic_url}"
+																								width="80" height="80" alt="" />
+																							</a>
+																						</div>
+																						<p class="name">
+																							<a target="_blank"
+																								href="displayGoodsPurchaseInfo.action?goods_id=${il.goodsDetail.goods_id}">${il.goodsDetail.goods.goods_name}
+																								${il.goodsDetail.kind} ${il.goodsDetail.color}</a>
+																						</p>
+																						<p class="price">${il.item_price}元&times;
+																							${il.order_item_num}</p>
+																					</li>
+																				</c:forEach>
+																			</ul>
+																		</td>
+																		<td class="order-actions"><a
+																			class="btn1 btn-small btn-line-gray"
+																			href="selectGroupBuyOrderDetail.action?orderId=${ol.order_id}"
+																			onclick="">订单详情</a></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</li>
+												</ul>
+											</div>
+											</c:if>
+										</c:forEach>
+									</div>
 
 									<div id="J_orderListPages">
 										<div class="xm-pagenavi">
@@ -211,16 +433,12 @@
 										</div>
 									</div>
 
-
-
-
 								</div>
+
 							</div>
+
+
 						</div>
-
-
-
-
 
 
 

@@ -60,7 +60,7 @@
 													</select>
 												</div>
 											</div>
-										<div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
+										<div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
 											<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 												<button type="button" class="am-btn am-btn-success" id="goodsInfoButton">信息</button>
 												<button type="button" class="am-btn am-btn-success" id="goodsPicButton">图片</button>
@@ -324,7 +324,7 @@
 									
 			<div class="am-form-group">
                 <label for="user-weibo" class="am-u-sm-3 am-form-label">商品图片 </label>
-                <input type="hidden" class="goods_detail_id" name="goods_detail_id">
+                <input type="hidden" class="goods_detail_id" name="detailId">
 				<div class="am-u-sm-9">
                       <table class="am-table am-table-striped am-table-hover">
 						<thead>

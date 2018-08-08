@@ -214,6 +214,16 @@ public class GoodsService {
 		return flag;
 	}
 
+	public void updateAllStockChange(List<GoodsDetail> goodsDetail) {
+		if(goodsDetail==null){
+			return;
+		}
+		for(GoodsDetail detail : goodsDetail){
+			goodsDAO.updateStockChange(detail);
+		}
+		
+	}
+
 	
 
 	

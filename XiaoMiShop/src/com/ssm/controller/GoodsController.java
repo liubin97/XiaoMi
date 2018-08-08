@@ -129,7 +129,7 @@ public class GoodsController {
 		return kindList;
 	}
 	@RequestMapping("getAllColorBygoodsIdAndKind")
-	public @ResponseBody List<GoodsDetail> getAllColorBygoodsIdAndKind(GoodsDetail goodsDetail){
+	public @ResponseBody List<GoodsDetail> getAllColorBygoodsIdAndKind(@RequestBody GoodsDetail goodsDetail){
 		List<GoodsDetail> datailList = goodsService.getAllColorBygoodsIdAndKind(goodsDetail);
 		return datailList;		
 	}
@@ -174,7 +174,12 @@ public class GoodsController {
 	@RequestMapping("updateStockChange")
 	public @ResponseBody String updateStockChange(GoodsDetail goodsDetail){
 		goodsService.updateStockChange(goodsDetail);
-		return "change";
+		return "true";
+	}
+	@RequestMapping("updateAllStockChange")
+	public @ResponseBody String updateAllStockChange(@RequestBody List<GoodsDetail> goodsDetail){
+		goodsService.updateAllStockChange(goodsDetail);
+		return "true";
 	}
 	@RequestMapping("updateGoods")
 	public void updateGoods(Goods goods,HttpServletRequest request,@RequestParam MultipartFile goodsVideo,@RequestParam MultipartFile profilePic,@RequestParam MultipartFile goodsIntroductionPic){
@@ -249,14 +254,12 @@ public class GoodsController {
 		goodsService.updateGoodsPic(goods);
 	}
 	@RequestMapping("updateAttribute")
-	public void updateAttribute(Integer goodsId,Goods goods){
-		if(goods.getGoodsAttributeList()==null){
+	public void updateAttribute(@RequestBody List<GoodsAttribute> attributeList){
+		if(attributeList==null){
 			return;
 		}
-		for(GoodsAttribute goodsAttribute : goods.getGoodsAttributeList()){
-			goodsAttribute.setGoods_id(goodsId);
-		}
-		goodsService.updateAttribute(goods.getGoodsAttributeList());
+		
+		goodsService.updateAttribute(attributeList);
 	}
 	@RequestMapping("updateDetail")
 	public @ResponseBody String updateDetail(@RequestBody GoodsDetail goodsDetail){
@@ -264,9 +267,10 @@ public class GoodsController {
 		return "true";
 	}	
 	@RequestMapping("updateDetailPic")
-	public @ResponseBody String updateDetailPic(GoodsDetail goodsDetail,HttpServletRequest request,@RequestParam MultipartFile[] detailPic){
+	public @ResponseBody String updateDetailPic(GoodsDetail goodsDetail,Integer detailId,HttpServletRequest request,@RequestParam MultipartFile[] detailPic){
 		
-		GoodsDetail newGoodsDetail = goodsService.getDetailByDetailId(goodsDetail.getGoods_detail_id());
+		GoodsDetail newGoodsDetail = goodsService.getDetailByDetailId(detailId);
+		goodsDetail.setGoods_detail_id(detailId);
 		Goods newGoods = goodsService.getGoodsByGoodsId(newGoodsDetail.getGoods_id());
 		//服务器文件根路径
 		String savePath = request.getServletContext().getRealPath("/");

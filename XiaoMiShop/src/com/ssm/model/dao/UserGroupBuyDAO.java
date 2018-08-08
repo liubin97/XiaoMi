@@ -17,6 +17,8 @@ public interface UserGroupBuyDAO {
 	public void exitGroup(int groupId);
 	public GroupBuyList selectGroupById(int groupId);
 	public void deleteGroup(int groupId);
-	public void increaseStock(Map<String,Object> map);
+	public void increaseStock(Map<String, Object> map);
 	public GroupBuyInfo selectGroupBuyInfoById(int groupBuyInfoId);
+	
+	public List<Order> selectSearchGroupOrder(Map<String, Object> map);
 }

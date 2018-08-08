@@ -25,6 +25,7 @@ public class RestfulLoginInterceptor implements HandlerInterceptor {
              * 用于登录完成后返回之前的页面继续操作。）
              */
             String requesturl=httpServletRequest.getRequestURI();
+
             //TODO
             // 判断请求的类型
             // String desturl=requesturl.substring(11);
@@ -40,7 +41,7 @@ public class RestfulLoginInterceptor implements HandlerInterceptor {
             System.out.println("realPath:"+realPath);
             System.out.println("basePath:"+basePath);
             System.out.println();
-
+            requesturl = requesturl.substring(11);
             String redirectUrl =basePath+ "login.jsp" + "?redirectURL=" + requesturl;
             System.out.println(redirectUrl);
 

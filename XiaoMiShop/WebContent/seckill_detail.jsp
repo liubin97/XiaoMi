@@ -299,11 +299,13 @@
 <!-- 秒杀逻辑js初始化 -->
 
 <script type="text/javascript">
+    var path = '${pageContext.request.contextPath}'+'/';
     $(function () {
         seckill.detail.init({
             seckill_id:${seckillDetail.seckill_id},
             start_time:${seckillDetail.seckill_starttime.time},//毫秒
             end_time:${seckillDetail.seckill_endtime.time}
+           /* serverPath:'<%--${pageContext.request.contextPath}--%>'*/
 
         });
     });

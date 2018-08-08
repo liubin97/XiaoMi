@@ -55,6 +55,12 @@
 												</select>
 											</div>
 										</div>
+										<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+											<div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+												<button type="button" class="am-btn am-btn-success" id="saveAll">保存全部</button>
+												
+											</div>
+										</div>
 										<div class="am-u-sm-12">
 												<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
 													<thead>

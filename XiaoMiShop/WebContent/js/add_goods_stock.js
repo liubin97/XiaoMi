@@ -5,7 +5,7 @@ var kindOption = "<option value='0'>请选择版本</option>";
 var colorOption = "<option value='0'>请选择颜色</option>";
 //标记新增库存量是否正确
 var stockFlag = false;
-//存储版本库存信息
+//储存库存量信息
 var stockData;
 $(document).ready(function(){
 	$.ajax({
@@ -22,9 +22,15 @@ $(document).ready(function(){
     }  
 	});  
 	$("#category").change(function(){
+		 $("#goods option").each(function(){
+  		   $(this).remove();
+  	   })
+  	   $("#goods").append(goodsOption); 
 		//alert(1);
 		var categoryId = $("#category option:selected").val();
-		
+		if(categoryId==0){
+			return;
+		}
 		 //获取该类别下的商品
 		 $.ajax({
 			 type:"POST", //请求方式  
@@ -37,10 +43,7 @@ $(document).ready(function(){
 	       cache: false,   
 	       success:function(data){ 
 	    	  
-	    	   $("#goods option").each(function(){
-	    		   $(this).remove();
-	    	   })
-	    	   $("#goods").append(goodsOption); 
+	    	  
 	    	   for(var i=0;i<data.length; i++){
 		             $("#goods").append("<option value="+data[i].goods_id+">"+data[i].goods_name+"</option>"); 
 	    	   }
@@ -48,8 +51,16 @@ $(document).ready(function(){
 	       }  
 	   }); 
 	});
+	
 	$("#goods").change(function(){
 		var goodsId = $("#goods option:selected").val();
+		if(goodsId==0){
+			return;
+		}
+		$("#kind option").each(function(){
+ 		   $(this).remove();
+ 	   })
+ 	   $("#kind").append(kindOption); 
 		 $.ajax({
 			 type:"POST", //请求方式  
 	       url:"getAllKindByGoodsId.action",
@@ -60,58 +71,41 @@ $(document).ready(function(){
 	       dataType: 'json', 
 	       cache: false,   
 	       success:function(data){ 
-	    	   $("#kind option").each(function(){
-	    		   $(this).remove();
-	    	   })
-	    	   $("#kind").append(kindOption); 
+	    	   
 	    	   for(var i=0;i<data.length; i++){
-		             $("#kind").append("<option value="+data[i]+">"+data[i]+"</option>"); 
-	    	   }
-	    	 
-	       }  
-	   }); 
-	});
-	$("#goods").change(function(){
-		var goodsId = $("#goods option:selected").val();
-		 $.ajax({
-			 type:"POST", //请求方式  
-	       url:"getAllKindByGoodsId.action",
-	       /*data : JSON.stringify(vale),*/
-	       data:"goodsId="+goodsId,//请求路径  
-	     /* contentType:'application/json;charset=UTF-8',*/
-	    /*  async : false,*/
-	       dataType: 'json', 
-	       cache: false,   
-	       success:function(data){ 
-	    	   $("#kind option").each(function(){
-	    		   $(this).remove();
-	    	   })
-	    	   $("#kind").append(kindOption); 
-	    	   for(var i=0;i<data.length; i++){
-		             $("#kind").append("<option value="+data[i]+">"+data[i]+"</option>"); 
+		             $("#kind").append("<option value='"+data[i]+"'>"+data[i]+"</option>"); 
 	    	   }
 	    	 
 	       }  
 	   }); 
 	});
 	$("#kind").change(function(){
+		$("#color option").each(function(){
+  		   $(this).remove();
+  	   })
+  	   $("#color").append(colorOption); 
 		var goodsId = $("#goods option:selected").val();
+		if(goodsId==0){
+			return;
+		}
 		var kindName = $("#kind option:selected").val();
+		
+		if(kindName==0){
+			return;
+		}
+		//encodeURI(kindName).replace(/\+/g,'%2B');
+		var data = {"goods_id" : goodsId,"kind" : kindName};
 		 $.ajax({
 			 type:"POST", //请求方式  
 	       url:"getAllColorBygoodsIdAndKind.action",
 	       /*data : JSON.stringify(vale),*/
-	       data:"goods_id="+goodsId+"&kind="+kindName,//请求路径  
-	     /* contentType:'application/json;charset=UTF-8',*/
-	    /*  async : false,*/
+	       data:JSON.stringify(data),//请求路径  
+	     contentType:'application/json;charset=UTF-8',
+	       async : false,
 	       dataType: 'json', 
 	       cache: false,   
 	       success:function(data){ 
 	    	   stockData = data;
-	    	   $("#color option").each(function(){
-	    		   $(this).remove();
-	    	   })
-	    	   $("#color").append(colorOption); 
 	    	   for(var i=0;i<data.length; i++){
 		             $("#color").append("<option value="+data[i].goods_detail_id+">"+data[i].color+"</option>"); 
 	    	   }
@@ -120,10 +114,14 @@ $(document).ready(function(){
 	   }); 
 	});
 	$("#color").change(function(){
+		$("#stock").val(0);
 		var stockId = $("#color option:selected").val();
+		if(stockId==0){
+			return;
+		}
 		for(var i=0;i<stockData.length;i++){
 			if(stockData[i].goods_detail_id==stockId){
-				$("#stock").attr("value",stockData[i].stock);
+				$("#stock").val(stockData[i].stock);
 				break;
 			}
 		}

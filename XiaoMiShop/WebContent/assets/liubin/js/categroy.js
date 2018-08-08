@@ -1,7 +1,7 @@
 $(document).ready(function(){
     //获取全部商品分类以及分类下的商品
     $.ajax({
-        url: "getAllCategory.action",
+        url: "getAllCategoryInfo.action",
         data: {},
         async: false,
         datatype: "json",

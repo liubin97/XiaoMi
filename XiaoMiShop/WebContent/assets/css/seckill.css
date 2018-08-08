@@ -233,11 +233,27 @@ a {
     border-color: #71b639;
     color: #fff;
 }
+.btn-red{
+    background-color: #ff675b;
+    border-color: #ff675b;
+    color: #fff;
+}
+.btn-red:hover{
+    background-color: #ff675b;
+    border-color: #ff675b;
+    color: #fff;
+}
+.btn.btn-red.active{
+    background-color: #ff675b;
+    border-color: #ff675b;
+    color: #fff;
+}
 .btn-blue{
     background: dodgerblue;
     border-color: dodgerblue;
     color: #fff;
 }
+
 .btn-blue:hover{
     background: dodgerblue;
     border-color: dodgerblue;
@@ -249,7 +265,16 @@ a {
     font-size: 12px;
     line-height: 28px;
 }
-
+.btn-org{
+    background-color: orange;
+    border-color: orange;
+    color: #fff;
+}
+.btn-org:hover{
+    background-color: orange;
+    border-color: orange;
+    color: #fff;
+}
 
 /*.btn {*/
 /*display: inline-block;*/

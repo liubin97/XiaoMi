@@ -1,0 +1,38 @@
+.box {
+    /*width: 46px;*/
+    height: 46px;
+    background: #605751;
+    color: #fff;
+    /*font-size: 24px;*/
+    line-height: 46px;
+    /*float: left;*/
+}
+.dosh {
+    /*width: 15px;*/
+    /*float: left;*/
+    height: 46px;
+    line-height: 46px;
+    color: #605751;
+    /*font-size: 28px;*/
+}
+strike, del {
+    text-decoration: line-through;
+}
+.now-price {
+    font-size: 20px;
+    color: #f1393a;
+    line-height: 1;
+    margin-top: 14px;
+}
+.org-price{
+    color: rgba(0,0,0,0.54);
+    margin-top: 7px;
+    font-size: 16px;
+    line-height: 12px;
+    text-decoration: line-through;
+
+}
+
+.seckill_list{
+    margin-bottom: 50px;
+}
